@@ -12,6 +12,7 @@
 # https://www.vivaolinux.com.br/dica/Listando-Servicos-e-Pacotes-mais-Facilmente-no-Slackware/
 # https://askubuntu.com/questions/18716/how-to-load-a-zenity-list-dialog-with-space-embedded-data-from-ls
 # https://cleuber.com.br/index.php/2016/08/08/como-desativar-aplicativos-de-sessao-e-servicos-no-ubuntu-para-melhorar-o-desempenho
+# https://www.hostinger.com.br/tutoriais/listar-servicos-linux
 
 
 clear
@@ -25,7 +26,7 @@ which xterm                 || zenity --warning --text="Não foi localizado xter
 # ls --color /etc/rc.d 
 
 
-xterm -geometry 230x50 -bg lightyellow -fg darkblue -T "Listando serviços no Slackware" -e "echo -e 'Pasta: /etc/rc.d \n\n' && echo 'Os arquivos na cor verde na pasta /etc/rc.d/ são serviços ativos no sistema (Slackware).
+xterm -geometry 230x50 -bg lightyellow -fg darkblue -T "Listando serviços no Slack" -e "echo -e 'Pasta: /etc/rc.d \n\n' && echo 'Os arquivos na cor verde na pasta /etc/rc.d/ são serviços ativos no sistema (Slackware).
 
 Para desativar podemos usar:
 
