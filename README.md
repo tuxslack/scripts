@@ -14,7 +14,7 @@ Esses são meus scripts pessoais de instalação de algumas Distribuição Linux
 |    listar-servicos.sh                | Lista todos os serviços do sistema (Slackware e derivados).                                                                 |
 |    gera-pacote-slack-firefox.sh      | Gera pacote do Firefox para o Slackware                                                                                     |
 |    gera-pacote-slack-thunderbird.sh  | Gera pacote do Thunderbird para o Slackware                                                                                 |
-|      |                            |
+|    pendrive-formatar.sh              | Formata os dispositivos de armazenamento nos sistema de arquivos (bfs, ext2, ext4, minix, reiserfs, btrfs, ext3, fat, msdos, vfat, cramfs, ext4, jfs, ntfs, xfs). Usa o dd, wipefs, cfdisk e mkfs                          |
 |      |                            |
 |      |                            |
 |      |                            |
