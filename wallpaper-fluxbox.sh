@@ -52,7 +52,7 @@ imagem=$(zenity \
 
 case $? in
          0)
-               sleep 2
+               # sleep 2
  
                clear
 
