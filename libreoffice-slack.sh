@@ -69,6 +69,10 @@ https://tdf.c3sl.ufpr.br/libreoffice/stable/7.0.6/rpm/x86_64/LibreOffice_7.0.6_L
 arquitetura=`uname -m`
 
 
+# Pasta onde sera salvos os pacotes gerados no final do processo.
+
+repositorio="/run/media/fernando/backup/backup/meus_pacotes_manual/libreoffice/"
+
 
 
 
@@ -509,13 +513,26 @@ ls  >> "$log"
 mkdir -p $PKG/etc/profile.d/
 
 
+
 # Tem como melhora o visual do libreoffice no Fluxbox?
+
+# Para alterações no visual do libreoffice altera o arquivo profile (/etc/profile.d/libreoffice.sh)
+
 
 echo "#!/bin/sh
 
-# Funciona no Fluxbox com visual muito ruim
+# Funciona no Fluxbox com visual muito ruim estilo Windows 95
+#
+# Para aparece os icones do libreoffice no painel do LXDE
 
 export SAL_USE_VCLPLUGIN=gen
+
+
+# Qt5 deve esta instalado no sistema (testado no Fluxbox)
+#
+# Com Qt5 não aparece os icones do libreoffice no painel do LXDE e nem no painel do Xfce.
+#
+# export SAL_USE_VCLPLUGIN=qt5
 
 
 # Não funciona no Fluxbox
@@ -877,10 +894,30 @@ ls -l /tmp/ | grep -i libreoffice*.*.tgz
 
 
 
+# Instalar o LibreOffice
+
+# installpkg /tmp/"$programa"-"$versao"-$PKGARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+# installpkg /tmp/"$programa"-helppack_pt-BR-"$versao"-$PKGARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+# installpkg /tmp/"$programa"-langpack-"$versao"-$PKGARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
+
+
+# Enviar os arquivos .tgz para pasta $repositorio
+
+# mv -i /tmp/"$programa"-"$versao"-$PKGARCH-$BUILD$TAG.${PKGTYPE:-tgz}                        $repositorio
+# mv -i /tmp/"$programa"-helppack_pt-BR-"$versao"-$PKGARCH-$BUILD$TAG.${PKGTYPE:-tgz}         $repositorio
+# mv -i /tmp/"$programa"-langpack-"$versao"-$PKGARCH-$BUILD$TAG.${PKGTYPE:-tgz}               $repositorio
+# mv -i /tmp/libreoffice.log                                                                  $repositorio 
+
+
+
+
+
 
 # Descompactar os arquivos
 # Criar um pacote de instalação tgz
 # Instalar o LibreOffice
+
 
 }
 
