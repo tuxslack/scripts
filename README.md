@@ -20,6 +20,6 @@ Esses são meus scripts pessoais de instalação de algumas Distribuição Linux
 |    organizar_alfa_fontes.sh          | Organizar alfabeticamente (a b c d e f g h i j k l m n o p q r s t u v w x y z) os seus arquivos de fontes .{ttf,TTF,otf,OTF,woff,woff2,eot,pfm,pfb,ttc,TTC,afm,fon,FON}                            |
 |    removewindowsfont.sh              | Util para desintalar as fontes do Windows das pastas ~/.fonts e /usr/share/fonts/TTF/                                       |
 |    fontes-problematicas.sh           | Remove as fontes (.ttf, .otf...) problematicas do sistema                                                                   |
-|      |                            |
+|    regravar lilo.sh                  | Recuperando lilo depois de uma instalação do Windows [Dica]                                                                 |
 |      |                            |
 |      |                            |
