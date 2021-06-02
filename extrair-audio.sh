@@ -370,6 +370,22 @@ ffmpeg \
 
    # Leia a saída para ver qual é o codec, para definir a extensão correta do nome do arquivo.
 
+# Como saber se comando do script foi executado com sucesso?
+
+if [ $? -eq 0 ]
+then
+
+    notify-send --icon=dialog-information -t 10000 "O fluxo de áudio extraido com sucesso sem recodificar...."
+
+
+else
+
+    notify-send --icon=important -t 10000 "Possível falha na extração do audio" "Ocorreu um problema."
+fi
+
+# https://pt.stackoverflow.com/questions/143454/como-saber-se-comando-do-script-foi-executado-com-sucesso
+
+
 
 echo "
 Tamanho do arquivo $video.$extensao
@@ -529,6 +545,23 @@ ffmpeg \
 -vn \
 -y \
 "$video"."$extensao"
+
+
+# Como saber se comando do script foi executado com sucesso?
+
+if [ $? -eq 0 ]
+then
+
+    notify-send --icon=dialog-information -t 10000 "O fluxo de áudio extraido com sucesso com recodificação...."
+
+
+else
+
+    notify-send --icon=important -t 10000 "Possível falha na extração do audio" "Ocorreu um problema."
+fi
+
+# https://pt.stackoverflow.com/questions/143454/como-saber-se-comando-do-script-foi-executado-com-sucesso
+
 
 
 # http://laplace.eletrica.ufpr.br/ffmpeg.html
