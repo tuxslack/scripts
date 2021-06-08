@@ -1,6 +1,15 @@
 #!/bin/bash
 
+
+
+# https://www.vivaolinux.com.br/dica/Recuperando-lilo-depois-de-uma-instalacao-do-Windows
+# https://under-linux.org/showthread.php?t=69471
+# https://www.dicas-l.com.br/arquivo/configurando_o_lilo_e_o_grub.php
+
+
 clear
+
+
 
 dialog \
 --title 'Regravar o lilo apos instalação ou reinstalação do Windows no HD'  \
@@ -13,8 +22,6 @@ Recuperando lilo depois de uma instalação do Windows [Dica]
 
 Quando possuímos o Linux e instalamos o Windows, o "sistema proprietário" reescreve a MBR e deleta o lilo, impossibilitando a inicialização de outros sistemas instalados na máquina. 
 
-
-https://www.vivaolinux.com.br/dica/Recuperando-lilo-depois-de-uma-instalacao-do-Windows
 
 
 Logicamente você vai precisar de um DVD da distribuição, que pode ser encontrado aqui:

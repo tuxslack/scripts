@@ -14,12 +14,29 @@ Esses são meus scripts pessoais de instalação de algumas Distribuição Linux
 |    listar-servicos.sh                | Lista todos os serviços do sistema (Slackware e derivados).                                                                 |
 |    gera-pacote-slack-firefox.sh      | Gera pacote do Firefox para o Slackware                                                                                     |
 |    gera-pacote-slack-thunderbird.sh  | Gera pacote do Thunderbird para o Slackware                                                                                 |
+|    gera-pacote-slack-kdenlive.sh     | Gera pacote do kdenlive para o Slackware                                                                                    |
+|    libreoffice-slack.sh              | Gera pacote do Libreoffice para o Slackware                                                                                 |
+|    gera-pacote-scripts.sh            | Gera pacote dos Scripts para o Slackware                                                                                    |
+|    gera-pacote-slack-Fontes-Windows.sh | Gera pacote de fontes do Windows e Microsoft Office para o Slackware                                                                         |
 |    pendrive-formatar.sh              | Formata os dispositivos de armazenamento nos sistema de arquivos (bfs, ext2, ext4, minix, reiserfs, btrfs, ext3, fat, msdos, vfat, cramfs, ext4, jfs, ntfs, xfs). Usa o dd, wipefs, cfdisk e mkfs                                                                                                       |
 |    wallpaper-fluxbox.sh              | Altera o papel de parede (wallpaper) no Fluxbox usando o comando fbsetbg                                                    |
-|    libreoffice-slack.sh              | Gera pacote do Libreoffice para o Slackware                                                                                 |
 |    organizar_alfa_fontes.sh          | Organizar alfabeticamente (a b c d e f g h i j k l m n o p q r s t u v w x y z) os seus arquivos de fontes .{ttf,TTF,otf,OTF,woff,woff2,eot,pfm,pfb,ttc,TTC,afm,fon,FON}                            |
 |    removewindowsfont.sh              | Util para desintalar as fontes do Windows das pastas ~/.fonts e /usr/share/fonts/TTF/                                       |
 |    fontes-problematicas.sh           | Remove as fontes (.ttf, .otf...) problematicas do sistema                                                                   |
 |    regravar lilo.sh                  | Recuperando lilo depois de uma instalação do Windows [Dica]                                                                 |
+|    backupdeDriversWindows.sh         | Realiza o backup dos Drivers Windows para uma reinstalação futura do sistema                                                |
 |      |                            |
 |      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+|      |                            |
+
