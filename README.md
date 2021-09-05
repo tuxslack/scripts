@@ -1,5 +1,8 @@
 # scripts
 
+![](https://github.com/tuxslack/scripts/blob/master/pacote%20scripts.png)
+
+
 Esses são meus scripts pessoais de instalação de algumas Distribuição Linux.
 
 
