@@ -14,11 +14,11 @@ Playlist de utilização de alguns scripts aqui: https://www.youtube.com/playlis
 |--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
 |    i3-desligar.sh                    | Usado no Fluxbox, OpenBox e i3 para desligar, reiniciar e outras ações no sistema                                           |
 |    definir_programa_padrao.sh        | Usado no Fluxbox, OpenBox e i3 para definir uma série de programas pré-configurado como padrão para o sistema               |
+|    backup-apt-get.sh                 | Realiza o backup do cache do apt-get para uma instalação futura do sistema baseado em Debian (Fork do script desenvolvido pelo Carlos Eduardo Morimoto). |
 |    discador wvdial.sh                | Usado para conectar à internet no Linux (Modem 3G)                                                                          |
 |    audio-youtube.sh                  | Baixa somente o áudio dos vídeos do YouTube (https://www.youtube.com)                                                       |
 |    extrair-audio.sh                  | Permite extrair o som do arquivo de vídeo.                                                                                  |
 |    checkHDsaude.sh                   | Checa problema no HD com base nos dados da própria S.M.A.R.T  (Self-Monitoring, Analysis and Reporting Technology)  dele    |
-|    backup-cache-apt.sh               | Realiza o backup do cache do apt-get para uma instalação futura do sistema baseado em Debian (Fork do script desenvolvido pelo Carlos Eduardo Morimoto).                                                                                                                                                   |
 |    listar-servicos.sh                | Lista todos os serviços do sistema (Slackware e derivados).                                                                 |
 |    gera-pacote-slack-firefox.sh      | Gera pacote do Firefox para o Slackware                                                                                     |
 |    gera-pacote-slack-thunderbird.sh  | Gera pacote do Thunderbird para o Slackware                                                                                 |
