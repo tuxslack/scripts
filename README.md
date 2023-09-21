@@ -1,14 +1,19 @@
-# scripts
+# Scripts
 
 ![](https://github.com/tuxslack/scripts/blob/master/pacote%20scripts.png)
 
 
-Esses são meus scripts pessoais de instalação de algumas Distribuição Linux.
+Esses são meus scripts pessoais de instalação de algumas distribuições Linux.
 
+Playlist de utilização de alguns scripts aqui: https://www.youtube.com/playlist?list=PL8rJV-0viq9pnILKnJeCg6G_nCSOmsgoT
+
+ 🇧🇷 🇵🇹
+ 
 
 |    Scripts                           |                                                     Função                                                                  |
 |--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-|    botao.sh                          | Usando no Fluxbox para desligar, reiniciar e outras ações no sistema                                                        |
+|    i3-desligar.sh                    | Usado no Fluxbox, OpenBox e i3 para desligar, reiniciar e outras ações no sistema                                           |
+|    definir_programa_padrao.sh        | Usado no Fluxbox, OpenBox e i3 para definir uma série de programas pré-configurado como padrão para o sistema               |
 |    discador wvdial.sh                | Usando para conectar a internet no Linux (Modem 3G)                                                                         |
 |    audio-youtube.sh                  | Baixa somente o áudio dos videos do YouTube (https://www.youtube.com)                                                       |
 |    extrair-audio.sh                  | Lhe permite extrair som do arquivo de vídeo.                                                                                |
