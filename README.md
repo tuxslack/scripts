@@ -8,7 +8,21 @@ Esses são meus scripts pessoais de instalação de algumas distribuições Linu
 Playlist de utilização de alguns scripts aqui: https://www.youtube.com/playlist?list=PL8rJV-0viq9pnILKnJeCg6G_nCSOmsgoT
 
  🇧🇷 🇵🇹
- 
+
+
+<br><br>
+
+ ## ⚡ Como executar
+
+Você pode executar o arquivo assim:
+
+`$ chmod +x nome_do_arquivo.sh`
+
+`$ ./nome_do_arquivo.sh`
+
+
+<br><br><br><br><br>
+
 
 |    Scripts                           |                                                     Função                                                                  |
 |--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
