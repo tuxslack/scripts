@@ -14,7 +14,7 @@ Playlist de utilização de alguns scripts aqui: https://www.youtube.com/playlis
 |--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
 |    i3-desligar.sh                    | Usado no Fluxbox, OpenBox e i3 para desligar, reiniciar e outras ações no sistema                                           |
 |    definir_programa_padrao.sh        | Usado no Fluxbox, OpenBox e i3 para definir uma série de programas pré-configurado como padrão para o sistema               |
-|    discador wvdial.sh                | Usando para conectar a internet no Linux (Modem 3G)                                                                         |
+|    discador wvdial.sh                | Usado para conectar a internet no Linux (Modem 3G)                                                                         |
 |    audio-youtube.sh                  | Baixa somente o áudio dos videos do YouTube (https://www.youtube.com)                                                       |
 |    extrair-audio.sh                  | Lhe permite extrair som do arquivo de vídeo.                                                                                |
 |    checkHDsaude.sh                   | Checa problema no HD com base nos dados da propria S.M.A.R.T  (Self-Monitoring, Analysis and Reporting Technology)  dele    |
