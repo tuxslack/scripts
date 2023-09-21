@@ -21,7 +21,15 @@ Você pode executar o arquivo assim:
 `$ ./nome_do_arquivo.sh`
 
 
+<br><br>
+
+## 🤔 Como contribuir
+
+Reportando bugs e testando.
+
+
 <br><br><br><br><br>
+
 
 
 |    Scripts                           |                                                     Função                                                                  |
