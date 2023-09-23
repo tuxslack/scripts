@@ -5,6 +5,11 @@
 
 Esses são meus scripts pessoais de instalação de algumas distribuições Linux.
 
+## Contém
+
+- :scroll: [Scripts](Linux/Scripts/)
+
+  
 Playlist de utilização de alguns scripts aqui: https://www.youtube.com/playlist?list=PL8rJV-0viq9pnILKnJeCg6G_nCSOmsgoT
 
  🇧🇷 🇵🇹
