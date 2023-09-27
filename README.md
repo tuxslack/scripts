@@ -33,6 +33,10 @@ Você pode executar o arquivo assim:
 Reportando bugs e testando.
 
 
+## :memo: Licença 
+
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
+
 <br><br><br><br><br>
 
 
