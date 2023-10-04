@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Homepage: 
+# Licença: GPL
+#
+#
+# gksu - kdesu
+#
+# Esses comandos foram removidos do Gnu/Linux por decisão do  Jeremy Bicha por entender que são uma falha de segurança desnecessária.
+#
+# A alternativa é usar o pkexec.
+#
+#
+# Torne o arquivo executável com o comando abaixo.
+#
+# sudo chmod +x /usr/local/bin/gksu
+#
+#
+# Prontinho, pode usar o gksu para abrir os aplicativos como root, mas cuidado ao fazer isso.
+#
+#
+# Para desfazer/remover de o comando abaixo no terminal
+#
+#
+# sudo rm -fr /usr/local/bin/gksu
+#
+#
+# https://linuxdicasesuporte.blogspot.com/2018/07/para-quem-nao-se-adaptou-ainda-ao-pkexec.html
+
+
+
+pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY "$@"
+
+
