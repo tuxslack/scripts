@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data: 28/09/2023 as 02:32
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     28/09/2023 as 02:32
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 #
 #
 # Usa no menu de service do Thunar.
@@ -21,13 +21,23 @@
 # https://ubuntuforum-pt.org/index.php?topic=108641.0
 
 
+# ------------------------------------------------------------------------------------
 
 clear
 
-which yt-dlp      || exit 1
-which sort        || exit 2
-which tail        || exit 3
-which notify-send || exit 4
+
+which yad           2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
+
+
+which yt-dlp        2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa yt-dlp não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which sort          2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa sort não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which tail          2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa tail não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which notify-send   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa notify-send não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+# ------------------------------------------------------------------------------------
 
 
 onde_salvar=$(yad \
@@ -40,6 +50,7 @@ onde_salvar=$(yad \
             --height="300" 2> /dev/null)
 
 
+# ------------------------------------------------------------------------------------
 
 # Para verificar se a variavel é nula
 
@@ -62,7 +73,7 @@ exit 5
 
 fi
 
-
+# ------------------------------------------------------------------------------------
 
 # Verificar se tem permissões para gravar na pasta.
 
@@ -88,7 +99,7 @@ else
      
 fi
 
-
+# ------------------------------------------------------------------------------------
 
 
 
@@ -122,6 +133,7 @@ link=$(yad \
 2> /dev/null)
 
 
+# ------------------------------------------------------------------------------------
 
 # Para verificar se a variavel é nula
 
@@ -145,6 +157,7 @@ exit 6
 
 fi
 
+# ------------------------------------------------------------------------------------
 
 
 # Melhorar a forma de selecionar a qualidade do audio
@@ -213,6 +226,7 @@ rm -Rf /tmp/baixar_audio.log
 # https://www.dicas-l.com.br/arquivo/o_comando_sort_e_seus_muitos_recursos.php
 
 
+# ------------------------------------------------------------------------------------
 
 
 # Para verificar se a variavel é nula
@@ -237,6 +251,7 @@ exit 7
 fi
 
 
+
  
 
 # WARNING: [generic] The url doesn't specify the protocol, trying with http
@@ -250,6 +265,8 @@ fi
 # 140 m4a   audio only      2 |    2.80MiB  130k https | audio only          mp4a.40.2  130k 44k [pt] medium, m4a_dash
 # 251 webm  audio only      2 |    2.79MiB  129k https | audio only          opus       129k 48k [pt] medium, webm_dash
 
+
+# ------------------------------------------------------------------------------------
 
 
 yt-dlp -f "$qualidade"  "$link" | \
@@ -302,6 +319,8 @@ Site: $link
 
 Áudio salvo em: $onde_salvar
 "
+
+# ------------------------------------------------------------------------------------
 
 
 exit 0

@@ -27,9 +27,11 @@ clear
 # Verificar se os programas estão instalados
 
 
-which xfce4-terminal   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa xfce4-terminal não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit 1; }
+which yad   2> /dev/null || { echo "Falta o yad"    ; exit 1; }
 
-which mv   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mv não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit 2; }
+which xfce4-terminal   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa xfce4-terminal não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit 2; }
+
+which mv   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mv não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit 3; }
 
 
 # ----------------------------------------------------------------------------------------
@@ -62,7 +64,7 @@ Diretório /usr/local/bin/ não existe...
 # yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Diretório /usr/local/bin/ não existe..."    --width 450 --height 100 2>/dev/null 
 
 
-exit 3
+exit 4
 
 
 fi

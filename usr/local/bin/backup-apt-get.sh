@@ -1,8 +1,9 @@
 #!/bin/bash
 #
 # Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     04/10/2023 as 19:17
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 
 
 
@@ -18,7 +19,22 @@
 # Faça BKP da pasta /var/cache/apt/archives que é onde os pacotes são salvos e depois copie-os para a outra máquina nessa mesma pasta.
 
 
+
+# ----------------------------------------------------------------------------------------
+
+# Verificar se os programas estão instalados
+
 clear
+
+
+which find       2> /dev/null || { echo "Programa find não esta instalado."     ; exit ; }
+which dpkg       2> /dev/null || { echo "Programa dpkg não esta instalado."     ; exit ; }
+which apt-key    2> /dev/null || { echo "Programa apt-key não esta instalado."  ; exit ; }
+which mkdir      2> /dev/null || { echo "Programa mkdir não esta instalado."    ; exit ; }
+which chmod      2> /dev/null || { echo "Programa chmod não esta instalado."    ; exit ; }
+which tar        2> /dev/null || { echo "Programa tar não esta instalado."      ; exit ; }
+
+# ----------------------------------------------------------------------------------------
 
 cd /tmp/
 

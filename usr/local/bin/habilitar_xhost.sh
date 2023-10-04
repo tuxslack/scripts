@@ -25,6 +25,8 @@
 # http://www.geocities.ws/cesarakg/seguranca-x-window-2.html
 
 
+which xhost     ||   exit 1
+
 /usr/bin/xhost +
 
 

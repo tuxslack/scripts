@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data: 02/10/2023 as 12:29
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     02/10/2023 as 12:29
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 
 # Atualizar a data e hora do sistema
 

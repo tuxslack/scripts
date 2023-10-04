@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data: 27/09/2023 as 20:56
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     27/09/2023 as 20:56
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 #
 # cortar-audio-e-video.sh
 #
@@ -63,19 +63,30 @@ rm -Rf "$log"
 clear
 
 
+# ----------------------------------------------------------------------------------------
+
 # Caso o script não execute, talvez seja necessário instalar esses programas no sistema:
 
-which yad         || exit 
-which ffmpeg      || exit 
-which mediainfo   || exit 
-which xdg-open    || exit 
-which tee         || exit 
+
+which yad       2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
+
+
+which ffmpeg    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa ffmpeg não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+ 
+which mediainfo 2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mediainfo não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+which xdg-open  2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa xdg-open não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+which tee       2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa tee não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
 
 # which zenity      || exit 
 
 
 # A instalação dos programas acima deve ser executado com permissões de Root. 
 
+# ----------------------------------------------------------------------------------------
 
 
 
@@ -92,6 +103,8 @@ Espero que você goste deste script e obrigado por usar!" \
 --width="900" --height="400" \
 --button=OK:0 
 
+
+# ----------------------------------------------------------------------------------------
 
 
 # A vantagem desta caixa de diálogo é que com Zenity ou Yad, você pode pré-selecionar a 
@@ -134,6 +147,7 @@ INPUT=$(yad \
 2>/dev/null)
 
 
+# ----------------------------------------------------------------------------------------
 
 
 # Para verificar se a variavel é nula
@@ -154,7 +168,7 @@ exit 1
 
 fi
 
-
+# ----------------------------------------------------------------------------------------
 
 dados=$(yad \
 --center \
@@ -181,7 +195,7 @@ $START
 $END 
 $OUTPUT"
 
-
+# ----------------------------------------------------------------------------------------
 
 # Verifica as variaveis
 
@@ -207,6 +221,8 @@ Arquivo de saida:   $OUTPUT
 
 # Com o formato 00:00:00 não funciona somente usando o formato 00:00:00.000  ou 00:00.00
 
+
+# ----------------------------------------------------------------------------------------
 
 ffmpeg -y -i "$INPUT" -ss "$START" -t "$END"  "$OUTPUT" | \
         yad \
@@ -241,6 +257,8 @@ else
 	
 	xdg-open "$log"
 fi
+
+# ----------------------------------------------------------------------------------------
 
 
 exit 0

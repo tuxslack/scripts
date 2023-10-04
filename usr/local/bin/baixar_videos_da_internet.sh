@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data: 17/09/2023 as 00:50
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     17/09/2023 as 00:50
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 #
 #
 #
@@ -25,7 +25,7 @@
 #
 # * https://globoplay.globo.com (usa a extensão "Video DownloadHelper" no Firefox)
 # * https://www.xvideos.com/    (usa a extensão "Video DownloadHelper" no Firefox)
-#
+# * https://twitter.com/        (usa a extensão "Baixar vídeo do Twitter" no Firefox - https://twittervid.com/)
 #
 #
 #
@@ -39,20 +39,30 @@
 
 
 
-# Baixar videos do Instagram
+# ----------------------------------------------------------------------------------------
+
+# Verificar se os programas estão instalados
 
 
-which yad           || exit 
-which yt-dlp        || exit 
-which notify-send   || exit 
-which ffmpeg        || exit 
-which ffplay        || exit 
+which yad            2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
 
+which notify-send    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa notify-send não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+ 
+which yt-dlp    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa yt-dlp não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+ 
+which ffmpeg    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa ffmpeg não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+ 
+which ffplay    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa ffplay não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
+# ----------------------------------------------------------------------------------------
 
 
 killall -9 yt-dlp 2>/dev/null
+
 # killall -9 yad  2>/dev/null
 
+# ----------------------------------------------------------------------------------------
 
 clear
 
@@ -68,6 +78,7 @@ onde_salvar=$( yad \
 )
 
 
+# ----------------------------------------------------------------------------------------
 
 # Para verificar se a variavel é nula
 
@@ -82,7 +93,7 @@ exit
 
 fi
 
-
+# ----------------------------------------------------------------------------------------
 
 # Verificar se tem permissões para gravar na pasta.
 
@@ -109,11 +120,7 @@ fi
 cd "$onde_salvar"
 
 
-
-
-
-
-
+# ----------------------------------------------------------------------------------------
 
 
 # URL do vídeo que você deseja baixar.
@@ -130,7 +137,7 @@ link=$( yad \
         2> /dev/null
 ) 
 
-
+# ----------------------------------------------------------------------------------------
 
 # Para verificar se a variavel é nula
 
@@ -149,7 +156,7 @@ exit 1
 
 fi
 
-
+# ----------------------------------------------------------------------------------------
 
 # Titulo do video (falta pegar)
 
@@ -161,6 +168,7 @@ titulo_do_video=$(yt-dlp  --get-title "$link")
 
 # yt-dlp "$link"
 
+# ----------------------------------------------------------------------------------------
 
 # Quando começa o processo o "botão Fecha" não funciona. =>         --button=Fecha:1 \ só fecha no X da janela do Yad.
 
@@ -176,7 +184,8 @@ yt-dlp -f bestvideo+bestaudio "$link" | \
         --button=Fecha:1 \
         --auto-kill 2>/dev/null # mata o processo anterior caso usuario clique em cancelar
   
-
+  
+# ----------------------------------------------------------------------------------------
         
 # Mata o processo yt-dl
 
@@ -189,9 +198,10 @@ exit 2
 
 fi
 
+# ----------------------------------------------------------------------------------------
 
 
-# vídeos em alta qualidade não são "codificados" junto ao áudio, então, você precisa baixar os arquivos separadamente e "unir" usando o ffmpeg. Como exemplo:
+# Vídeos em alta qualidade não são "codificados" junto ao áudio, então, você precisa baixar os arquivos separadamente e "unir" usando o ffmpeg. Como exemplo:
 #
 # ffmpeg -i seu_video_baixado.webm -i seu_audio_baixado.m4a -c:v copy -c:a aac resultado_final_com_audio.mp4
 #
@@ -208,6 +218,9 @@ Link: $link
 
 Salvo em: `pwd`
 "
+
+# ----------------------------------------------------------------------------------------
+
 
 
 exit 0

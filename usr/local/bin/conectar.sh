@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     04/10/2023 as 19:25
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 
 
 # Para conectar à internet
@@ -45,7 +46,7 @@ clear
 
 
 which wvdial 1> /dev/null || exit 1
-which ip     1> /dev/null || exit 1
+which ip     1> /dev/null || exit 2
 
 
 # ldd `which wvdial`

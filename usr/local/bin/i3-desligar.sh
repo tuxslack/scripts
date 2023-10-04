@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data: 21/09/2023
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     04/10/2023 as 19:29
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 #
 #
 # Sistema de Desligamento para o i3 com Shell Script usando o Yad
@@ -208,18 +208,46 @@
 
 
 
+# ----------------------------------------------------------------------------------------
+
+# Verificar se os programas estão instalados
 
 clear
 
-which yad         >/dev/null || exit 1
-which sudo        >/dev/null || exit 2
-which shutdown    >/dev/null || exit 3
-which i3-msg      >/dev/null || exit 4
-which fluxbox     >/dev/null || exit 5
-which tar         >/dev/null || exit 6
-which i3lock      >/dev/null || exit 7
+
+which yad        2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
 
 
+which sudo       2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa sudo não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+which tar        2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa tar não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
+which shutdown   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa shutdown não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+# Usado no i3
+
+which i3-msg     2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa i3-msg não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
+# Fluxbox
+
+which fluxbox    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa fluxbox não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
+# Bloquear a tela no i3
+
+which i3lock    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa i3lock não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
+
+# Som
+
+which play      2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa play não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+
+
+# ----------------------------------------------------------------------------------------
 
 
 # Função deve se usada em comandos que usa o sudo.
@@ -229,7 +257,10 @@ which i3lock      >/dev/null || exit 7
 
 ajuda(){
 
-yad --title="Desligar" --text="\n\n
+yad \
+--center \
+--title="Desligar" \
+--text="\n\n
 # ------------------------------------------------------------------------------------------------------
 
 # su -c 'nano /etc/sudoers'
@@ -244,7 +275,10 @@ yad --title="Desligar" --text="\n\n
  `whoami` ALL=NOPASSWD:/usr/bin/poweroff,/usr/bin/shutdown,/usr/bin/reboot,/usr/bin/halt
 
 # ------------------------------------------------------------------------------------------------------
-\n\n" --width 650 --height 100  2> /dev/null
+\n\n" \
+--width 650 --height 100  \
+2> /dev/null
+
 
 }
 
@@ -255,6 +289,7 @@ yad --title="Desligar" --text="\n\n
 
 
 acao=$(yad \
+--center \
 --title "Sistema de Desligamento" \
 --width 500 --height 100 \
 --entry --image=icon.png \
@@ -310,8 +345,15 @@ echo "Desligando..."
 
 else
 
-yad --title="Desligar" --text="\n\nOcorreu um problema ao usar o comando shutdown:\n\n$(cat /tmp/desligar.log)" \
---center --image="gtk-dialog-error" --window-icon="gtk-dialog-error" --width=500 --height=100 --button="OK:0" 2> /dev/null
+yad \
+--center \
+--title="Desligar" \
+--text="\n\nOcorreu um problema ao usar o comando shutdown:\n\n$(cat /tmp/desligar.log)" \
+--image="gtk-dialog-error" \
+--window-icon="gtk-dialog-error" \
+--width=500 --height=100 \
+--button="OK:0" \
+2> /dev/null
 
 rm -Rf /tmp/desligar.log
 
@@ -358,8 +400,14 @@ echo "Reiniciando..."
 
 else
 
-yad --title="Reiniciar" --text="\n\nOcorreu um problema ao usar o comando shutdown:\n\n$(cat /tmp/reiniciar.log)" \
---center --image="gtk-dialog-error" --window-icon="gtk-dialog-error" --width=500 --height=100 --button="OK:0" 2> /dev/null
+yad \
+--center \
+--title="Reiniciar" \
+--text="\n\nOcorreu um problema ao usar o comando shutdown:\n\n$(cat /tmp/reiniciar.log)" \
+--image="gtk-dialog-error" \
+--window-icon="gtk-dialog-error" \
+--width=500 --height=100 \
+--button="OK:0" 2> /dev/null
 
 
 rm -Rf /tmp/reiniciar.log

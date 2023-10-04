@@ -330,7 +330,7 @@ fi
 # Verificar se os programas estão instalados
 
 
-which yad            2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "$aviso" --text "$faltayad"    --width 450 --height 100 2>/dev/null   ; exit 1; }
+which yad            2> /dev/null || { echo "$faltayad" ; exit 1; }
 
 which notify-send    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "$aviso" --text "$faltanotify" --width 450 --height 100 2>/dev/null   ; exit 1; }
 

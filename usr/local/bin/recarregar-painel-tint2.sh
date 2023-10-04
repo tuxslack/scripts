@@ -8,7 +8,7 @@
 
 clear
 
-which tint2       2> /dev/null || { echo "Falta o tint2"    ; exit 1; }
+which tint2       2> /dev/null || { echo "Falta o Tint2"    ; exit 1; }
 
 
 # Não estava recarregando o painel Tint2 no menu do OpenBox

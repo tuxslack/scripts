@@ -40,8 +40,8 @@ arquivo="$HOME/.conky/.conkyrc-edps-openbox"
 
 clear
 
-
 which conky       2> /dev/null || { echo "Falta o Conky"    ; exit 1; }
+which yad         2> /dev/null || { echo "Falta o Yad"      ; exit 2; }
 
 
 # which picom
@@ -106,9 +106,20 @@ clear
 echo "O arquivo $arquivo não existe."
 
 
-yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "\n\nNão foi possível acessar $arquivo arquivo inexistente!" --width 650 --height 100 2>/dev/null 
 
-clear
+yad \
+--center \
+--image=dialog-error \
+--timeout=10 \
+--no-buttons \
+--title "Aviso" \
+--text "\n\nNão foi possível acessar $arquivo arquivo inexistente!" \
+--width 650 --height 100 \
+2>/dev/null 
+
+
+
+
 
 fi
 

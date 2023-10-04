@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data: 14/06/2023 as 13:08
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     14/06/2023 as 13:08
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 #
 #
 # Definindo aplicativo padrão
