@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Homepage: https://github.com/tuxslack/scripts
+# Licença: GPL
+
+
 
 # https://br.ccm.net/faq/2269-como-ler-um-arquivo-linha-por-linha
 # https://askubuntu.com/questions/9135/how-to-backup-settings-and-list-of-installed-packages

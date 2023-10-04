@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-# Fernando Souza
+# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
 # Data: 27/09/2023 as 20:56
+# Homepage: https://github.com/tuxslack/scripts
+# Licença: GPL
 #
 # cortar-audio-e-video.sh
 #

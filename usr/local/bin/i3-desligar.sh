@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-# Por   Fernando Souza
+# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
 # Data: 21/09/2023
+# Homepage: https://github.com/tuxslack/scripts
+# Licença: GPL
 #
 #
 # Sistema de Desligamento para o i3 com Shell Script usando o Yad

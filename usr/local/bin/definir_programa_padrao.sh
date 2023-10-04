@@ -1,7 +1,10 @@
 #!/bin/bash
-
-# Por   Fernando Souza
+#
+# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
 # Data: 14/06/2023 as 13:08
+# Homepage: https://github.com/tuxslack/scripts
+# Licença: GPL
+#
 #
 # Definindo aplicativo padrão
 
@@ -35,6 +38,8 @@
 # https://wiki.archlinux.org/title/XDG_MIME_Applications
 # https://wiki.gentoo.org/wiki/Default_applications
 # https://www.youtube.com/watch?v=-dHhL9Gf9Ss
+# https://www.vivaolinux.com.br/dicas/impressora.php?codigo=25422
+
 
 
 
@@ -64,10 +69,14 @@ editor_de_texto="org.gnome.gedit.desktop"
 #
 # Ex: 
 #
+# Thunar                     => xfce4-file-manager.desktop
 # Dolphin                    => org.kde.dolphin.desktop    ou dolphin.desktop
 # Nautilus                   => org.gnome.Nautilus.desktop ou nautilus.desktop
+# PCManFM                    => pcmanfm.desktop
 # Nemo (fork do Nautilus)    => 
-#
+# Caja                       => 
+
+
 
 gerenciador_de_arquivo="xfce4-file-manager.desktop"
 
@@ -561,6 +570,9 @@ xdg-mime default "$visualizado_de_arquivos_PDF" application/pdf
 # Verificar:
 
 cat ~/.config/mimeapps.list
+
+
+# cat /usr/share/applications/mimeinfo.cache
 
 
 

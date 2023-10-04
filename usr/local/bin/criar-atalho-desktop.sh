@@ -5,6 +5,7 @@
 #
 # Autor:        Fernando Souza - https://www.youtube.com/@fernandosuporte
 # Data:         03/10/2023 as 18:43
+# Homepage:     https://github.com/tuxslack/scripts
 #
 # Colaboração:  Andrew - 03/12/2010 - andrew@webupd8.org
 # Site:         
