@@ -1,9 +1,11 @@
 #!/bin/bash
 #
-# Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+# Data:     04/10/2023 as 19:49
 # Homepage: https://github.com/tuxslack/scripts
-# Licença: GPL
+# Licença:  GPL
 # 
+#
 # Atualizar um sistema operacional Linux é uma tarefa fundamental para garantir 
 # a segurança, estabilidade e desempenho do ambiente. No entanto, realizar essas 
 # atualizações manualmente pode ser demorado e propenso a erros. É aqui que entra 
@@ -55,7 +57,7 @@
 # a administração de sistemas e garantir que seus servidores estejam sempre 
 # atualizados e protegidos contra vulnerabilidades.
 # 
-# Para mais dicas: https://
+# Para mais dicas: https://www.youtube.com/@fernandosuporte/
 
 
 # A legibilidade sempre deve ser priorizada. O código deverá ser fácil de entender, e ser mantido. - Princípio KISS (Keep It Simple)
