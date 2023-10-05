@@ -1,0 +1,147 @@
+[Desktop Entry]
+# 
+# 
+# Entrada de aplicativos
+# 
+# As entradas de desktop para aplicativos, ou arquivos .desktop, geralmente são uma combinação de 
+# recursos de meta informações e um atalho de um aplicativo. Esses arquivos geralmente residem em 
+# /usr/share/applications/ ou /usr/local/share/applications/ para aplicativos instalados em todo 
+# o sistema ou ~/.local/share/applications/ para aplicativos específicos do usuário. As entradas 
+# do usuário têm precedência sobre as entradas do sistema.
+# 
+# 
+# Exemplo de arquivo
+# 
+# A seguir, é apresentado um exemplo de sua estrutura com comentários adicionais. O exemplo serve 
+# apenas para dar uma impressão rápida e não mostra como utilizar todas as chaves de entrada 
+# possíveis. A lista completa de chaves pode ser encontrada na especificação da freedesktop. 
+# 
+# 
+# 
+# 
+# Atualizar banco de dados de entradas desktop
+# 
+# Para que as entradas da área de trabalho definidas em ~/.local/share/applications funcionem, execute o seguinte comando:
+# 
+# $ update-desktop-database ~/.local/share/applications
+# 
+# 
+# https://wiki.archlinux.org/title/Desktop_entries_(Portugu%C3%AAs)
+# 
+
+
+
+
+
+# $ lsusb 
+# Bus 004 Device 009: ID 12d1:1003 Huawei Technologies Co., Ltd. E220 HSDPA Modem / E230/E270/E870 HSDPA/HSUPA Modem
+
+
+
+
+# Olhando o arquivo /etc/wvdial.conf, tem dois modos de conectar à internet, usando o modem 3G da Claro pelo comando "wvdial" ou "wvdial 3g" como Root.
+#
+# Obs.: Somente está conectando usando o comando "wvdial 3g"  o comando "wvdial"  não está funcionando.
+
+
+
+# cat /etc/wvdial.conf 
+# 
+# [Dialer Defaults]
+# Init1 = ATZ
+# Init2 = ATQ0 V1 E1 S0=0 &C1 &D2 +FCLASS=0
+# Init3 = AT+CGDCONT=1,"IP","bandalarga.claro.com.br"
+# Modem Type = Analog Modem
+# ISDN = 0
+# Phone = *99#
+# Modem = /dev/ttyUSB0
+# Username = claro
+# Password = claro
+# Baud = 9600
+# 
+# [Dialer 3g]
+# Init1 = ATZ
+# Init2 = ATQ0 V1 E1 S0=0 &C1 &D2
+# Init3 = AT+CGDCONT=1,"IP","bandalarga.claro.com.br"
+# Password = claro
+# Check Def Route = on
+# Phone = *99#
+# Modem Type = Analog Modem
+# Stupid mode = 1
+# Baud = 921600
+# Auto DNS = off
+# DialCommand = ATDT
+# Modem = /dev/ttyUSB0
+# ISDN = 0
+# Username = claro
+# Auto Reconnect = on
+# FlowControl = Hardware(CRTSCTS)
+
+
+
+
+# O tipo como listado acima
+Type=Application
+
+# A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
+Version=1.0
+
+# O nome do aplicativo
+Name=Discador Wvdial - ttyUSB1
+
+# Um comentário que pode/será usado como uma dica da ferramenta
+Comment=Usado para acessar a internet. \nEm caso de problema para conectar a internet verifica o servidor DNS ou reinicia o sistema.\nDesligamento incorreto do sistema pode ocasionar problema de acesso a internet.
+
+
+
+# O caminho para a pasta na qual o executável é executado
+Path=
+
+# O executável do aplicativo, possivelmente com argumentos
+Exec=xfce4-terminal --title='Discador Wvdial'  -e "su -c 'killall -9 wvdial; killall -9 pppd; poff -a; wvdial 3g && sleep 30 && ping -c 5 www.google.com.br ; sleep 30'"
+
+
+
+# Melhor colocar os comandos em um script e chamar depois no arquivo .desktop esse script.
+#
+#
+#  echo 'Informe a senha do usuário Root abaixo: \n' && 
+#
+# echo -e "\nEm caso de problema para acessar a internet reconecte o modem USB e espere alguns minitos para usá-lo novamente ou reinicie o sistema\n\n" && 
+#
+#
+# Resumindo:
+#
+# O arquivo .desktop não funciona com echo.
+
+
+
+# O nome do ícone que será usado para exibir esta entrada
+Icon=/usr/share/icons/extras/net.png
+
+
+# Descreve se este aplicativo precisa ser executado em um terminal ou não
+Terminal=false
+
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=discador;ppp;internet;acesso;wvdial;net;pppd;
+
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+
+# Funcionou no  menu do xfce4-popup-whiskermenu do XFCE
+
+
+# NoDisplay: Não exibe a aplicação.
+
+
+# Nos casos dos parâmetros Terminal e NoDisplay, podem ser usados dois valores, true para ativar o recurso e false para desativar o recurso.
+
+
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=Network;
+
