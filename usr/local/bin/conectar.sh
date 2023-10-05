@@ -296,16 +296,42 @@ O arquivo /etc/wvdial.conf existe.
 sleep 2
 
 echo "
-Mantando os processos do wvdial e do ppp caso eles existem...
+Matando os processos do wvdial e do ppp caso eles existem...
 "
-pkill wvdial 
+pkill wvdial
+
 pkill ppp
+
+
+killall -9 wvdial
+
+killall -9 pppd
+
+
+poff -a
+
+
+
+
+
 
 echo "
 Discando...
 "
 
-# Funcionando mesmo com o aviso de "Falha de segmentação" no Wvdial.
+# A chamada do comando wvdial aqui esta conforme a configuração do arquivo /etc/wvdial.conf
+#
+# Exemplo:
+#
+# cat  /etc/wvdial.conf | grep -i dialer
+#
+# [Dialer Defaults]  => wvdial     (/dev/ttyUSB0)
+# [Dialer 3g]        => wvdial 3g  (/dev/ttyUSB1)
+# [Dialer 1]         => wvdial 1   (/dev/ttyUSB0)
+# [Dialer 2]         => wvdial 2
+
+
+# Funcionando mesmo com o aviso de "Falha de segmentação" no Wvdial (/dev/ttyUSB0).
 #
 wvdial 1 &
 
@@ -316,12 +342,13 @@ wvdial 1 &
 
 
 
-# Não funcionou
+# Não funcionou (/dev/ttyUSB1)
 #
 # wvdial 3g &
 
 
-# Não funcionou
+
+# Não funcionou (/dev/ttyUSB0)
 #
 # wvdial &
 
@@ -334,7 +361,7 @@ wvdial 1 &
 # https://github.com/NixOS/nixpkgs/issues/20344
 
 
-sleep 10
+sleep 30
 
 
 echo "
@@ -349,11 +376,12 @@ then
 
       echo -e "\e[1;32m\n[VERIFICADO] - Conexão com à internet funcionando normalmente.\n\e[0m"
 
-
+      sleep 30
 else 
 
      echo -e "\e[1;31m\n[ERRO] - Seu sistema não tem conexão com à internet. Verifique os cabos e o modem.\n\e[0m"
 
+     exit
 
 fi
 
@@ -366,6 +394,7 @@ clear
 echo "O arquivo /etc/wvdial.conf não existe..."
 
 sleep 3
+
 clear
 
 exit 2
@@ -460,7 +489,46 @@ fi
 # Modo grafico
 
 
-clear && pkill ppp ; killall -9 pppd ; pkill wvdial ; killall -9 wvdial ; /usr/bin/poff -a ; /usr/bin/pon E220
+
+clear
+
+echo "
+Matando os processos do wvdial e do ppp caso eles existem...
+"
+
+pkill ppp
+
+pkill wvdial
+
+killall -9 pppd
+
+killall -9 wvdial
+
+
+/usr/bin/poff -a
+
+
+
+
+
+echo "
+Discando...
+"
+
+# A chamada do comando pon aqui esta conforme as configurações dos arquivos na pasta /etc/ppp/
+#
+# Exemplo:
+#
+# ls /etc/ppp/ | grep -i E220
+# chat-E220-nopin
+# chat-E220-pin
+
+
+/usr/bin/pon E220
+
+
+
+
 
 echo -e "\n\nVerificando o acesso a internet...\n"
 
@@ -515,7 +583,9 @@ networkmanager(){
 clear
 
 
-which nmcli 1> /dev/null || exit
+which nmcli                1> /dev/null || exit
+which nm-connection-editor 1> /dev/null || exit
+
 
 
 nmcli con show
@@ -536,7 +606,28 @@ nmcli con show
 ip a
 
 
-# Para conectar a internet
+echo "
+Desconectando da internet...
+"
+
+nmcli con down "Claro 3G"
+
+
+echo "
+Discando...
+"
+
+# A chamada do comando nmcli abaixo esta conforme as configurações dos arquivos na pasta /etc/NetworkManager/system-connections/
+#
+# Exemplo:
+#
+# ls -l /etc/NetworkManager/system-connections/
+# total 12
+# -rw------- 1 root root 301 ago 21 16:36 'Claro 3G.nmconnection'
+
+
+
+# Para conectar à internet
 
 nmcli con up "Claro 3G"
 # Conexão ativada com sucesso (caminho D-Bus ativo: /org/freedesktop/NetworkManager/ActiveConnection/4)
@@ -751,6 +842,13 @@ nmcli con up "Claro 3G"
 
 
 
+
+
+ajuda(){
+
+clear
+
+
 echo "
 Dica:
 
@@ -777,7 +875,7 @@ Certifique-se de que está no modo correto com usb_modeswitch
 
 Edite o arquivo de configuração do usb_modeswitch:
 
-sudo gedit /etc/usb_modeswitch.conf
+sudo xdg-open /etc/usb_modeswitch.conf
 
 
 Instale os pacotes abaixo:
@@ -788,24 +886,45 @@ De todos, o mais importante é o modemmanager, carregando o módulo necessário 
 
 Após conectado o modem, aguarde alguns segundos (30s), até que o Linux reconheça o modem.
 
+
+Se usar modem 3G configura o arquivo /etc/wvdial.conf , NetworkManager (nm-connection-editor) ou ppp.
+
 "
 
+}
+
+
+
+
+# Três forma de conectar à internet:
+# 
+# /usr/local/bin/conectar.sh dial
+# /usr/local/bin/conectar.sh ppp
+# /usr/local/bin/conectar.sh networkmanager
 
 
 
 
 case $1 in
+
    dial)
       dial;
    ;;
+   
    ppp)
       ppp;
    ;;
+   
    networkmanager)
       networkmanager;
    ;;
+   
+   ajuda)
+      ajuda;
+   ;;
+      
    *)
-      echo "Use $0 (dial|ppp|networkmanager)"
+      echo "Use $0 (dial|ppp|networkmanager|ajuda)"
       
       exit 
    ;;
