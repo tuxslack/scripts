@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=Testar Internet
+Comment=Testa o acesso a internet na hora do login do usuário no sistema.
+Exec=/usr/local/bin/testarinternet.sh
+Icon=org.xfce.webbrowser
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=true
+
