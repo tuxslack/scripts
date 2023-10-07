@@ -1,0 +1,317 @@
+[Desktop Entry]
+# 
+# 
+# Entrada de aplicativos
+# 
+# As entradas de desktop para aplicativos, ou arquivos .desktop, geralmente são uma combinação de 
+# recursos de meta informações e um atalho de um aplicativo. Esses arquivos geralmente residem em 
+# /usr/share/applications/ ou /usr/local/share/applications/ para aplicativos instalados em todo 
+# o sistema ou ~/.local/share/applications/ para aplicativos específicos do usuário. As entradas 
+# do usuário têm precedência sobre as entradas do sistema.
+# 
+# 
+# Exemplo de arquivo
+# 
+# A seguir, é apresentado um exemplo de sua estrutura com comentários adicionais. O exemplo serve 
+# apenas para dar uma impressão rápida e não mostra como utilizar todas as chaves de entrada 
+# possíveis. A lista completa de chaves pode ser encontrada na especificação da freedesktop. 
+# 
+# 
+#
+#
+# Localização padrão dos diretórios:
+#
+# Diretório de aplicativos padrão para os aplicativos do sistema:
+#
+#  /usr/share/applications
+#
+# Diretório dos aplicativos do usuário:
+#
+# $HOME/.local/share/applications
+#
+#
+# 
+# 
+# Atualizar banco de dados de entradas desktop
+# 
+# Para que as entradas da área de trabalho definidas em ~/.local/share/applications funcionem, execute o seguinte comando:
+# 
+# $ update-desktop-database ~/.local/share/applications
+# 
+# 
+# https://wiki.archlinux.org/title/Desktop_entries_(Portugu%C3%AAs)
+# https://diolinux.com.br/tecnologia/como-editar-o-menu-da-sua-distro.html
+#
+
+
+# Confira algumas das opções e uma breve explicação sobre os parâmetros do arquivo .desktop:
+
+
+# O tipo como listado acima
+Type=Application
+
+# A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
+Version=1.0
+
+
+# Nome da aplicação.
+
+Name=Atualizar o sistema
+Name[af]=
+Name[am]=
+Name[ar]=
+Name[ast]=
+Name[az]=
+Name[be]=
+Name[bg]=
+Name[bn]=
+Name[bs]=
+Name[ca]=
+Name[ca@valencia]=
+Name[cs]=
+Name[csb]=
+Name[cy]=
+Name[da]=
+Name[de]=
+Name[el]=
+Name[eo]=
+Name[es]=
+Name[et]=
+Name[eu]=
+Name[fa]=
+Name[fi]=
+Name[fil]=
+Name[fo]=
+Name[fr]=
+Name[fr_CA]=
+Name[ga]=
+Name[gd]=
+Name[gl]=
+Name[gv]=
+Name[he]=
+Name[hi]=
+Name[hr]=
+Name[hu]=
+Name[ia]=
+Name[id]=
+Name[is]=
+Name[it]=
+Name[ja]=
+Name[jv]=
+Name[kk]=
+Name[km]=
+Name[ko]=
+Name[ku]=
+Name[ky]=
+Name[lt]=
+Name[lv]=
+Name[mk]=
+Name[ml]=
+Name[mr]=
+Name[ms]=
+Name[mus]=
+Name[nb]=
+Name[nds]=
+Name[ne]=
+Name[nl]=
+Name[nn]=
+Name[oc]=
+Name[pa]=
+Name[pl]=
+Name[pt]=Gestor de Atualizações
+Name[pt_BR]=Gerenciador de Atualizações
+Name[pt_PT]=Gestor de Atualizações
+Name[ro]=
+Name[ru]=
+Name[si]=
+Name[sk]=
+Name[sl]=
+Name[so]=
+Name[sq]=
+Name[sr]=
+Name[sr@latin]=
+Name[sv]=
+Name[ta]=
+Name[te]=
+Name[tg]=
+Name[th]=
+Name[tl]=
+Name[tr]=
+Name[uk]=
+Name[ur]=
+Name[vi]=
+Name[zh_CN]=
+Name[zh_HK]=
+Name[zh_TW]=
+
+
+
+
+
+# Um comentário que pode/será usado como uma dica da ferramenta / Descrição da aplicação.
+
+Comment=Atualiza o seu sistema
+Comment[af]=
+Comment[am]=
+Comment[ar]=
+Comment[ast]=
+Comment[be]=
+Comment[bg]=
+Comment[bn]=
+Comment[bs]=
+Comment[ca]=
+Comment[ca@valencia]=
+Comment[cs]=
+Comment[csb]=
+Comment[cy]=
+Comment[da]=
+Comment[de]=
+Comment[el]=
+Comment[eo]=
+Comment[es]=
+Comment[et]=
+Comment[eu]=
+Comment[fa]=
+Comment[fi]=
+Comment[fil]=
+Comment[fo]=
+Comment[fr]=
+Comment[fr_CA]=
+Comment[ga]=
+Comment[gd]=
+Comment[gl]=
+Comment[gv]=
+Comment[he]=
+Comment[hr]=
+Comment[hu]=
+Comment[ia]=
+Comment[id]=
+Comment[is]=
+Comment[it]=
+Comment[ja]=
+Comment[jv]=
+Comment[kk]=
+Comment[km]=
+Comment[ko]=
+Comment[ku]=
+Comment[ky]=
+Comment[lt]=
+Comment[lv]=
+Comment[mk]=
+Comment[ml]=
+Comment[mr]=
+Comment[ms]=
+Comment[mus]=
+Comment[nb]=
+Comment[nds]=
+Comment[ne]=
+Comment[nl]=
+Comment[nn]=
+Comment[oc]=
+Comment[pa]=
+Comment[pl]=
+Comment[pt]=Mostrar e instalar as atualizações disponíveis
+Comment[pt_BR]=Exibir e instalar as atualizações disponíveis
+Comment[pt_PT]=Mostrar e instalar as atualizações disponíveis
+Comment[ro]=
+Comment[ru]=
+Comment[si]=
+Comment[sk]=
+Comment[sl]=
+Comment[so]=
+Comment[sq]=
+Comment[sr]=
+Comment[sr@latin]=
+Comment[sv]=
+Comment[ta]=
+Comment[te]=
+Comment[tg]=
+Comment[th]=
+Comment[tl]=
+Comment[tr]=
+Comment[uk]=
+Comment[ur]=
+Comment[vi]=
+Comment[zh_CN]=
+Comment[zh_HK]=
+Comment[zh_TW]=
+
+
+
+
+# O caminho para a pasta na qual o executável é executado
+Path=
+
+
+
+# O executável do aplicativo, possivelmente com argumentos / Diretório do arquivo executável. / link do site
+#
+#
+# --maximize => Coloca a última janela especificada no modo maximizado; aplica-se apenas a uma janela;
+#                           pode ser especificado uma vez para cada janela criada na linha de comandos.
+#
+# https://manpages.ubuntu.com/manpages/trusty/pt_BR/man1/xfce4-terminal.1.html
+
+Exec=xfce4-terminal --maximize --title="Informe a senha do usuário Root abaixo..." -e 'su -c "/usr/local/bin/atualiza.sh"'
+
+# Exec=xterm -geometry 230x50 -bg lightyellow -fg darkblue -T "Atualiza o sistema" -e "su -c '/usr/local/bin/atualizar_sistema.sh slackware update'"
+# Exec=xterm -geometry 230x50 -bg lightyellow -fg darkblue -T "Atualiza o sistema" -e "su -c '/usr/local/bin/atualiza.sh'"
+
+
+# O nome do ícone que será usado para exibir esta entrada
+# Icon=/usr/share/icons/hicolor/512x512/apps/void-logo.png
+
+# Colocar na opção "Icon=" o nome do arquivo sem a extensão e sem o caminho completo que esta nesta pasta /usr/share/icons/hicolor/48x48/apps/ .
+#
+# /usr/share/icons/hicolor/32x32/apps/
+# /usr/share/icons/hicolor/scalable/apps/void-logo.svg
+
+
+# Icon=void-logo
+#
+# /usr/share/icons/hicolor/32x32/apps/
+# /usr/share/icons/hicolor/scalable/apps/void-logo.svg
+
+
+Icon=/usr/share/icons/extras/atualizar_desktop.png
+
+
+# Descreve se este aplicativo precisa ser executado em um terminal ou não
+Terminal=false
+
+
+StartupNotify=false
+
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+
+Categories=Application;System;Settings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
+
+
+
+# Categories=GNOME;GTK;Settings;DesktopSettings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
+# Categories=GNOME;GTK;System;Settings;X-GNOME-SystemSettings;X-GNOME-Settings-Panel;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
+
+# Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-HardwareSettings;
+
+# Categories=GTK;Settings;DesktopSettings;X-LXDE-Settings;
+
+# Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-PersonalSettings;
+
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=sistema;update;atualizar;atualizacao;
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+
+# Funcionou no  menu do xfce4-popup-whiskermenu do XFCE
+
+
+# NoDisplay: Não exibe a aplicação.
+
+
+# Nos casos dos parâmetros Terminal e NoDisplay, podem ser usados dois valores, true para ativar o recurso e false para desativar o recurso.
+
+
