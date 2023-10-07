@@ -140,7 +140,7 @@ INPUT=$(yad \
 --title="Escolha o arquivo para corta." \
 --image=dialog-information \
 --file \
---filename=$HOME \
+--filename=$HOME/ \
 --file-filter='Multimidia | *.mp3 | *.m4a | *.wav | *.mp4 | *.avi | *.mkv | *.webm | *.wmv | *.mpeg | *.MOV' \
 --width=1500 \
 --height=1200 \

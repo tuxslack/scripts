@@ -77,7 +77,7 @@ fi
 
 # Verificar se tem permissões para gravar na pasta.
 
-ls -l "$onde_salvar"
+ls -l "$onde_salvar" >/dev/null
 
 if [ "$?" == "0" ];
 then 

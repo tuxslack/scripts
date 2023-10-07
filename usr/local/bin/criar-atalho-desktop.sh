@@ -532,7 +532,7 @@ test -n "$variavel14_1" || { yad --center --image=dialog-error --timeout=10 --no
 # Verificar se o diretório/arquivo existe e o usuário tem acesso de gravação.
 
 
-ls "$variavel14_1"  2>/dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "$aviso" --text "$localizar_pasta $variavel14_1" --width 600 --height 100 2>/dev/null   ; exit ; }
+ls "$variavel14_1" >/dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "$aviso" --text "$localizar_pasta $variavel14_1" --width 600 --height 100 2>/dev/null   ; exit ; }
 
 
 
