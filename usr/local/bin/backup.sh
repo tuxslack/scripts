@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data:     17/10/2023 as 23:50
+# Data:     19/10/2023 as 03:13
 # Homepage: https://github.com/tuxslack/scripts
 # Licença:  GPL
 
@@ -17,9 +17,6 @@
 
 # Variaveis:
 
-source /etc/backup.conf
-
-
 
 
 # Arquivo de log
@@ -27,6 +24,29 @@ source /etc/backup.conf
 log="/tmp/backup.log"
 
 rm -Rf "$log"
+
+
+
+
+# Verificar se o arquivo existe
+
+if [ -e "/etc/backup.conf" ] ; then
+
+clear
+
+source /etc/backup.conf
+
+
+
+else
+
+clear
+
+echo "O arquivo /etc/backup.conf não existe." | tee -a "$log"
+
+exit
+
+fi
 
 
 
