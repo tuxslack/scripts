@@ -8,9 +8,69 @@
 
 
 
+# Realiza os backups: 
+# 
+# 
+# Cache do apt
+# qbittorrent
+# Configurações do DNS
+# Apache + PHP
+# Arquivo hosts
+# Compositor Picom
+# Atalhos personalizado do teclado no XFCE
+# ppp
+# Modelos do Gimp - templates
+# Audacity 
+# OpenBox + temas
+# i3wm
+# Kdenlive
+# Pasta autostart do usuário
+# Dos arquivos .desktop local
+# Configurações do servidor Samba
+# Senha de rede salva no NetworkManager
+# Do arquivo mimeapps.list
+# Do arquivo rc.local
+# Configurações do Wvdial
+# Clamav
+# jgmenu - menu iniciar para o painel Tint2
+# Servidor X
+# Das ações personalizadas do Thunar (Thunar custom actions)
+# Dos e-mails no Thunderbird
+# Do arquivo .bashrc
+# Do arquivo fstab
+# Das fontes 
+# Cron
+# Pasta "Modelos"
+# Ocomon
+# Pasta skel
+# Firefox
+# Pasta bin
+# Conky
+# Fluxbox
+# Sendto do Thunar
+# VirtualBox (desativado por padrão)
+# Configurações do Grub
+# xmenu
+# Google Chrome
+# Pidgin
+
+
+
+
+
+
 # Problema com $HOME/backup/backup_Ocomon-4.0.sql_via_cron.gz não esta gerando o backup.   OK
 
 # Problema com backup do OpenBox + temas (nome com espaço).
+
+
+
+
+
+# https://www.vivaolinux.com.br/dica/Backup-incremental-com-rsync
+# https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/Gravar-backup-em-segundo-hd
+# https://www.vivaolinux.com.br/artigos/impressora.php?codigo=8660
+# https://www.vivaolinux.com.br/script/Script-de-backup-Graylog
 
 
 # ----------------------------------------------------------------------------------------
@@ -62,8 +122,9 @@ clear
 
 # which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado."        ; exit ; }
 # which yad           2> /dev/null || { echo "Programa Yad não esta instalado."           ; exit ; }
-# which rsync         2> /dev/null || { echo "Programa rsync não esta instalado."         ; exit ; }
 
+
+which rsync         2> /dev/null || { echo "Programa rsync não esta instalado."         ; exit ; }
 which tar           2> /dev/null || { echo "Programa tar não esta instalado."           ; exit ; }
 which gzip          2> /dev/null || { echo "Programa gzip não esta instalado."          ; exit ; }
 which xz            2> /dev/null || { echo "Programa xz não esta instalado."            ; exit ; }
@@ -76,11 +137,31 @@ which xdg-open      2> /dev/null || { echo "Programa xdg-open não esta instalad
 which mysqldump     2> /dev/null || { echo "Programa mysqldump não esta instalado."     ; exit ; }
 which mysql         2> /dev/null || { echo "Programa mysql não esta instalado."         ; exit ; }
 which mysqlshow     2> /dev/null || { echo "Programa mysqlshow não esta instalado."     ; exit ; }
-
+which ntfs-3g       2> /dev/null || { echo "Programa ntfs-3g não esta instalado."       ; exit ; }
+which mount         2> /dev/null || { echo "Programa mount não esta instalado."         ; exit ; }
+which umount        2> /dev/null || { echo "Programa umount não esta instalado."        ; exit ; }
+which blkid         2> /dev/null || { echo "Programa blkid não esta instalado."         ; exit ; }
+which chown         2> /dev/null || { echo "Programa chown não esta instalado."         ; exit ; }
+which find          2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
 
 
 sleep 5
 clear
+
+# ----------------------------------------------------------------------------------------
+
+echo -e "\e[40;32;1m
+
+Script de Backup
+----------------
+
+Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
+Homepage: https://github.com/tuxslack/scripts
+Licença:  GPL
+
+
+\e[0m"
+
 
 # ----------------------------------------------------------------------------------------
 
@@ -155,13 +236,14 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
 echo 
 echo "#============================================================#"
 echo "#                                                            #"
 echo "#          Fazendo backup em arquivos separados              #"
 echo "#          Este script esta sob licenca GPL                  #"
 echo "# Pode ser distribuido e alterado livremente deste que seja  #"
-echo "# conservado o Autor e Comentadas as devidas alterações      #"
+echo "# conservado o autor e comentadas as devidas alterações      #"
 echo "#                                                            #"
 echo "#============================================================#"
 echo 
@@ -1600,8 +1682,10 @@ cd "$pasta_usuario" &&  killall  -9 thunderbird ; /usr/bin/tar -czf "$backup"/ba
 
 fi
 
-# https://www.dicas-l.com.br/arquivo/automatizacao_de_tarefas_com_crontab_e_cron.php
 
+# https://www.dicas-l.com.br/arquivo/automatizacao_de_tarefas_com_crontab_e_cron.php
+# https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/Backup-do-Thunderbitd
+# https://neofenix.wordpress.com/2010/04/11/backup-dos-e-mails-no-thunderbird/
 
 # ----------------------------------------------------------------------------------------
 
@@ -1914,6 +1998,7 @@ fi
 # https://medium.com/@jvnetobr/backup-e-restore-de-banco-de-dados-mysql-4e5c776d53a4
 # http://www.bosontreinamentos.com.br/mysql/mysql-mysqldump-backup-e-restauracao-do-banco-de-dados-25/
 # https://pt.stackoverflow.com/questions/329266/dump-de-todos-os-bancos-para-um-usu%C3%A1rio-especifico
+# https://www.vivaolinux.com.br/topico/Shell-Script/Script-de-backup-5
 
 
 # ----------------------------------------------------------------------------------------
@@ -2281,6 +2366,50 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+# Fazer o backup das máquinas virtuais (VirtualBox)
+
+which VirtualBox
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+# Para verificar se o diretório $pasta_usuario/VirtualBox\ VMs/ existe.
+
+    if [ -d "$pasta_usuario/VirtualBox\ VMs/" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/VirtualBox\ VMs/ existe..."
+        
+echo "
+Realizando o backup do VirtualBox...
+"
+
+      # cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_VirtualBox_via_cron.tar.gz   VirtualBox\ VMs/   .config/VirtualBox/ 2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/VirtualBox\ VMs/ não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+fi
+
+
+# https://www.vivaolinux.com.br/topico/Backup-Exec/Como-fazer-backup-de-VMs-do-XCP-NG-em-drives-remotos/
+# https://www.vivaolinux.com.br/dica/Backup-de-uma-VM-do-VirtualBox
+
+
+# ----------------------------------------------------------------------------------------
+
 
 # Backup do tema do Grub  (O comando será executado às 00h19, do dia 11º de todos os meses.)
 
@@ -2352,6 +2481,136 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+# Fazer backup de um servidor Zabbix
+
+
+
+
+
+# https://www.zabbix.com/br
+# https://educapes.capes.gov.br/bitstream/capes/206308/2/Monitoramento_Redes_Zabbix.pdf
+# https://tiparaleigo.wordpress.com/2020/01/08/zabbix-backup/
+# https://www.vivaolinux.com.br/script/Script-de-backup-Zabbix
+
+# ----------------------------------------------------------------------------------------
+
+# PostgreSQL
+
+
+
+
+# https://www.vivaolinux.com.br/dica/PostgreSQL-Fazendo-backup-de-um-servidor-inteiro
+# https://www.tecmint.com/backup-and-restore-postgresql-database/
+
+# ----------------------------------------------------------------------------------------
+
+# GLPI
+
+
+# https://www.vivaolinux.com.br/topico/GLPI/restaurar-backup-GLPI
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do Nagios
+
+
+
+# https://www.vivaolinux.com.br/dica/Backup-do-Nagios
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do Google Chrome
+
+
+which google-chrome-stable
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.config/google-chrome/ existe.
+
+    if [ -d "$pasta_usuario/.config/google-chrome/" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.config/google-chrome/ existe..."
+        
+echo "
+Realizando o backup do Google Chrome...
+"
+
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Google-Chrome_via_cron.tar.gz  .config/google-chrome/   .cache/google-chrome/  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/google-chrome/ não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+
+# https://www.vivaolinux.com.br/topico/Navegadores/Fazer-backup-do-historico-do-chrome
+
+# ----------------------------------------------------------------------------------------
+
+
+# Backup do Pidgin
+
+
+which pidgin
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.purple existe.
+
+    if [ -d "$pasta_usuario/.purple" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.purple existe..."
+        
+echo "
+Realizando o backup do Pidgin...
+"
+
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Pidgin_via_cron.tar.gz  .purple  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.purple não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# https://www.vivaolinux.com.br/dica/Backup-do-historico-de-mensagens-do-Pidgin-2.6.2-no-Ubuntu-9.10
+
+
+# ----------------------------------------------------------------------------------------
 
 
 chown -R "$usuario":"$grupo" "$backup" 
