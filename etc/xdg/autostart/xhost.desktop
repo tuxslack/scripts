@@ -1,0 +1,18 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=xhost
+Comment=Permissão de acesso ao servidor X
+Exec=/usr/local/bin/habilitar_xhost.sh
+
+# Icon=/home/fernando/.icons/extras/X.png
+Icon=/home/fernando/.icons/extras/xhost.png
+# Icon=/usr/share/icons/breeze/apps/48/xorg.svg
+
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=false
+
