@@ -1,11 +1,11 @@
 #!/bin/bash
 #
 # Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data:     20/10/2023 as 17:33
+# Data:     20/10/2023 as 19:45
 # Homepage: https://github.com/tuxslack/scripts
 # Licença:  GPL
 
-
+log="/tmp/Pacotes_VoidLinux.txt"
 
 # https://br.ccm.net/faq/2269-como-ler-um-arquivo-linha-por-linha
 # https://www.edivaldobrito.com.br/usar-o-comando-dpkg-no-debian/
@@ -39,16 +39,8 @@ which sed         2> /dev/null || { echo "Programa sed não esta instalado."   ;
 
 
 rm -Rf \
-$HOME/backup/Pacotes_VoidLinux.txt \
-$HOME/backup/VoidLinux.txt
-
-# ----------------------------------------------------------------------------------------
-
-clear
-
-echo -e "\nQuantidade de pacotes instalados:\n" | tee -a $HOME/backup/Pacotes_VoidLinux.txt
-
-xbps-query -l  | wc -l | tee -a $HOME/backup/Pacotes_VoidLinux.txt
+"$log" \
+/tmp/VoidLinux.txt
 
 # ----------------------------------------------------------------------------------------
 
@@ -56,13 +48,13 @@ xbps-query -l  | wc -l | tee -a $HOME/backup/Pacotes_VoidLinux.txt
 
 # Para listar ou exibir pacotes atualmente instalados no Void Linux
 
-echo -e "\nLista dos pacotes instalados salvo em $HOME/backup...\n"
+echo -e "\nLista dos pacotes instalados salvo em /tmp...\n"
 
-mkdir -p $HOME/backup
+mkdir -p /tmp/
 
-rm -Rf $HOME/backup/Pacotes_VoidLinux.txt
+rm -Rf "$log"
 
-xbps-query -l | awk '{print $2}' | tee -a $HOME/backup/Pacotes_VoidLinux.txt
+xbps-query -l | awk '{print $2}' | tee -a "$log"
 
 # ----------------------------------------------------------------------------------------
 
@@ -75,9 +67,9 @@ echo -e "$pacote\n";
 
 data=$(xbps-query -S "$pacote" | grep install-date | awk '{print $2 " " $3 " " $4}')
 
-echo "$data $pacote" >> $HOME/backup/VoidLinux.txt
+echo "$data $pacote" >> /tmp/VoidLinux.txt
 
-done < $HOME/backup/Pacotes_VoidLinux.txt
+done <  "$log"
 
 
 # xbps-query -S xpad | grep install-date | cut -d: -f2
@@ -126,7 +118,7 @@ done < $HOME/backup/Pacotes_VoidLinux.txt
 
 # Remover espaços vazios no inicio de cada linha do arquivo abaixo
 
-sed -i 's/^ //g' $HOME/backup/VoidLinux.txt
+sed -i 's/^ //g' /tmp/VoidLinux.txt
 
 # ----------------------------------------------------------------------------------------
 
@@ -155,7 +147,7 @@ sed -i 's/^ //g' $HOME/backup/VoidLinux.txt
 
 # cat ~/backup/VoidLinux.txt | sed -r 's|(^.{4})-(.{2})-(.{2})|\3/\2/\1|' 
 
-sed -ri 's|(^.{4})-(.{2})-(.{2})|\3/\2/\1|g' ~/backup/VoidLinux.txt
+sed -ri 's|(^.{4})-(.{2})-(.{2})|\3/\2/\1|g' /tmp/VoidLinux.txt
 
  
  
@@ -172,9 +164,9 @@ sed -ri 's|(^.{4})-(.{2})-(.{2})|\3/\2/\1|g' ~/backup/VoidLinux.txt
 # 06/10/2023 16:01 -03 linux6.5-headers-6.5.6_1
 # 30/08/2023 14:39 -03 live555-2020.08.11_3
 
-cat ~/backup/VoidLinux.txt | awk '{$3=""; print}' > ~/backup/Void.txt
+cat /tmp/VoidLinux.txt | awk '{$3=""; print}' > /tmp/Void.txt
 
-mv ~/backup/Void.txt ~/backup/VoidLinux.txt
+mv /tmp/Void.txt  /tmp/VoidLinux.txt
 
 
 
@@ -187,28 +179,40 @@ mv ~/backup/Void.txt ~/backup/VoidLinux.txt
 # https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/comando-para-deletar-coluna-especifica-de-um-arquivo
 
 # ----------------------------------------------------------------------------------------
+ 
+# clear
 
 echo "
-Conteudo da pasta /opt:
 
-  " >> ~/backup/VoidLinux.txt
-  
-ls -lh /opt/ >> ~/backup/VoidLinux.txt
+Quantidade de pacotes instalados (xbps-query -l):
+" | tee -a /tmp/VoidLinux.txt
+
+xbps-query -l  | wc -l | tee -a /tmp/VoidLinux.txt
 
 # ----------------------------------------------------------------------------------------
 
-which flatpak
+echo "
+
+Conteudo da pasta /opt:
+
+  " >> /tmp/VoidLinux.txt
+  
+ls -lh /opt/ >> /tmp/VoidLinux.txt
+
+# ----------------------------------------------------------------------------------------
+
+which flatpak 1> /dev/null 2> /dev/null
 
 if [ $? == 0 ]; then
 
 
 echo "
-Pacotes instalados via flatpak
+Pacotes instalados via flatpak:
 
-  " >> ~/backup/VoidLinux.txt
+  " >> /tmp/VoidLinux.txt
   
   
-flatpak list   >> ~/backup/VoidLinux.txt
+flatpak list   >> /tmp/VoidLinux.txt
 
 
 fi
@@ -218,14 +222,31 @@ fi
 
 # Não ficou 100% essa parte abaixo:
 #
-# Ordenar o arquivo ~/backup/VoidLinux.txt por data (coluna 1 do arquivo) em ordem reversa
-# e salvar o resultado no arquivo de nome ~/backup/Void.txt:
+# Ordenar o arquivo /tmp/VoidLinux.txt por data (coluna 1 do arquivo) em ordem reversa
+# e salvar o resultado no arquivo de nome /tmp/Void.txt:
 
-# cat ~/backup/VoidLinux.txt | sort -nr -t"/" -k1 > ~/backup/Void.txt
+# cat /tmp/VoidLinux.txt | sort -nr -t"/" -k1 > /tmp/Void.txt
 
-# mv ~/backup/Void.txt ~/backup/VoidLinux.txt
+# mv /tmp/Void.txt /tmp/VoidLinux.txt
 
 # ----------------------------------------------------------------------------------------
  
+
+
+echo "
+
+" >> /tmp/VoidLinux.txt
+
+
+sleep 2
+
+
+mv /tmp/VoidLinux.txt "$log"
+
+
+# ----------------------------------------------------------------------------------------
+
+
+
 exit 0
 
