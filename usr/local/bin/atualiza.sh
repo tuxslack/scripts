@@ -3701,6 +3701,48 @@ clamav_update
 
 # ----------------------------------------------------------------------------------------
 
+# Flatpak
+
+
+which flatpak
+
+
+if [ $? == 0 ]; then
+
+
+# ls ~/.local/share/flatpak/
+
+
+
+echo "
+Todos os flatpaks que você tem no seu sistema:
+"  | tee "$log"
+  
+flatpak list  | tee "$log"
+
+
+
+# echo "
+# Atualizando pacotes instalados via flatpak (flatpak update)...
+
+#  " >> | tee "$log"
+
+
+# Como atualizar os pacotes flatpak?
+
+# Para atualizar todos os seus pacotes flatpak, basta rodar o comando:
+
+# flatpak update | tee "$log"
+
+
+# https://plus.diolinux.com.br/t/comandos-basicos-para-gerenciar-pacotes-flatpak-no-linux/35809
+
+
+fi
+
+
+
+# ----------------------------------------------------------------------------------------
  
 echo -e "\nMas informações no arquivo de log: $log\n"
 
