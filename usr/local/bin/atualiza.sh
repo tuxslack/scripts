@@ -7,7 +7,7 @@
 # Versão:          0.2
 # Realiza atualização do seu sistema.
 #
-# Data da atualização:  05/10/2023 as 17:24
+# Data da atualização:  20/10/2023 as 19:10
 #
 # Licença:  GPL - https://www.gnu.org/
 # 
@@ -565,20 +565,20 @@ if [ "$?" -eq "0" ];
 then
 
 
-killall -9 freshclam                   2>> "$log"
+killall -9 freshclam   1> /dev/null 2> /dev/null
 
      
 echo -e "\n${RED}Atualizando a base de dado do Clamav...${NC}\n"
 
 
 echo "
+Atualizando a base de dado do Clamav...
 
 " >> "$log"
 
 
 
-
-freshclam   # | tee "$log"
+freshclam   | tee -a "$log"
 
 if [ "$?" -eq "0" ];
 then 
@@ -598,16 +598,16 @@ fi
      
 else 
 
-     echo -e "\nfreshclam não esta instalado..."
+     echo -e "\nfreshclam não esta instalado..." | tee -a "$log"
 
 
 fi
 
 
 
-# killall -9 clamav-unofficial-sigs.sh   2>> "$log"
+# killall -9 clamav-unofficial-sigs.sh   1> /dev/null 2> /dev/null
 #
-# clamav-unofficial-sigs.sh | tee "$log"
+# clamav-unofficial-sigs.sh | tee -a "$log"
 
 
 
@@ -633,28 +633,37 @@ clear
 echo "
 Auditoria de sistemas com Lynis
 
-" | tee "$log"
+" | tee -a "$log"
 
 
 sleep 1
 
 
-# Problema => /usr/bin/lynis: line 612: [: -lt: unary operator expected
 
 
-killall -9 lynis 2>> "$log"
+
+killall -9 lynis   1> /dev/null 2> /dev/null
 
 
-echo "Atualizar a ferramenta de Auditoria - lynis (lynis --check-update  e lynis update info)."
+echo "
+Atualizar a ferramenta de Auditoria - lynis (lynis --check-update  e lynis update info).
+"  | tee -a "$log"
 
-# | tee -a "$log"
 
 
-lynis update check
 
-lynis update info  | tee "$log"
+# Problema no Void Linux:
+#
+# /usr/bin/lynis: line 612: [: -lt: unary operator expected
 
-# lynis -c | tee "$log"
+
+lynis update check | tee -a "$log"
+
+lynis update info  | tee -a "$log"
+
+
+
+# lynis -c | tee -a "$log"
 
 
 }
@@ -671,7 +680,7 @@ clear
 
 echo "
 Checando se há rootkits em seu sistema...
-" | tee "$log"
+" | tee -a "$log"
 
 sleep 2
 
@@ -681,7 +690,7 @@ sleep 2
 
 
 
-killall -9 rkhunter 2>> "$log"
+killall -9 rkhunter 1> /dev/null 2> /dev/null
 
 
 echo "
@@ -692,20 +701,20 @@ echo "
 Atualiza a base com as propriedades dos arquivos (rkhunter --propupd).
 " | tee -a "$log"
 
-rkhunter --propupd | tee  "$log"
+rkhunter --propupd | tee -a "$log"
 
 
 echo "
 Atualiza a base do rkhunter (rkhunter --update).
 " | tee -a "$log"
 
-rkhunter --update | tee "$log"
+rkhunter --update | tee -a "$log"
 
 
 
-# rkhunter -c        | tee "$log"
+# rkhunter -c        | tee -a "$log"
 
-# rkhunter -c --rwo  | tee "$log"
+# rkhunter -c --rwo  | tee -a "$log"
 
 
 
@@ -713,7 +722,7 @@ echo "
 Arquivo de log do rkhunter (/var/log/rkhunter.log).
 " | tee -a "$log"
 
-cat /var/log/rkhunter.log | tee  "$log"
+cat /var/log/rkhunter.log | tee -a "$log"
 
 
 # https://www.vivaolinux.com.br/artigo/Procurando-rootkits-no-seu-sistema
@@ -820,12 +829,14 @@ echo -e "\n${YELLOW}${BEGIN_UPDATE} ${NC}\n"
 
 sleep 1
 
+echo "
+Atualizando o sistema...
+" >> "$log"
+
 # xbps-install -uy xbps | tee -a "$log" && xbps-install -Suvy  | tee -a "$log"
 
 
-xbps-install -uy xbps && xbps-install -Suvy
-
-# | tee "$log"
+xbps-install -uy xbps && xbps-install -Suvy | tee -a "$log"
 
 
 if [ "$?" -eq "0" ];
@@ -848,7 +859,8 @@ echo -e "\n---------------------------------------------------------------------
 
 echo "
 Faxina (Void Linux)
-"
+" | tee -a "$log"
+
 echo -e "\n${YELLOW}${BEGIN_CLEAN} ${NC}\n"
 
 sleep 1
@@ -856,9 +868,7 @@ sleep 1
 
 # xbps-remove -Ooy | tee -a "$log" ; vkpurge rm all | tee -a "$log"
 
-xbps-remove -Ooy  ; vkpurge rm all 
-
-# | tee "$log"
+xbps-remove -Ooy  ; vkpurge rm all | tee -a "$log"
 
 
 if [ "$?" -eq "0" ];
@@ -892,14 +902,18 @@ RHEL(){
 
 echo -e "\n------------------------------------------------------------------------"
 
-echo "
-Atualizando o sistema...
-"
+
 echo -e "\n${YELLOW}${BEGIN_UPDATE} ${NC}\n"
 
 sleep 1
 
-yum check-update  && yum upgrade -y && yum upgrade --security 
+
+echo "
+Atualizando o sistema...
+" >> "$log"
+
+
+yum check-update  && yum upgrade -y && yum upgrade --security | tee -a "$log"
 
 
 if [ "$?" -eq "0" ];
@@ -921,13 +935,13 @@ echo -e "\n---------------------------------------------------------------------
 
 echo "
 Faxina RHEL (Red Hat Enterprise Linux)
-"
+" | tee -a "$log"
 
 echo -e "\n${YELLOW}${BEGIN_CLEAN} ${NC}\n"
 
 sleep 1
 
-yum clean all
+yum clean all | tee -a "$log"
 
 
 if [ "$?" -eq "0" ];
@@ -1006,8 +1020,8 @@ fi
 # ----------------------------------------------------------------------------------------
 
 
-killall -9 apt
-killall -9 apt-get
+killall -9 apt      1> /dev/null 2> /dev/null
+killall -9 apt-get  1> /dev/null 2> /dev/null
 
 # ----------------------------------------------------------------------------------------
 
@@ -1019,7 +1033,7 @@ if [ -e /var/lib/apt/lists/lock ]
 then
   echo 'O arquivo /var/lib/apt/lists/lock existe.'
 
-  rm -Rf /var/lib/apt/lists/lock        | tee "$log"
+  rm -Rf /var/lib/apt/lists/lock        | tee -a "$log"
 
 else
 
@@ -1032,7 +1046,7 @@ if [ -e /var/lib/dpkg/lock ]
 then
   echo 'O arquivo /var/lib/dpkg/lock existe.'
 
-  rm -Rf /var/lib/dpkg/lock             | tee "$log"
+  rm -Rf /var/lib/dpkg/lock             | tee -a "$log"
 
 else
 
@@ -1047,7 +1061,7 @@ then
 
   echo 'O arquivo /var/lib/dpkg/lock-frontend existe.'
 
-  rm -Rf /var/lib/dpkg/lock-frontend    | tee "$log"
+  rm -Rf /var/lib/dpkg/lock-frontend    | tee -a "$log"
 
 else
 
@@ -1094,9 +1108,9 @@ W: Falhou o download de alguns ficheiros de índice. Foram ignorados ou os antig
 
 echo "
 Limpeza...
-"
+" | tee -a "$log"
 
-du -sh /var/cache/apt/archives  | tee "$log"
+du -sh /var/cache/apt/archives  | tee -a "$log"
 
 rm -Rf /var/cache/apt/archives/*.deb       2>> "$log"
 rm -Rf /var/cache/apt/archives/partial/*   2>> "$log"
@@ -1116,29 +1130,29 @@ Se esse comando for remover algo veja se não vai desinstalar coisas importantes
 "
 sleep 3
 
-apt autoremove -y | tee "$log"
+apt autoremove -y | tee -a "$log"
 
-# apt-get autoremove --purge -y | tee "$log"
+# apt-get autoremove --purge -y | tee -a "$log"
 
 
 
 # 0 pacotes atualizados, 0 pacotes novos instalados, 0 a serem removidos e 160 não atualizados.
 
-apt install -f   | tee "$log"
+apt install -f   | tee -a "$log"
 
 
-dpkg --configure -a  | tee "$log"
+dpkg --configure -a  | tee -a "$log"
 
 
 
 # Limpa os pacotes e instala o script em /var/cache/apt/archives/
 
-apt clean -y | tee "$log"
+apt clean -y | tee -a "$log"
 
 
 # Limpa pacotes .deb obsoletos, menos de clean
 
-apt autoclean -y | tee "$log"
+apt autoclean -y | tee -a "$log"
 
 
 # https://www.youtube.com/watch?v=TIQvYmskOfk
@@ -1172,7 +1186,7 @@ apt autoclean -y | tee "$log"
 
 echo "
 Atualizando a lista de pacotes:
-" | tee "$log"
+" | tee -a "$log"
 
 
 # W: Falhou ao buscar http://repository.spotify.com/dists/stable/InRelease As assinaturas a seguir não puderam ser verificadas devido à 
@@ -1184,9 +1198,9 @@ echo "apt update
 
 É usado para baixar as informações do pacote de todas as fontes configuradas . Para posteriormente trabalhar 
 nesses pacotes, atualizações ou pesquisar e exibir detalhes sobre todos os disponíveis para instalação.
-" | tee "$log"
+" | tee -a "$log"
 
-apt update | tee "$log"
+apt update | tee -a "$log"
 
 
 #
@@ -1208,13 +1222,13 @@ apt update | tee "$log"
 
 
 
-# sudo apt update --fix-missing | tee "$log"
+# sudo apt update --fix-missing | tee -a "$log"
 
 
-apt install -f  | tee "$log"
+apt install -f  | tee -a "$log"
 
 
-dpkg --configure -a  | tee "$log"
+dpkg --configure -a  | tee -a "$log"
 
 
 
@@ -1231,9 +1245,9 @@ remoção de um pacote instalado o upgrade para este pacote não será executado
 Lista atualizada
 
 Instalando os novos pacotes:
-" | tee "$log"
+" | tee -a "$log"
 
-apt upgrade | tee "$log"
+apt upgrade | tee -a "$log"
 
 
 # apt-get upgrade
@@ -1264,21 +1278,21 @@ apt upgrade | tee "$log"
 
 
 
-apt full-upgrade | tee "$log"
+apt full-upgrade | tee -a "$log"
 
-apt dist-upgrade | tee "$log"
+apt dist-upgrade | tee -a "$log"
 
 
-apt install -f | tee "$log"
+apt install -f | tee -a "$log"
 
-dpkg --configure -a | tee "$log"
+dpkg --configure -a | tee -a "$log"
 
 
 echo "
 Se esse comando for remover algo veja se não vai desinstalar coisas importantes (apt autoremove)
-" | tee "$log"
+" | tee -a "$log"
 
-apt autoremove | tee "$log"
+apt autoremove | tee -a "$log"
 
 
 
@@ -1299,9 +1313,9 @@ apt autoremove | tee "$log"
 # Para quem usa o Debian (Ubuntu, Mint etc.), para ver a lista de todas as versões do 
 # kernel instaladas no seu sistema.
 
-dpkg --list | grep linux-image  | tee "$log"
+dpkg --list | grep linux-image  | tee -a "$log"
 
-dpkg -l 'linux-im*' | tee "$log"
+dpkg -l 'linux-im*' | tee -a "$log"
 
 # Mostra a mesma lista, só que mais enxuta:
  
@@ -1319,7 +1333,7 @@ dpkg-query -l | awk '/linux-image-*/ {print $2}' 2>> "$log"
 
 # É importante atualizar o GRUB:
 
-update-grub | tee "$log"
+update-grub | tee -a "$log"
 
 # ----------------------------------------------------------------------------------------
 
@@ -1337,7 +1351,7 @@ Finalmente, reinicie o sistema usando o comando:
 Aviso: Esse método pode não funcionar para todos.
 
 
-" | tee "$log"
+" | tee -a "$log"
 
 
 
@@ -1421,13 +1435,13 @@ echo -e "\033[1;35mVerificando Atualizacoes!"
 echo -e "\033[1;31mAguarde . . ."
 echo -e "\033[1;32m"
 
-emerge sync | tee "$log"
+emerge sync | tee -a "$log"
  
 echo -e "\033[1;35mAtualizando a Arvore do seu Sistema"
 
-updatedb | tee "$log"
+updatedb | tee -a "$log"
  
-env-update | tee "$log"
+env-update | tee -a "$log"
 
 echo -e "\033[1;31mEnjoy"
 echo ""
@@ -1501,7 +1515,7 @@ echo $LANG
 
 # Verificar o repositório atual: 
 
-# yum repolist  | tee "$log"
+# yum repolist  | tee -a "$log"
 
 
 # CONFIGURANDO NTFS
@@ -1509,17 +1523,17 @@ echo $LANG
 
 # Configurando NTFS, caso necessário. Instale o repositório EPEL: 
 
-# yum install epel-release | tee "$log"
+# yum install epel-release | tee -a "$log"
 
 
 # Instale o suporte ntfs-3g: 
 
-# yum install ntfs-3g  | tee "$log"
+# yum install ntfs-3g  | tee -a "$log"
 
 
 # Pesquise no terminal pelos pacotes do "libreoffice" disponíveis: 
 
-# yum search libreoffice | tee "$log"
+# yum search libreoffice | tee -a "$log"
 
 
 echo " 
@@ -1533,25 +1547,25 @@ buscar pacotes e instalar pacotes.
 Obs: Após o yum analisar seu sistema operacional ele vai exigir confirmação da atualização, para confirmar digite y.
 
 yum update...
-" | tee "$log"
+" | tee -a "$log"
 
-yum update | tee "$log"
+yum update | tee -a "$log"
 
 
 echo "
 yum upgrade...
-" | tee "$log"
+" | tee -a "$log"
 
-yum upgrade | tee "$log"
+yum upgrade | tee -a "$log"
 
 
 
 echo "
 Este comando permite que você determine se quaisquer atualizações estão disponíveis para seus pacotes instalados. 
 O yum retorna uma lista de todas as atualizações de pacote a partir de todos os repositórios caso algum esteja disponível.
-" | tee "$log"
+" | tee -a "$log"
 
-yum check-update | tee "$log"
+yum check-update | tee -a "$log"
 
 
 
@@ -1580,7 +1594,7 @@ sabayon(){
 
 echo "
 Sabayon Linux
-" | tee "$log"
+" | tee -a "$log"
 
 
 # https://www.vivaolinux.com.br/topico/Sabayon-Linux/Atualizacoes-7
@@ -1625,9 +1639,9 @@ fi
 rm -rf -I /var/tmp/entropy   2>> "$log"
 rm -rf -I /var/tmp           2>> "$log"
 
-equo cleanup      | tee "$log"
+equo cleanup      | tee -a "$log"
 
-equo cache clean  | tee "$log"
+equo cache clean  | tee -a "$log"
 
 
 # SEGUNDA SOLUÇÃO
@@ -1648,11 +1662,11 @@ equo cache clean  | tee "$log"
 #
 # cat /etc/fstab
 
-cat /etc/fstab | grep -i  tmpfs  | tee "$log"
+cat /etc/fstab | grep -i  tmpfs  | tee -a "$log"
 # tmpfs            /dev/shm         tmpfs       defaults         0   0
 
 
-df -H | grep -i tmpfs  | tee "$log"
+df -H | grep -i tmpfs  | tee -a "$log"
 # devtmpfs        4,0G     0  4,0G   0% /dev
 # tmpfs           4,0G  1,3M  4,0G   1% /run
 # tmpfs           4,0G   26M  3,9G   1% /dev/shm
@@ -1669,7 +1683,7 @@ novamente, remover os comentários das linhas e reativar os diretórios temporá
 
 Pronto, problema resolvido e Sabayon atualizado.
 
-'  | tee "$log"
+'  | tee -a "$log"
 
 
 # https://www.vivaolinux.com.br/dica/Sabayon-Linux-Entropy-sem-espaco-temporario-para-atualizar-Resolvido
@@ -1706,9 +1720,9 @@ O comando 'equo update' irá atualizar a base de dados de seu computador com as
 
 
 equo update...
-" | tee "$log"
+" | tee -a "$log"
 
-equo update | tee "$log"
+equo update | tee -a "$log"
 
 
 echo "
@@ -1728,17 +1742,17 @@ Pois é o que tem a taxa de download mais rápida para quem mora no Brasil.
 
 equo repo mirrorsort sabayonlinux.org
 
-" | tee "$log"
+" | tee -a "$log"
 
-# equo repo mirrorsort sabayonlinux.org | tee "$log"
+# equo repo mirrorsort sabayonlinux.org | tee -a "$log"
 
 
 
 echo "
-Atualizando o Programa Entropy
-" | tee "$log"
+Atualizando o programa Entropy
+" | tee -a "$log"
 
-equo install entropy | tee "$log"
+equo install entropy | tee -a "$log"
 
 
 # Uma vez que você completou isso, é vital atualizar o próprio Entropy antes de fazer um upgrade total do sistema.
@@ -1760,27 +1774,27 @@ dos pacotes instalados no seu sistema e instalar essas novas versões.
 
 equo upgrade --ask ....
 
-" | tee "$log"
+" | tee -a "$log"
 
-equo upgrade --ask | tee "$log"
+equo upgrade --ask | tee -a "$log"
 
 
 
 # Para procurar pacote, com entropy ou com portage:
 
-# equo search pacote | tee "$log"
+# equo search pacote | tee -a "$log"
 
-# emerge -s pacote   | tee "$log"
+# emerge -s pacote   | tee -a "$log"
 
 
 
 # Para instalar
 
-# sudo equo install --verbose pacote | tee "$log"
+# sudo equo install --verbose pacote | tee -a "$log"
 #
 # ou
 #
-# sudo emerge -v pacote | tee "$log"
+# sudo emerge -v pacote | tee -a "$log"
 
 
 
@@ -1833,28 +1847,28 @@ Na parte gráfica
 
 - Acesse o Yast no menu principal, dentro do "Yast acesse "Software" acesse o icone do "Atualização online"
 
-' | tee "$log"
+' | tee -a "$log"
 
 
 echo "
 Exibir todos os repositórios:
-" | tee "$log"
-zypper repos | tee "$log"
+" | tee -a "$log"
+zypper repos | tee -a "$log"
 
 
 echo "
 Atualizar lista de repositórios
-" | tee "$log"
-zypper refresh | tee "$log"
+" | tee -a "$log"
+zypper refresh | tee -a "$log"
 
 
 echo "
 Atualizar pacotes
-" | tee "$log"
+" | tee -a "$log"
 
-# zypper update | tee "$log"
+# zypper update | tee -a "$log"
 
-zypper up | tee "$log"
+zypper up | tee -a "$log"
 
 
 
@@ -2266,7 +2280,7 @@ clear
 
 
 
-killall -9 slackpkg  2>> "$log"
+killall -9 slackpkg  1> /dev/null 2> /dev/null
 
 rm -Rf /var/lock/slackpkg.*
 
@@ -2300,25 +2314,25 @@ echo "Verificando o tamanho do arquivo /var/cache/sbopkg  e das pastas:
 /var/lib/sbopkg/queues
 /var/log/sbopkg
 
-" | tee "$log"
+" | tee -a "$log"
 
 
-du -lhs /var/cache/sbopkg      | tee "$log"
+du -lhs /var/cache/sbopkg      | tee -a "$log"
 
-du -lhs /tmp/SBo               | tee "$log"
+du -lhs /tmp/SBo               | tee -a "$log"
 
-du -lhs /var/lib/sbopkg/queues | tee "$log"
+du -lhs /var/lib/sbopkg/queues | tee -a "$log"
 
-du -lhs /var/log/sbopkg        | tee "$log"
+du -lhs /var/log/sbopkg        | tee -a "$log"
 
 
 # ----------------------------------------------------------------------------------------
 
 echo "
 Verifica se há atualizações disponíveis para o seu sistema - slackpkg (slackpkg check-updates).
-" | tee "$log"
+" | tee -a "$log"
 
-slackpkg check-updates | tee "$log"
+slackpkg check-updates | tee -a "$log"
 
 # ----------------------------------------------------------------------------------------
 
@@ -2326,7 +2340,7 @@ clear
 
 echo "
 Instalando atualizações do sistema (Slackware)...
-" | tee "$log"
+" | tee -a "$log"
 
 sleep 1
 
@@ -2336,9 +2350,9 @@ clear
 
 echo "
 Atualizar a chave GPG usada para assinar os pacotes do mirror - (slackpkg update gpg).
-" | tee "$log"
+" | tee -a "$log"
 
-slackpkg update gpg | tee "$log"
+slackpkg update gpg | tee -a "$log"
 
 # ----------------------------------------------------------------------------------------
 
@@ -2437,7 +2451,7 @@ fi
 
 echo "
 Para atualizar a lista dos pacotes - slackpkg (slackpkg update)
-" | tee "$log"
+" | tee -a "$log"
 
 
 # cat /etc/slackpkg/slackpkg.conf | grep -i batch
@@ -2466,7 +2480,7 @@ Para atualizar a lista dos pacotes - slackpkg (slackpkg update)
 
 
 
-slackpkg  -batch=on update | tee "$log"
+slackpkg  -batch=on update | tee -a "$log"
 
 # ----------------------------------------------------------------------------------------
 
@@ -2475,16 +2489,16 @@ clear
 echo "Atualiza TODO o sistema conforme o mirror selecionado - slackpkg (slackpkg upgrade-all).
 #
 # cat /etc/slackpkg/mirrors
-" | tee "$log"
+" | tee -a "$log"
 
-slackpkg upgrade-all | tee "$log"
+slackpkg upgrade-all | tee -a "$log"
 
 
 # ----------------------------------------------------------------------------------------
 
 
 
-# slackpkg update gpg && slackpkg -batch=on update && slackpkg upgrade-all   | tee "$log"
+# slackpkg update gpg && slackpkg -batch=on update && slackpkg upgrade-all   | tee -a "$log"
 
 
 
@@ -2551,7 +2565,7 @@ rm -Rf /tmp/SBo
 
 
 
-killall -9 sbopkg    2>> "$log"
+killall -9 sbopkg    1> /dev/null 2> /dev/null
 
 
 # ----------------------------------------------------------------------------------------
@@ -2667,9 +2681,9 @@ sleep 2
 
 echo "
 Atualizar o Sbopkg (sbopkg -u)
-" | tee "$log"
+" | tee -a "$log"
 
-sbopkg -u | tee "$log"
+sbopkg -u | tee -a "$log"
 
 # Essa opção demora muito
 
@@ -2849,9 +2863,9 @@ else
 
    echo "O diretório /tmp/SBo/ não existe.
 
-Criando o diretório /tmp/SBo/ agora..." | tee "$log"
+Criando o diretório /tmp/SBo/ agora..." | tee -a "$log"
 
-   mkdir -p /tmp/SBo | tee "$log"
+   mkdir -p /tmp/SBo | tee -a "$log"
 
 fi
  
@@ -2934,7 +2948,7 @@ de todas as dependências sendo uma por linha.
 Para os pacotes que não haja dependências para compilar, não será gerado um 
 arquivo de mesmo nome do pacote neste diretório.
 
-" | tee "$log"
+" | tee -a "$log"
 
 
 # Você deseja rastrear todas as dependências de uma vez, de todos os programas. (sqg -a)  (s/n) ?
@@ -2944,7 +2958,7 @@ arquivo de mesmo nome do pacote neste diretório.
 # echo "
 # Rastreando todas as dependências de uma vez, de todos os programas. (sqg -a) isso pode levar 50 minutos em media.
 
-# " | tee "$log"
+# " | tee -a "$log"
 
 
 # sqg -a  2>> "$log"
@@ -3016,13 +3030,13 @@ Arquivo de configuração do Sbopkg
 
 /etc/sbopkg/sbopkg.conf
 
-" | tee "$log"
+" | tee -a "$log"
 
 
 echo "Diretorio dos arquivos de fila:
-" | tee "$log"
+" | tee -a "$log"
 
-cat /etc/sbopkg/sbopkg.conf  | grep -i QUEUEDIR  | tee "$log"
+cat /etc/sbopkg/sbopkg.conf  | grep -i QUEUEDIR  | tee -a "$log"
 
 
 echo 'Sbopkg está configurado a não salvar LOGS? 
@@ -3036,16 +3050,16 @@ https://gist.github.com/44be19e1eb89edf68fe2ebb3ab9746c9
 
 ** mas usando a opção NO, esta pasta estará sempre limpa.
 
-' | tee "$log"
+' | tee -a "$log"
 
-cat /etc/sbopkg/sbopkg.conf  | grep -i KEEPLOG | tee "$log"
+cat /etc/sbopkg/sbopkg.conf  | grep -i KEEPLOG | tee -a "$log"
 
 
 # ----------------------------------------------------------------------------------------
 
 echo "
 
-Para checar quantos SBos você tem instalado:" | tee "$log"
+Para checar quantos SBos você tem instalado:" | tee -a "$log"
 
 
 # wc -l é um comando que serve para contar linhas.
@@ -3054,7 +3068,7 @@ Para checar quantos SBos você tem instalado:" | tee "$log"
 # que a partir da informação recebida, exibe a quantidade de linhas.
 
 
-ls /var/log/packages/*_SBo* | wc -w | tee "$log"
+ls /var/log/packages/*_SBo* | wc -w | tee -a "$log"
 
 # ou sbopkg -p
 
@@ -3077,9 +3091,9 @@ echo "
 Para sincronizar o sbopkg com o repositório Slackbuilds.org (sbopkg -r)
 
 Executando sbopkg -r ...
-" | tee "$log"
+" | tee -a "$log"
 
-sbopkg -r | tee "$log"
+sbopkg -r | tee -a "$log"
 
 
 # https://edpsblog.wordpress.com/2015/04/04/how-to-instalacao-do-sbopkg-no-slackware/
@@ -3144,9 +3158,9 @@ Atualização do SlackBuild - sbopkg (sbopkg -c)
 
 Executando sbopkg -c ...
 
-" | tee "$log"
+" | tee -a "$log"
 
-sbopkg -c | tee "$log"
+sbopkg -c | tee -a "$log"
 
 
 
@@ -3183,13 +3197,13 @@ https://slackbuilds.org/repository/$versao_slackware/office/libreoffice-helppack
 
 "
 
-sed -i '/^libreoffice-langpack:$\|^libreoffice-helppack:$/s/:/#/' $log
+sed -i '/^libreoffice-langpack:$\|^libreoffice-helppack:$/s/:/#/' "$log"
 
 
 
 echo "Convertendo arquivo Windows para GNU/Linux ou Conversão DOS para UNIX - $log"
 
-sed -i 's/\x0D$//' $log
+sed -i 's/\x0D$//' "$log"
 
 # https://br.ccm.net/faq/8419-sed-converter-quebras-de-linha-dos-crlf-unix-lf
 
@@ -3270,7 +3284,7 @@ clear
 # -n não é nula.
 
 
-if [ -z $PKG ];then
+if [ -z "$PKG" ];then
 
 # echo "
 # Variavel PKG vazia.
@@ -3279,14 +3293,14 @@ if [ -z $PKG ];then
 echo "
 Programas instalados via sbopkg já estão atualizados no seu sistema.
 
-" | tee "$log"
+" | tee -a "$log"
 
 sleep 2
 
-cat  $log 
+cat  "$log"
 
 
-rm -Rf $log
+rm -Rf "$log"
 
 # exit 4
 
@@ -3303,7 +3317,7 @@ clear
 
 echo "
 Instalando as atualizações dos programas...
-" | tee "$log"
+" | tee -a "$log"
 
 echo "sbopkg -i ${PKG}
 
@@ -3311,9 +3325,9 @@ echo "sbopkg -i ${PKG}
 Obs: Alguns programas instalados pode ter problema na atualização que vai interrompe o 
 processo de atualização dos pacotes sbopkg depedendo da ordem que ele se encontra na 
 lista de atualização.
-" | tee "$log"
+" | tee -a "$log"
 
-sbopkg -i ${PKG} | tee "$log"
+sbopkg -i ${PKG} | tee -a "$log"
 
 
 # sbopkg -ki libreoffice -ki libreoffice-helppack -ki libreoffice-langpack -ki mame 
@@ -3385,7 +3399,7 @@ clear
 
 echo "
 Faxina...
-"
+" | tee -a "$log"
 
 sleep 5
 
@@ -3397,18 +3411,18 @@ Executando sbopkg -o ...
 Remover o cache de pacotes obsoletos (Usar a opção d ou D)
  
 (K)eep or (D)elete these files?: D
-" | tee "$log"
+" | tee -a "$log"
 
 # Examina por sources obsoleto e pergunta sobre sua remoção.
 
-sbopkg -o | tee "$log"
+sbopkg -o | tee -a "$log"
 
 
 # ----------------------------------------------------------------------------------------
 
 echo "
 Limpando a pasta /tmp/SBo ...
-" | tee "$log"
+" | tee -a "$log"
 
 rm -Rf /tmp/SBo/*   2>> "$log"
 
@@ -3416,7 +3430,7 @@ mkdir -p /tmp/SBo   2>> "$log"
 
 # ----------------------------------------------------------------------------------------
 
-# cat /tmp/sbopkg.txt | tee "$log"
+# cat /tmp/sbopkg.txt | tee -a "$log"
 
 # cat /tmp/sbopkg.txt
 
@@ -3489,16 +3503,6 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
-
-echo "
-Programas na pasta /opt
-" | tee "$log"
-
-ls -1 /opt/ | tee "$log"
-
-
-# ----------------------------------------------------------------------------------------
-
 clear
 
 echo "Verifique o arquivo $log."
@@ -3507,7 +3511,7 @@ sleep 5
 
 cat "$log"
 
-# cat /tmp/sbopkg.txt | tee "$log"
+# cat /tmp/sbopkg.txt | tee -a "$log"
 
 # rm /tmp/sbopkg.txt
 
@@ -3699,12 +3703,25 @@ clamav_update
 # fontes_update
 
 
+
+
+# ----------------------------------------------------------------------------------------
+
+# Programas na pasta /opt
+
+echo "
+Programas na pasta /opt (realizar atualização manual):
+" | tee -a "$log"
+
+ls -1 /opt/ | tee -a "$log"
+
+
 # ----------------------------------------------------------------------------------------
 
 # Flatpak
 
 
-which flatpak
+which flatpak 1>/dev/null
 
 
 if [ $? == 0 ]; then
@@ -3715,24 +3732,24 @@ if [ $? == 0 ]; then
 
 
 echo "
-Todos os flatpaks que você tem no seu sistema:
-"  | tee "$log"
+Todos os flatpaks que você tem no seu sistema (realizar atualização manual - flatpak update):
+"  | tee -a "$log"
   
-flatpak list  | tee "$log"
+flatpak list  | tee -a "$log"
 
 
 
 # echo "
 # Atualizando pacotes instalados via flatpak (flatpak update)...
 
-#  " >> | tee "$log"
+#  " >> | tee -a "$log"
 
 
 # Como atualizar os pacotes flatpak?
 
 # Para atualizar todos os seus pacotes flatpak, basta rodar o comando:
 
-# flatpak update | tee "$log"
+# flatpak update | tee -a "$log"
 
 
 # https://plus.diolinux.com.br/t/comandos-basicos-para-gerenciar-pacotes-flatpak-no-linux/35809
@@ -3742,13 +3759,20 @@ fi
 
 
 
+echo "
+
+" >> "$log"
+
+
 # ----------------------------------------------------------------------------------------
  
-echo -e "\nMas informações no arquivo de log: $log\n"
-
 echo "
 ---------------------------------------------------------------------------
 
+Mas informações no arquivo de log: $log
+"
+
+echo "
 Conteúdo do arquivo de log:
 "
 cat /tmp/update_*.log  2>/dev/null
