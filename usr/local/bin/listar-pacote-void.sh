@@ -37,6 +37,7 @@ which sed         2> /dev/null || { echo "Programa sed não esta instalado."   ;
 
 # ----------------------------------------------------------------------------------------
 
+# Remove os arquivos de log
 
 rm -Rf \
 "$log" \
@@ -243,6 +244,18 @@ sleep 2
 
 mv /tmp/VoidLinux.txt "$log"
 
+
+# ----------------------------------------------------------------------------------------
+
+# Como inserir linha no início do arquivo "$log" no Linux
+
+# Podemos usar p comando sed para anexar uma linha "Esta é minha primeira linha" ao início do arquivo "$log":
+
+sed -i '1 s/^/\nProgramas instalados no Void Linux (xbps-install):\n\n/' "$log"
+
+
+# https://pt.linux-console.net/?p=12008
+# https://giovannireisnunes.wordpress.com/2018/03/02/insercao-no-inicio-do-arquivo-com-sed/
 
 # ----------------------------------------------------------------------------------------
 
