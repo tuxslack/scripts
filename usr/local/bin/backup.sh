@@ -56,10 +56,12 @@
 # Dropbox (desativado por padrão)
 # NetBeans
 # Hexchat
-# libreoffice
+# LibreOffice
 # Skype
 # TeamViewer
 # Anydesk
+# Jogos (Steam)
+
 
 
 
@@ -75,6 +77,7 @@
 # https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/Gravar-backup-em-segundo-hd
 # https://www.vivaolinux.com.br/artigos/impressora.php?codigo=8660
 # https://www.vivaolinux.com.br/script/Script-de-backup-Graylog
+# https://diolinux.com.br/softwares/instalar-o-programa-da-receita-federal-no-linux.html
 
 
 # ----------------------------------------------------------------------------------------
@@ -2523,6 +2526,27 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+# Backup do WPS Office
+
+
+
+# ~/.var/app/com.wps.Office/.kingsoft/
+# ~/.kingsoft
+# ~/.config/Kingsoft/
+
+
+# C:\Users\admin\AppData\Roaming\kingsoft\
+
+
+
+# https://github.com/flathub/com.wps.Office/issues/34
+# https://wiki.archlinux.org/title/WPS_Office
+# https://support.kingsoft.jp/wps/backup.html
+# https://youtu.be/7PQOaezjkcY
+
+
+# ----------------------------------------------------------------------------------------
+
 # Backup do Google Chrome
 
 
@@ -2747,7 +2771,7 @@ fi
 # ----------------------------------------------------------------------------------------
 
 
-# Backup do libreoffice
+# Backup do LibreOffice
 
 
 which libreoffice
@@ -2768,7 +2792,7 @@ clear
         echo -e "A pasta $pasta_usuario/.config/libreoffice existe..."
         
 echo "
-Realizando o backup do libreoffice...
+Realizando o backup do LibreOffice...
 "
 
       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_libreoffice_via_cron.tar.gz  .config/libreoffice/  2>> "$log"
@@ -2919,6 +2943,54 @@ fi
 
 
 # ----------------------------------------------------------------------------------------
+
+# Backup dos jogos (Steam)
+
+
+which steam
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.steam existe.
+
+    if [ -d "$pasta_usuario/.steam" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.steam existe..."
+        
+echo "
+Realizando o backup do Steam...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Steam_via_cron.tar.gz  .steam   2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.steam não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# https://diolinux.com.br/tutoriais/como-fazer-backup-steam-linux.html
+# https://youtu.be/Hziqu5s1M-g
+# https://www.vivaolinux.com.br/topico/Steam-e-Desura/Localizacao-da-pasta-onde-sao-instalados-jogos
+
+# ----------------------------------------------------------------------------------------
+
 
 
 chown -R "$usuario":"$grupo" "$backup" 
