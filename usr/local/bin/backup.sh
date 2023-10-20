@@ -53,9 +53,13 @@
 # xmenu
 # Google Chrome
 # Pidgin
-
-
-
+# Dropbox (desativado por padrão)
+# NetBeans
+# Hexchat
+# libreoffice
+# Skype
+# TeamViewer
+# Anydesk
 
 
 
@@ -2608,6 +2612,310 @@ fi
 
 
 # https://www.vivaolinux.com.br/dica/Backup-do-historico-de-mensagens-do-Pidgin-2.6.2-no-Ubuntu-9.10
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# Backup do Dropbox
+
+
+which dropbox
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/Dropbox existe.
+
+    if [ -d "$pasta_usuario/Dropbox" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/Dropbox existe..."
+        
+echo "
+Realizando o backup do Dropbox...
+"
+
+      # cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Dropbox_via_cron.tar.gz  Dropbox  .dropbox  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/Dropbox não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do NetBeans
+
+
+which netbeans
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/NetBeansProjects existe.
+
+    if [ -d "$pasta_usuario/NetBeansProjects" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/NetBeansProjects existe..."
+        
+echo "
+Realizando o backup do NetBeans...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_NetBeans_via_cron.tar.gz  NetBeansProjects  .netbeans  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/NetBeansProjects não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do hexchat
+
+
+which hexchat
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.config/hexchat existe.
+
+    if [ -d "$pasta_usuario/.config/hexchat" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.config/hexchat existe..."
+        
+echo "
+Realizando o backup do hexchat...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_hexchat_via_cron.tar.gz  .config/hexchat/  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/hexchat não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# Backup do libreoffice
+
+
+which libreoffice
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.config/libreoffice existe.
+
+    if [ -d "$pasta_usuario/.config/libreoffice" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.config/libreoffice existe..."
+        
+echo "
+Realizando o backup do libreoffice...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_libreoffice_via_cron.tar.gz  .config/libreoffice/  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/libreoffice não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# Backup do Skype
+
+
+which skypeforlinux
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.config/skypeforlinux existe.
+
+    if [ -d "$pasta_usuario/.config/skypeforlinux" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.config/skypeforlinux existe..."
+        
+echo "
+Realizando o backup do Skype...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_skype_via_cron.tar.gz  .config/skypeforlinux/  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/skypeforlinux não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do TeamViewer
+
+
+which teamviewer
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.local/share/teamviewer.*/ existe.
+
+    if [ -d "$pasta_usuario/.local/share/teamviewer.*/" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.local/share/teamviewer.*/ existe..."
+        
+echo "
+Realizando o backup do TeamViewer...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_TeamViewer_via_cron.tar.gz  .local/share/teamviewer.*/  2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.local/share/teamviewer.*/ não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do Anydesk
+
+
+which anydesk
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+
+# Para verificar se o diretório $pasta_usuario/.anydesk existe.
+
+    if [ -d "$pasta_usuario/.anydesk" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.anydesk existe..."
+        
+echo "
+Realizando o backup do Anydesk...
+"
+
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Anydesk_via_cron.tar.gz  .anydesk   2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.anydesk não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
 
 
 # ----------------------------------------------------------------------------------------
