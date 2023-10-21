@@ -530,7 +530,7 @@ Obs: Interromper(-se), momentânea os torrents e fecha o programa qbittorrent.
 
 # Saindo...
 
-# killall -9 qbittorrent
+# killall -9 qbittorrent 1> /dev/null 2> /dev/null
 
 # exit 1
 
@@ -1675,7 +1675,7 @@ clear
 Realizando o backup do Thunderbird...
 "
 
-cd "$pasta_usuario" &&  killall  -9 thunderbird ; /usr/bin/tar -czf "$backup"/backup-Thunderbird_via_cron.tar.gz   .thunderbird/  2>> "$log"  &&  sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/128x128/apps/thunderbird.png  'Atenção!' '\n\nBackup do Thunderbird finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n' 
+cd "$pasta_usuario" &&  killall  -9 thunderbird 1> /dev/null 2> /dev/null ; /usr/bin/tar -czf "$backup"/backup-Thunderbird_via_cron.tar.gz   .thunderbird/  2>> "$log"  &&  sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/128x128/apps/thunderbird.png  'Atenção!' '\n\nBackup do Thunderbird finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n' 
 
         
     else
@@ -1898,8 +1898,8 @@ fi
 
 cd "$pasta_usuario"
 
-killall  -9 /usr/bin/firefox
-killall  -9 /opt/google/chrome/chrome
+killall  -9 /usr/bin/firefox           1> /dev/null 2> /dev/null
+killall  -9 /opt/google/chrome/chrome  1> /dev/null 2> /dev/null
 
 
 
@@ -2081,7 +2081,7 @@ echo "
 Realizando o backup do Firefox...
 "
 
-cd "$pasta_usuario" &&  killall  -9 firefox ; /usr/bin/tar -czf "$backup"/backup-Firefox_via_cron.tar.gz   .mozilla/  2>> "$log" &&  sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/128x128/apps/firefox.png  'Atenção!' '\n\nBackup do Firefox finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n' 
+cd "$pasta_usuario" &&  killall  -9 firefox 1> /dev/null 2> /dev/null ; /usr/bin/tar -czf "$backup"/backup-Firefox_via_cron.tar.gz   .mozilla/  2>> "$log" &&  sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/128x128/apps/firefox.png  'Atenção!' '\n\nBackup do Firefox finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n' 
 
         
         
