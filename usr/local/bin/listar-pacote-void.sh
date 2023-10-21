@@ -235,6 +235,10 @@ find / -iname "*.appimage" -exec ls -lh {} \;  | tee -a /tmp/VoidLinux.txt
 
 # https://askubuntu.com/questions/1438242/finding-a-program-running-as-appimage
 
+
+
+# https://diolinux.com.br/tecnologia/alanpope-unsnap-abandonar-snaps.html
+
 # ----------------------------------------------------------------------------------------
 
 # Não ficou 100% essa parte abaixo:

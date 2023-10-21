@@ -3774,6 +3774,10 @@ fi
 # https://askubuntu.com/questions/1438242/finding-a-program-running-as-appimage
 
 
+
+# https://diolinux.com.br/tecnologia/alanpope-unsnap-abandonar-snaps.html
+
+
 echo "
 
 " >> "$log"
