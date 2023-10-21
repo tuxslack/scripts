@@ -37,11 +37,16 @@
 # https://www.vivaolinux.com.br/dica/Bash-Nao-use-if
 # https://www.vivaolinux.com.br/topico/Shell-Script/Ordem-Crescente-e-Decrescente
 # https://www.vivaolinux.com.br/topico/Shell-Script/Como-fazer-um-FOR-com-separador-em-um-Script
+# https://sempreupdate.com.br/como-criar-atalhos-no-ubuntu-linux/#:~:text=Para%20come%C3%A7ar%20a%20criar%20o,teclado%20Ctrl%20%2B%20ALT%20%2B%20T.
+# https://artefatox.com/atalhos-no-linux/
+# https://www.vivaolinux.com.br/dica/Criar-atalhos-(lancadores)-para-programas-no-Gnome
+# https://pplware.sapo.pt/linux/dica-como-criar-atalhos-no-ambiente-de-trabalho-do-ubuntu/
+# https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
+#
 
 
 
-
-
+# Falta verificar => Invalid number of options.
 
 
 
@@ -88,10 +93,6 @@ tipo_de_categoria="Você precisa inserir uma categoria para o atalho"
 caminho_atalho="Você tem que dizer onde salvar o atalho"
 
 
-# Type=Application
-
-variavel1="Tipo"
-variavel1_1="Application"
 
 
 # Versão - Version
@@ -165,7 +166,22 @@ variavel14="Onde salva o arquivo .desktop?"
 
 ajuda(){
 
-echo "Ajuda do script $(basename $0)"
+echo "Ajuda do script $(basename $0)
+
+Criar atalhos no Linux é simples e útil. Especialmente quando instalamos programa 
+manualmente e precisamos que eles apareçam no menu. No entanto, em alguns casos o 
+próprio script do programa cria o atalho automaticamente. Mas, isso nem sempre acontece.
+
+Em alguns casos é necessário criar o arquivo para onde apontaremos nosso atalho.
+
+Tipo do atalho criado, os três tipos disponíveis são: Application, Link, FSDevice e 
+Directory, que definem respectivamente atalhos para aplicativos, ligações web, 
+sistemas de arquivos e diretórios.
+
+Nota: Para quem não souber da localização de um programa, pode executar no terminal o 
+comando which ou whereis, seguido do nome do programa.
+
+"
 
 }
 
@@ -213,11 +229,6 @@ tipo_de_categoria="You need to enter a category for the shortcut"
 caminho_atalho="You have to tell where to save the shortcut to"
 
 
-
-# Type
-
-variavel1="Type"
-variavel1_1="Application"
 
 
 # Versão - Version
@@ -300,7 +311,22 @@ variavel14="Where do you save the .desktop file?"
 
 ajuda(){
 
-echo "Script help $(basename $0)"
+echo "Script help $(basename $0)
+
+Creating shortcuts in Linux is simple and useful. Especially when we install a program
+manually and we need them to appear in the menu. However, in some cases the
+The program's own script creates the shortcut automatically. But, this doesn't always happen.
+ 
+In some cases, it is necessary to create the file where we will point our shortcut.
+
+Type of shortcut created, the three available types are: Application, Link, FSDevice and
+Directory, which respectively define shortcuts for applications, web links,
+file systems and directories.
+
+Note: For those who do not know the location of a program, they can run the which or 
+whereis command, followed by the name of the program.
+
+"
   
 }
 
@@ -342,6 +368,18 @@ which notify-send    2> /dev/null || { yad --center --image=dialog-error --timeo
 while :
 do
 
+# ----------------------------------------------------------------------------------------
+
+# Tipo de lançador, podendo ser (Application|Link|Directory)
+
+# Type=Application
+#
+# Tipo do atalho criado, os três tipos disponíveis são: Application, Link, FSDevice e 
+# Directory, que definem respectivamente atalhos para aplicativos, ligações web, 
+# sistemas de arquivos e diretórios.
+
+variavel1="Tipo"
+variavel1_1="Application!Link!FSDevice!Directory"
 
 # ----------------------------------------------------------------------------------------
 
@@ -354,7 +392,7 @@ do
 
 variavel11="Categoria"
 
-variavel11_1="Utility!Game!HardwareSettings!System!Development!Network!WebBrowser!Office!AudioVideo!Graphics!Settings"
+variavel11_1="Utility!Game!HardwareSettings!System!Development!Network!WebBrowser!Office!AudioVideo!Graphics!Settings!Education"
 
 # Use o comando sort para colocar em ordem
 
@@ -363,6 +401,8 @@ variavel11_1="Utility!Game!HardwareSettings!System!Development!Network!WebBrowse
 variavel11_1=$(echo "$variavel11_1" | tr '!' '\n' |sort )
 variavel11_1=$(echo "$variavel11_1" | tr '\n' '!' |sort )
 
+
+# https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
 
 # ----------------------------------------------------------------------------------------
 
@@ -653,11 +693,17 @@ echo '[Desktop Entry]
 # Confira algumas das opções e uma breve explicação sobre os parâmetros do arquivo .desktop:
 
 
-# O tipo como listado acima
+# Tipo do atalho criado, os três tipos disponíveis são: Application, Link, FSDevice e 
+# Directory, que definem respectivamente atalhos para aplicativos, ligações web, 
+# sistemas de arquivos e diretórios.
+
 Type='$variavel1_1'
 
 # A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
 Version='$variavel2_1'
+
+# Codificação usada para escrever esse arquivo
+# Encoding=UTF-8
 
 # Nome da aplicação.
 Name='$variavel3_1'
@@ -981,7 +1027,7 @@ Arquivo criado em:
         --image=dialog-information \
         --title "$titulo" \
         --text "$(ajuda)"  \
-        --width 600 --height 300 \
+        --width 900 --height 600 \
         2>/dev/null
         
          
@@ -1055,11 +1101,13 @@ variavel6_1=" "
 
 
 
+# ----------------------------------------------------------------------------------------
+
 # Fim do loop while
 
 done
 
-
+# ----------------------------------------------------------------------------------------
 
 
 exit 0

@@ -6,9 +6,12 @@
 # Licença:  GPL
 #
 
+# Verificar se os programas estão instalados
+
 clear
 
 which tint2       2> /dev/null || { echo "Falta o Tint2"    ; exit 1; }
+
 
 
 # Não estava recarregando o painel Tint2 no menu do OpenBox

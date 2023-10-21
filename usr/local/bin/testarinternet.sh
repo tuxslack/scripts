@@ -42,6 +42,7 @@
 
 clear
 
+# Verificar se os programas estão instalados
 
 which notify-send     ||   exit 1
 which ping            ||   exit 2

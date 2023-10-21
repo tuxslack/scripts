@@ -38,6 +38,9 @@
 arquivo="$HOME/.conky/.conkyrc-edps-openbox"
 
 
+
+# Verificar se os programas estão instalados
+
 clear
 
 which conky       2> /dev/null || { echo "Falta o Conky"    ; exit 1; }

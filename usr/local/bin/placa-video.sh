@@ -22,6 +22,8 @@
 # https://plus.diolinux.com.br/t/resolucao-de-tela-para-monitor-ultrawide-lg-34wp550/55825/5
 
 
+# Verificar se os programas estão instalados
+
 which yad            2> /dev/null || { echo "Falta o Yad"          ; exit 1; }
 which inxi           2> /dev/null || { echo "Falta o inxi"         ; exit 2; }
 which xrandr         2> /dev/null || { echo "Falta o xrandr"       ; exit 3; }

@@ -8,6 +8,8 @@
 clear
 
 
+# Verificar se os programas estão instalados
+
 which nm-applet       2> /dev/null || { echo "Falta o nm-applet"    ; exit 1; }
 
 

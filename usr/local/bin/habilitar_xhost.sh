@@ -25,7 +25,10 @@
 # http://www.geocities.ws/cesarakg/seguranca-x-window-2.html
 
 
+# Verificar se o programa esta instalado
+
 which xhost     ||   exit 1
+
 
 /usr/bin/xhost +
 

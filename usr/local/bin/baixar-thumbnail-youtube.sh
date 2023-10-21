@@ -36,6 +36,7 @@
 # https://ubuntuforum-br.org/index.php?topic=105582.0
 # http://ubuntued.info/multimedia-no-ubuntu-13-04-raring-ringtail-mp3-flash-java
 # https://docs.xubuntu.org/1710/user/pt_BR/xubuntu-documentation-A4.pdf
+# https://www.youtube.com/watch?v=uJk21CQtemk
 
 
 
@@ -286,8 +287,16 @@ fi
 cd "$local"
 
 
+
+
 # ----------------------------------------------------------------------------------------
 
+# Inicio do loop while
+
+while :
+do
+
+# ----------------------------------------------------------------------------------------
 
 
 # link_do_video_do_youtube="$1"
@@ -323,7 +332,12 @@ yad \
 clear
 
 
-exit 
+        # exit
+        
+        
+        # Abandone o loop while.
+        
+        break
 
 fi
 
@@ -367,6 +381,13 @@ Arquivo de log: $log
 Pronto! Agora você tem a thumbnail do vídeo do YouTube em um formato .png ou .webp, que você pode usar como quiser."
 
 
+# ----------------------------------------------------------------------------------------
+
+# Fim do loop while
+
+done
+
+# ----------------------------------------------------------------------------------------
  
 exit 0
 

@@ -22,7 +22,11 @@
 
 # https://www.dz-techs.com/pt/remove-exif-metadata-from-photos
 # https://semanickz.wordpress.com/2017/10/30/linux-obterapagar-informacao-metadata-de-imagens-jpg-e-png-pelo-terminal/
+# https://www.youtube.com/watch?v=fa1QBpTDV1s
 
+
+
+# Verificar se os programas estão instalados
 
 clear
 
@@ -32,6 +36,7 @@ clear
 
 which exiftool       2> /dev/null || { echo "Falta o exiftool"    ; exit 3; }
 which notify-send    2> /dev/null || { echo "Falta o exiftool"    ; exit 4; }
+
 
 
 arquivo="$1"

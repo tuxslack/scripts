@@ -38,6 +38,10 @@
 # https://belenos.me/blog/configurar-yt-dlp-linux/
 
 
+# Para reproduzir videos do YouTube usando o MPV
+
+# https://www.youtube.com/watch?v=jQasLSfRLos
+
 
 # ----------------------------------------------------------------------------------------
 
@@ -53,6 +57,8 @@ which yt-dlp    2> /dev/null || { yad --center --image=dialog-error --timeout=10
 which ffmpeg    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa ffmpeg não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
  
 which ffplay    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa ffplay não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
+
+# which mpv    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mpv não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
 
 
 # ----------------------------------------------------------------------------------------

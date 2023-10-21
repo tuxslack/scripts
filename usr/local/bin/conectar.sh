@@ -44,6 +44,7 @@ clear
 
 # -------------------------------------------------------------------------------------------------
 
+# Verificar se os programas estão instalados
 
 which wvdial 1> /dev/null || exit 1
 which ip     1> /dev/null || exit 2
@@ -414,6 +415,9 @@ ppp(){
 
 clear
 
+
+# Verificar se os programas estão instalados
+
 # which xfce4-terminal || exit 3
 which notify-send    || exit 4
 
@@ -582,6 +586,7 @@ networkmanager(){
 
 clear
 
+# Verificar se os programas estão instalados
 
 which nmcli                1> /dev/null || exit
 which nm-connection-editor 1> /dev/null || exit

@@ -42,6 +42,7 @@
 
 
 
+# Verificar se os programas estão instalados
 
 which xdg-mime || exit 1
 which ffmpeg   || exit 2

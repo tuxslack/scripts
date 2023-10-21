@@ -61,6 +61,7 @@
 # TeamViewer
 # Anydesk
 # Jogos (Steam)
+# aMSN
 
 
 
@@ -157,7 +158,10 @@ clear
 
 # ----------------------------------------------------------------------------------------
 
-echo -e "\e[40;32;1m
+# Cor das letras (Verde Claro)
+
+
+echo -e " \033[1;32m 
 
 Script de Backup
 ----------------
@@ -169,6 +173,8 @@ Licença:  GPL
 
 \e[0m"
 
+
+# https://www.vivaolinux.com.br/dica/Shell-script-com-texto-colorido
 
 # ----------------------------------------------------------------------------------------
 
@@ -2571,7 +2577,7 @@ echo "
 Realizando o backup do Google Chrome...
 "
 
-       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Google-Chrome_via_cron.tar.gz  .config/google-chrome/   .cache/google-chrome/  2>> "$log"
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_Google-Chrome_via_cron.tar.gz  .config/google-chrome/   .cache/google-chrome/  2>> "$log" &&  sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/128x128/apps/google-chrome.png  'Atenção!' '\n\nBackup do Google Chrome finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n' 
         
         
     else
@@ -2988,6 +2994,45 @@ fi
 # https://diolinux.com.br/tutoriais/como-fazer-backup-steam-linux.html
 # https://youtu.be/Hziqu5s1M-g
 # https://www.vivaolinux.com.br/topico/Steam-e-Desura/Localizacao-da-pasta-onde-sao-instalados-jogos
+
+# ----------------------------------------------------------------------------------------
+
+
+which amsn  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do aMSN...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.amsn existe.
+
+    if [ -d "$pasta_usuario/.amsn" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.amsn existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-aMSN_via_cron.tar.gz  $pasta_usuario/.amsn   2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.amsn não existe..."
+        
+
+    fi
+    
+
+
+
+
+fi
+
+# https://www.vivaolinux.com.br/dica/Instalando-o-aMSN-0.971-no-Famelix-2.0
+
 
 # ----------------------------------------------------------------------------------------
 
