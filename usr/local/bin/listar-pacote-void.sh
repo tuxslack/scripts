@@ -180,8 +180,11 @@ mv /tmp/Void.txt  /tmp/VoidLinux.txt
 # https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/comando-para-deletar-coluna-especifica-de-um-arquivo
 
 # ----------------------------------------------------------------------------------------
- 
-# clear
+
+sleep 2
+
+clear
+
 
 echo "
 
@@ -196,9 +199,9 @@ echo "
 
 Conteudo da pasta /opt:
 
-  " >> /tmp/VoidLinux.txt
+  " | tee -a /tmp/VoidLinux.txt
   
-ls -lh /opt/ >> /tmp/VoidLinux.txt
+ls -lh /opt/ | tee -a /tmp/VoidLinux.txt
 
 # ----------------------------------------------------------------------------------------
 
@@ -210,10 +213,10 @@ if [ $? == 0 ]; then
 echo "
 Pacotes instalados via flatpak:
 
-  " >> /tmp/VoidLinux.txt
+  " | tee -a /tmp/VoidLinux.txt
   
   
-flatpak list   >> /tmp/VoidLinux.txt
+flatpak list   | tee -a /tmp/VoidLinux.txt
 
 
 fi
@@ -279,6 +282,14 @@ sed -i '1 s/^/\nProgramas instalados no Void Linux (xbps-install):\n\n/' "$log"
 
 # ----------------------------------------------------------------------------------------
 
+
+echo "
+
+Arquivo salvo em $log
+
+"
+
+# ----------------------------------------------------------------------------------------
 
 
 exit 0
