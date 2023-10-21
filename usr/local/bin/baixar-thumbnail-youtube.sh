@@ -24,6 +24,14 @@
 # Requer: yt-dlp, ImageMagick, yad, notify-send e webp-pixbuf-loader
 #
 #
+#
+# Usa no menu de service do Thunar.
+#
+# ~/.config/Thunar/uca.xml
+#
+#
+#
+#
 # https://www.reddit.com/r/kde/comments/gzztrl/kde_apps_wont_open_or_preview_webp_images_on_void/
 # https://www.edivaldobrito.com.br/como-visualizar-imagens-webp-no-nautilus-e-outros-aplicativos-gtk/
 # https://askubuntu.com/questions/440345/why-dpkg-l-grep-package-is-showing-a-package-after-being-purged
@@ -221,15 +229,17 @@ fi
 
 # Selecione para abertura como padrão a pasta $HOME/ do usuário.
 
-local=$(yad \
-            --center \
-            --file \
-            --directory --filename=$HOME/ \
-            --window-icon "/usr/share/icons/extras/youtube.png" \
-            --title="Selecione um diretório para salvar o arquivo" \
-            --width="1500" \
-            --height="800" 2> /dev/null)
+# local=$(yad \
+#            --center \
+#            --file \
+#            --directory --filename=$HOME/ \
+#            --window-icon "/usr/share/icons/extras/youtube.png" \
+#            --title="Selecione um diretório para salvar o arquivo" \
+#            --width="1500" \
+#            --height="800" 2> /dev/null)
 
+
+local="$1"
 
 # ------------------------------------------------------------------------------------
 
