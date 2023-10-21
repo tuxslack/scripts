@@ -221,6 +221,22 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
+echo "
+Buscando arquivos AppImage...
+" | tee -a /tmp/VoidLinux.txt
+
+
+# .appimage ou .AppImage
+
+
+find / -iname "*.appimage" -exec ls -lh {} \;  | tee -a /tmp/VoidLinux.txt
+
+
+# https://askubuntu.com/questions/1438242/finding-a-program-running-as-appimage
+
+# ----------------------------------------------------------------------------------------
+
 # Não ficou 100% essa parte abaixo:
 #
 # Ordenar o arquivo /tmp/VoidLinux.txt por data (coluna 1 do arquivo) em ordem reversa

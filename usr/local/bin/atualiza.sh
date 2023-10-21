@@ -3758,6 +3758,21 @@ flatpak list  | tee -a "$log"
 fi
 
 
+# ----------------------------------------------------------------------------------------
+
+# echo "
+# Buscando arquivos AppImage...
+# " | tee -a "$log"
+
+
+# .appimage ou .AppImage
+
+
+# find / -iname "*.appimage" -exec ls -lh {} \;  | tee -a "$log"
+
+
+# https://askubuntu.com/questions/1438242/finding-a-program-running-as-appimage
+
 
 echo "
 
