@@ -255,7 +255,7 @@ echo "#                                                            #"
 echo "#============================================================#"
 echo 
 
-sleep 10
+sleep 30
 
 # ----------------------------------------------------------------------------------------
 
@@ -327,7 +327,7 @@ Inicío do backup: $DATAINICIO
 
 
 
-which apt
+which apt  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -505,7 +505,7 @@ fi
 clear
 
 
-which qbittorrent
+which qbittorrent  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -690,7 +690,7 @@ fi
 # 40 12 * * * su fernando -c  "cd ~/ && /usr/bin/mkdir -p ~/backup && "
 
 
-which picom
+which picom  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -776,7 +776,7 @@ fi
 
 
 
-which pppd
+which pppd  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -817,7 +817,7 @@ fi
 # 20 13 * * * su fernando -c  "cd ~/ && /usr/bin/mkdir -p ~/backup && "
 
 
-which gimp
+which gimp  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -871,7 +871,7 @@ fi
 
 
 
-which audacity
+which audacity  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -947,7 +947,7 @@ fi
 
 
 
-which openbox
+which openbox  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1055,7 +1055,7 @@ which i3blocks  2>> "$log"
 
 
 
-which i3
+which i3  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1243,7 +1243,7 @@ cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-gerenciador_de_configu
 
 
 
-which nm-connection-editor
+which nm-connection-editor  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1350,7 +1350,7 @@ fi
 
 
 
-which wvdial
+which wvdial  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1406,7 +1406,7 @@ fi
 
 
 
-which freshclam
+which freshclam  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1459,7 +1459,7 @@ fi
 
 
 
-which jgmenu
+which jgmenu  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1608,7 +1608,7 @@ fi
 
 
 
-which thunar
+which thunar 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -1656,7 +1656,7 @@ fi
 # 06 16 1 * * su fernando -c  "cd ~/ && /usr/bin/mkdir -p ~/backup && "
 
 
-which thunderbird
+which thunderbird  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2061,7 +2061,7 @@ fi
 
 # 49 20 4 * * su fernando -c  "cd ~/ && /usr/bin/mkdir -p ~/backup &&"
 
-which firefox
+which firefox  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2157,7 +2157,7 @@ fi
 
 
 
-which conky
+which conky 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2253,7 +2253,7 @@ which plank        2>> "$log"
 
 
 
-which fluxbox
+which fluxbox 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2330,7 +2330,7 @@ fi
 # 52 23 5 * * su fernando -c  "cd ~/ && /usr/bin/mkdir -p ~/backup && "
 
 
-which thunar
+which thunar 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2375,7 +2375,7 @@ fi
 
 # Fazer o backup das máquinas virtuais (VirtualBox)
 
-which VirtualBox
+which VirtualBox 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2386,7 +2386,7 @@ clear
 
 # Para verificar se o diretório $pasta_usuario/VirtualBox\ VMs/ existe.
 
-    if [ -d "$pasta_usuario/VirtualBox\ VMs/" ]; then
+    if [ -d "$pasta_usuario"/VirtualBox\ VMs/ ]; then
     
     
         echo -e "A pasta $pasta_usuario/VirtualBox\ VMs/ existe..."
@@ -2425,7 +2425,7 @@ fi
 
 
 
-which update-grub
+which update-grub 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2473,7 +2473,7 @@ fi
 
 
 
-which xmenu
+which xmenu 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2550,7 +2550,7 @@ fi
 # Backup do Google Chrome
 
 
-which google-chrome-stable
+which google-chrome-stable  1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2597,7 +2597,7 @@ fi
 # Backup do Pidgin
 
 
-which pidgin
+which pidgin 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2644,7 +2644,7 @@ fi
 # Backup do Dropbox
 
 
-which dropbox
+which dropbox 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2687,7 +2687,7 @@ fi
 # Backup do NetBeans
 
 
-which netbeans
+which netbeans 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2727,10 +2727,10 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
-# Backup do hexchat
+# Backup do Hexchat
 
 
-which hexchat
+which hexchat 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2748,7 +2748,7 @@ clear
         echo -e "A pasta $pasta_usuario/.config/hexchat existe..."
         
 echo "
-Realizando o backup do hexchat...
+Realizando o backup do Hexchat...
 "
 
       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_hexchat_via_cron.tar.gz  .config/hexchat/  2>> "$log"
@@ -2774,7 +2774,7 @@ fi
 # Backup do LibreOffice
 
 
-which libreoffice
+which libreoffice 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2818,7 +2818,7 @@ fi
 # Backup do Skype
 
 
-which skypeforlinux
+which skypeforlinux 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2861,7 +2861,7 @@ fi
 # Backup do TeamViewer
 
 
-which teamviewer
+which teamviewer 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2873,21 +2873,21 @@ clear
 
 # Para verificar se o diretório $pasta_usuario/.local/share/teamviewer.*/ existe.
 
-    if [ -d "$pasta_usuario/.local/share/teamviewer.*/" ]; then
+    if [ -d "$pasta_usuario"/.local/share/teamviewer*/ ]; then
     
     
-        echo -e "A pasta $pasta_usuario/.local/share/teamviewer.*/ existe..."
+        echo -e "A pasta $pasta_usuario/.local/share/teamviewer*/ existe..."
         
 echo "
 Realizando o backup do TeamViewer...
 "
 
-      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_TeamViewer_via_cron.tar.gz  .local/share/teamviewer.*/  2>> "$log"
+      cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_TeamViewer_via_cron.tar.gz  .local/share/teamviewer*/  2>> "$log"
         
         
     else
     
-        echo -e "A pasta $pasta_usuario/.local/share/teamviewer.*/ não existe..." | tee -a "$log"
+        echo -e "A pasta $pasta_usuario/.local/share/teamviewer*/ não existe..." | tee -a "$log"
         
 
     fi
@@ -2904,7 +2904,7 @@ fi
 # Backup do Anydesk
 
 
-which anydesk
+which anydesk 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -2947,7 +2947,7 @@ fi
 # Backup dos jogos (Steam)
 
 
-which steam
+which steam 1> /dev/null 2> /dev/null
 
 
 if [ $? == 0 ]; then
@@ -3023,18 +3023,17 @@ Arquivos gerados:
 # ----------------------------------------------------------------------------------------
 
 
-sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/48x48/status/uninterruptible-power-supply.png  'Atenção!' '\n\nBackup finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\nVerifique o arquivo de log: '$log'\n\n'
-
-
-
 mv "$log" "$backup"
+
+rm -Rf "$log"
+
+
+sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/48x48/status/uninterruptible-power-supply.png  'Atenção!' '\n\nBackup finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\nVerifique o arquivo de log: '$backup'/backup.log\n\n'
 
 
 
 # su "$usuario" -c 'xdg-open "$backup/$log"'
 
-
-rm -Rf "$log"
 
 
 # ----------------------------------------------------------------------------------------
