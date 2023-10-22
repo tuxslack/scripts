@@ -982,7 +982,7 @@ Realizando o backup do OpenBox...
 
 # Lista somente diretórios => ls -d
 
-ls -d ~/.themes/*/openbox-3 | sed 's#.*es/##;s#/o.*##' > /tmp/openbox.log
+ls -d "$pasta_usuario"/.themes/*/openbox-3 | sed 's#.*es/##;s#/o.*##' > /tmp/openbox.log
 
 
 # O uso da conta-barra foi necessário para indicar que o caracter "/" do caminho não é o separador de substituição do sed
