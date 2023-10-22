@@ -61,7 +61,12 @@
 # TeamViewer
 # Anydesk
 # Jogos (Steam)
+# Stella - Emulador de Atari para PC - roms (jogos)
+# Mame (jogos)
+# PSX - Emulador de PlayStation 1 - (jogos)
 # aMSN
+# GoldenDict
+
 
 
 
@@ -3016,7 +3021,7 @@ Realizando o backup do aMSN...
     
         echo -e "A pasta $pasta_usuario/.amsn existe..."
 
-cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-aMSN_via_cron.tar.gz  $pasta_usuario/.amsn   2>> "$log"
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-aMSN_via_cron.tar.gz  .amsn   2>> "$log"
         
     else
     
@@ -3036,6 +3041,190 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+# GoldenDict
+
+
+which goldendict  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do GoldenDict...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.goldendict existe.
+
+    if [ -d "$pasta_usuario/.goldendict" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.goldendict existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-GoldenDict_via_cron.tar.gz  .goldendict   2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.goldendict não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+# http://goldendict.org/download.php
+
+
+# ----------------------------------------------------------------------------------------
+
+# Popcorn Time
+
+# Popcorn Time foi um cliente Torrent em multiplataforma livre e de código aberto que 
+# inclui um tocador de mídia. O programa destina-se como uma alternativa gratuita para 
+# serviços de vídeo sob demanda em assinatura, como o Netflix. 
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# Stella - Emulador de Atari para PC - Roms (jogos)
+
+
+
+which stella  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Stella...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.config/stella existe.
+
+    if [ -d "$pasta_usuario/.config/stella" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/stella existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Stella_via_cron.tar.gz  .config/stella  2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/stella não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+
+# https://pt.wikipedia.org/wiki/Stella_(emulador)
+# http://www.bosontreinamentos.com.br/linux/como-jogar-jogos-do-atari-no-linux-com-emulador-stella/
+# https://rggames.com.br/stella-emulador-para-atari-2600-1442-jogos/
+# https://stella-emu.github.io/
+
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# Mame (jogos)
+
+
+
+which mame  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Mame...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.mame existe.
+
+    if [ -d "$pasta_usuario/.mame" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.mame existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Mame_via_cron.tar.gz  .mame  2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.mame não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# PSX - Emulador de PlayStation 1 - (jogos)
+
+
+
+# xbps-install -Suvy pcsxr
+
+
+which pcsxr  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do PSX...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.pcsxr existe.
+
+    if [ -d "$pasta_usuario/.pcsxr" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.pcsxr existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-PSX_via_cron.tar.gz  .pcsxr  2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.pcsxr não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+
+# https://rggames.com.br/psx-o-melhor-emulador-de-ps1-para-pc/
+
+
+
+# ----------------------------------------------------------------------------------------
 
 
 chown -R "$usuario":"$grupo" "$backup" 
