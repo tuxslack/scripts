@@ -4,6 +4,38 @@
 # Data:     19/10/2023 as 03:13
 # Homepage: https://github.com/tuxslack/scripts
 # Licença:  GPL
+#
+#
+#
+# Instalação:
+#
+# mv backup.sh  /usr/local/bin/
+#
+# chmod +x /usr/local/bin/backup.sh
+#
+#
+#
+# Como usar:
+#
+# --------------------------------------------------
+#
+# Adicionar ao agendador de tarefas do linux (CRONTAB).
+#
+#
+# crontab -e
+#
+# O backup será executado às 13h00, do dia 30º de todos os meses.
+#
+# 00 13 30  * * /usr/local/bin/backup.sh
+#
+# --------------------------------------------------
+# 
+#
+# ou manualmente
+#
+# backup.sh
+
+
 
 
 
