@@ -64,6 +64,7 @@
 # Stella - Emulador de Atari para PC - roms (jogos)
 # Mame (jogos)
 # PSX - Emulador de PlayStation 1 - (jogos)
+# SNES9X -  Super Nintendo - (jogos)
 # aMSN
 # GoldenDict
 
@@ -3083,9 +3084,22 @@ fi
 
 # Popcorn Time
 
+
 # Popcorn Time foi um cliente Torrent em multiplataforma livre e de código aberto que 
 # inclui um tocador de mídia. O programa destina-se como uma alternativa gratuita para 
-# serviços de vídeo sob demanda em assinatura, como o Netflix. 
+# serviços de vídeo sob demanda em assinatura, como o Netflix.
+#
+# A plataforma de streaming Popcorn Time anunciou em 4. jan. 2022 o fim das atividades.
+
+# ----------------------------------------------------------------------------------------
+
+# Kodi
+
+
+# xbps-install -Suvy kodi  kodi-addon-pvr-zattoo  kodi-addon-pvr-iptvsimple
+
+
+# https://kodi.tv/download/
 
 
 # ----------------------------------------------------------------------------------------
@@ -3226,6 +3240,48 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+# SNES9X -  Super Nintendo - (jogos)
+
+
+# xbps-install -Suvy snes9x-gtk
+
+
+which snes9x-gtk  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do SNES9X...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.config/snes9x existe.
+
+    if [ -d "$pasta_usuario/.config/snes9x" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/snes9x existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-SNES9X_via_cron.tar.gz  .config/snes9x  2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/snes9x não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# https://rggames.com.br/top-8-melhores-emuladores-para-pc/
+
+# ----------------------------------------------------------------------------------------
 
 chown -R "$usuario":"$grupo" "$backup" 
 
