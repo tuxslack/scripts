@@ -67,6 +67,11 @@
 # SNES9X -  Super Nintendo - (jogos)
 # aMSN
 # GoldenDict
+# kodi
+# gpodder - gerenciador de podcasts
+# Clementine - gerenciador de podcasts
+
+
 
 
 
@@ -3099,6 +3104,39 @@ fi
 # xbps-install -Suvy kodi  kodi-addon-pvr-zattoo  kodi-addon-pvr-iptvsimple
 
 
+
+which kodi  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Kodi...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.kodi existe.
+
+    if [ -d "$pasta_usuario/.kodi" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.kodi existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-kodi_via_cron.tar.gz  .kodi  kodi_crashlog-*.log  2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.kodi não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
 # https://kodi.tv/download/
 
 
@@ -3282,6 +3320,79 @@ fi
 # https://rggames.com.br/top-8-melhores-emuladores-para-pc/
 
 # ----------------------------------------------------------------------------------------
+
+# gpodder - gerenciador de podcasts
+
+
+# gpodder: um gerenciador de podcasts com suporte para sincronização com dispositivos móveis.
+
+# xbps-install -Suvy gpodder
+
+
+# .config/gpodder/
+
+# ----------------------------------------------------------------------------------------
+
+# Clementine - gerenciador de podcasts
+
+# xbps-install -Suvy clementine 
+
+
+which clementine  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Clementine...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.config/Clementine existe.
+
+    if [ -d "$pasta_usuario/.config/Clementine" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/Clementine existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Clementine_via_cron.tar.gz  .config/Clementine  Podcasts 2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/Clementine não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+
+# Monja Coen
+#
+# Trazemos para você as palestras da mestra do ZEN Budismo Brasileiro, Monja Coen, 
+# gravadas no templo Tenzui Zenji da comunidade ZEN do Brasil. Na íntegra, sem cortes, 
+# tanto as mais antigas, que estão publicadas em vídeo no Canal MOVA, quanto as inéditas 
+# e exclusivas.
+#
+# https://feeds.simplecast.com/jXIrwgMS
+
+
+
+# Diocast
+#
+# https://anchor.fm/s/4c177cd4/podcast/rss  (Não funcionou no Clementine)
+# https://castbox.fm/ch/1323408             (Funcionou no Clementine)
+#
+# https://diolinux.com.br/diocast
+
+# ----------------------------------------------------------------------------------------
+
+
 
 chown -R "$usuario":"$grupo" "$backup" 
 
