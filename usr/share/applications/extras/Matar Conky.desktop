@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Matar Conky
+Comment=
+Exec=killall -9 conky
+Icon=/home/fernando/.icons/extras/conky.jpg
+Path=
+Terminal=false
+StartupNotify=false
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=System;
+
+Keywords=conky;matar;finalizar;
+

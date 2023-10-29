@@ -1,0 +1,23 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=identificar HW
+Comment=
+Exec=gksu "xterm -e tail -f /var/log/messages"
+Icon=
+Path=
+Terminal=false
+StartupNotify=false
+
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=System;
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=identificar;HW;hardware;informacao;info;
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+
+# Funcionou no  menu do xfce4-popup-whiskermenu do XFCE

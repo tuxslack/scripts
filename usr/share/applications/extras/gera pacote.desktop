@@ -1,0 +1,37 @@
+[Desktop Entry]
+
+# O tipo como listado acima
+Type=Application
+
+# A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
+Version=1.0
+
+# Nome da aplicação.
+Name=Gera pacote .xbps
+
+# Um comentário que pode/será usado como uma dica da ferramenta / Descrição da aplicação.
+Comment=Gera e extrai pacote .xbps no Void Linux
+
+
+# O caminho para a pasta na qual o executável é executado
+Path=
+
+# O executável do aplicativo, possivelmente com argumentos / Diretório do arquivo executável. / link do site
+Exec=xfce4-terminal --title="Gerando pacote para o Void Linux..." -e "/usr/local/bin/pacote-xbps.sh -gtk"
+
+# O nome do ícone que será usado para exibir esta entrada
+Icon=/usr/share/icons/hicolor/512x512/apps/void-logo.png
+
+# Descreve se este aplicativo precisa ser executado em um terminal ou não
+Terminal=false
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=System;
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=sistema;pacote;void;linux;xbps;update;atualizar;atualizacao;repositorio;voidlinux;
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+

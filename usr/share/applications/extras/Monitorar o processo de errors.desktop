@@ -1,0 +1,111 @@
+[Desktop Entry]
+# 
+# 
+# Entrada de aplicativos
+# 
+# As entradas de desktop para aplicativos, ou arquivos .desktop, geralmente são uma combinação de 
+# recursos de meta informações e um atalho de um aplicativo. Esses arquivos geralmente residem em 
+# /usr/share/applications/ ou /usr/local/share/applications/ para aplicativos instalados em todo 
+# o sistema ou ~/.local/share/applications/ para aplicativos específicos do usuário. As entradas 
+# do usuário têm precedência sobre as entradas do sistema.
+# 
+# 
+# Exemplo de arquivo
+# 
+# A seguir, é apresentado um exemplo de sua estrutura com comentários adicionais. O exemplo serve 
+# apenas para dar uma impressão rápida e não mostra como utilizar todas as chaves de entrada 
+# possíveis. A lista completa de chaves pode ser encontrada na especificação da freedesktop. 
+# 
+# 
+# 
+# 
+# Atualizar banco de dados de entradas desktop
+# 
+# Para que as entradas da área de trabalho definidas em ~/.local/share/applications funcionem, execute o seguinte comando:
+# 
+# $ update-desktop-database ~/.local/share/applications
+# 
+# 
+# https://wiki.archlinux.org/title/Desktop_entries_(Portugu%C3%AAs)
+# https://askubuntu.com/questions/1042344/i-need-an-equivalent-of-gksu-in-18-04
+# https://pt.linkedin.com/pulse/automatizando-tarefas-gnulinux-andr%C3%A9-henrique
+
+
+# Usar o processo cron para iniciar e parar programas que precisam ser executados em intervalos específicos. 
+# Exemplos deste tipo incluem  os trabalhos de processamento batch diários , como tarefas de backup. 
+# Um script que verifica se o processo Cron ainda está em execução é simples de escrever.
+
+
+
+# Arquivo de log do sistema
+# ================
+# 
+# No Debian e derivados => /var/log/syslog 
+# No Void Linux => /var/log/socklog/cron/current
+
+
+
+# O tipo como listado acima
+Type=Application
+
+# A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
+Version=1.0
+
+# O nome do aplicativo
+Name=Monitorar o processo de errors
+
+
+# Um comentário que pode/será usado como uma dica da ferramenta
+Comment=Monitorar o processo de errors\nFiltra apenas saídas de errors do sistema.
+
+# O caminho para a pasta na qual o executável é executado
+Path=
+
+
+
+
+# O executável do aplicativo, possivelmente com argumentos
+
+#Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY xfce4-terminal  --title='Monitor cron'  -e 'tail -f -n 30 /var/log/socklog/cron/current' 2> /dev/null
+
+# Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP gparted
+
+Exec=pkexec env DISPLAY=:0 XAUTHORITY=/root/.Xauthority xfce4-terminal --maximize --title='Monitor errors'  -e 'tail -f -n 30 /var/log/socklog/errors/current'
+
+# 2> /dev/null
+
+
+# Exec=pkexec env DISPLAY=:0 XAUTHORITY=/root/.Xauthority xfce4-terminal --maximize --title='Monitor cron'  -e 'grep CRON /var/log/syslog'
+
+
+
+# Falha ao conectar ao gerenciador de sessão: Falhou ao conectar ao gerenciador de sessão: SESSION_MANAGER environment variable not defined
+
+
+# Permissão de acesso ao servidor X
+
+# Obs: Pode ser necessário usar o comando "$ xhost +" com o usuário comum antes de chama o pkexec.
+
+# https://www.vivaolinux.com.br/dica/Permissao-de-acesso-ao-servidor-X-(Slackware-13+)
+
+
+
+# O nome do ícone que será usado para exibir esta entrada
+Icon=/usr/share/icons/hicolor/512x512/apps/void-logo.png
+
+# Descreve se este aplicativo precisa ser executado em um terminal ou não
+Terminal=false
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=System;
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=errors;processo;monitorar;log;socklog;
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+
+# Funcionou no  menu do xfce4-popup-whiskermenu do XFCE
+
+

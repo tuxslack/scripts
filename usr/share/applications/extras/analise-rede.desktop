@@ -54,178 +54,23 @@ Type=Application
 Version=1.0
 
 # Nome da aplicação.
-Name=Criar atalho
-Name[am]=
-Name[ar]=
-Name[bg]=
-Name[bn]=
-Name[ca]=
-Name[cs]=
-Name[da]=
-Name[de]=
-Name[el]=
-Name[en_GB]=
-Name[es]=
-Name[et]=
-Name[fa]=
-Name[fi]=
-Name[fil]=
-Name[fr]=
-Name[gu]=
-Name[hi]=
-Name[hr]=
-Name[hu]=
-Name[id]=
-Name[it]=
-Name[iw]=
-Name[ja]=
-Name[kn]=
-Name[ko]=
-Name[lt]=
-Name[lv]=
-Name[ml]=
-Name[mr]=
-Name[nl]=
-Name[no]=
-Name[pl]=
-Name[pt]=
-Name[pt_BR]=Criar atalho
-Name[ro]=
-Name[ru]=
-Name[sk]=
-Name[sl]=
-Name[sr]=
-Name[sv]=
-Name[sw]=
-Name[ta]=
-Name[te]=
-Name[th]=
-Name[tr]=
-Name[uk]=
-Name[vi]=
-Name[zh_CN]=
-Name[zh_TW]=
-
-
-GenericName=Criar atalho
-GenericName[ar]=
-GenericName[bg]=
-GenericName[ca]=
-GenericName[cs]=
-GenericName[da]=
-GenericName[de]=
-GenericName[el]=
-GenericName[en_GB]=
-GenericName[es]=
-GenericName[et]=
-GenericName[fi]=
-GenericName[fr]=
-GenericName[gu]=
-GenericName[he]=
-GenericName[hi]=
-GenericName[hu]=
-GenericName[it]=
-GenericName[ja]=
-GenericName[kn]=
-GenericName[ko]=
-GenericName[lt]=
-GenericName[lv]=
-GenericName[ml]=
-GenericName[mr]=
-GenericName[nb]=
-GenericName[nl]=
-GenericName[pl]=
-GenericName[ro]=
-GenericName[ru]=
-GenericName[sl]=
-GenericName[sv]=
-GenericName[ta]=
-GenericName[th]=
-GenericName[tr]=
-GenericName[uk]=
-GenericName[zh_CN]=
-GenericName[zh_HK]=
-GenericName[zh_TW]=
-GenericName[bn]=
-GenericName[fil]=
-GenericName[hr]=
-GenericName[id]=
-GenericName[or]=
-GenericName[sk]=
-GenericName[sr]=
-GenericName[te]=
-GenericName[vi]=
-
+Name=Analise de rede
 
 # Um comentário que pode/será usado como uma dica da ferramenta / Descrição da aplicação.
-Comment=Cria um arquivo .desktop para seu aplicativo no Linux.
-Comment[ar]=
-Comment[bg]=
-Comment[bn]=
-Comment[ca]=
-Comment[cs]=
-Comment[da]=
-Comment[de]=
-Comment[el]=
-Comment[en_GB]=
-Comment[es]=
-Comment[et]=
-Comment[fi]=
-Comment[fil]=
-Comment[fr]=
-Comment[gu]=
-Comment[he]=
-Comment[hi]=
-Comment[hr]=
-Comment[hu]=
-Comment[id]=
-Comment[it]=
-Comment[ja]=
-Comment[kn]=
-Comment[ko]=
-Comment[lt]=
-Comment[lv]=
-Comment[ml]=
-Comment[mr]=
-Comment[nb]=
-Comment[nl]=
-Comment[or]=
-Comment[pl]=
-Comment[pt]=
-Comment[pt_BR]=Cria um arquivo .desktop para seu aplicativo no Linux.
-Comment[ro]=
-Comment[ru]=
-Comment[sk]=
-Comment[sl]=
-Comment[sr]=
-Comment[sv]=
-Comment[ta]=
-Comment[te]=
-Comment[th]=
-Comment[tr]=
-Comment[uk]=
-Comment[vi]=
-Comment[zh_CN]=
-Comment[zh_HK]=
-Comment[zh_TW]=
+Comment=Analisa seu sistema com base na rede\n\nLista regras do Iptables, lista portas aberta usando o Nmap, identifica seu IP externo e mostra conexões ativas com a Internet.
 
 
 # O caminho para a pasta na qual o executável é executado
 Path=
 
 # O executável do aplicativo, possivelmente com argumentos / Diretório do arquivo executável. / link do site
-Exec=xfce4-terminal --maximize --title="Criando atalho..." -e "/usr/local/bin/criar-atalho-desktop.sh"
+Exec=xfce4-terminal --title="Informe a senha do usuário Root abaixo..." -e 'su -c "/usr/local/bin/analise-rede.sh"'
 
 # O nome do ícone que será usado para exibir esta entrada
-Icon=/usr/share/icons/hicolor/48x48/apps/parole-extension.png
-
+Icon=/home/fernando/.icons/extras/kisspng-web-server-web-page-clip-art-casewebmail-5a888295daf306.3031301315188957658968.png
 
 # Descreve se este aplicativo precisa ser executado em um terminal ou não
-Terminal=FALSE
-
-# Notificação de inicialização
-StartupNotify=TRUE
-
+Terminal=false
 
 # Descreve as categorias nas quais esta entrada deve ser mostrada
 Categories=System;
@@ -233,7 +78,7 @@ Categories=System;
 
 # Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
 
-Keywords=atalho;desktop;icone;site;criar;programa;AppImage;aplicacao;lançador;applications;gnome;kde;mate;xfce;aplicacao;
+Keywords=rede;analise;teste;scripts;
 # Keywords[pt]=;
 # Keywords[pt_BR]=;
 
@@ -245,6 +90,4 @@ Keywords=atalho;desktop;icone;site;criar;programa;AppImage;aplicacao;lançador;a
 
 # Nos casos dos parâmetros Terminal e NoDisplay, podem ser usados dois valores, true para ativar o recurso e false para desativar o recurso.
 
-
-# MimeType= ;
 

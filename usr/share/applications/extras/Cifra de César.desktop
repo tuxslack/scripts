@@ -47,14 +47,20 @@
 # Confira algumas das opções e uma breve explicação sobre os parâmetros do arquivo .desktop:
 
 
-# O tipo como listado acima
+# Tipo do atalho criado, os três tipos disponíveis são: Application, Link, FSDevice e 
+# Directory, que definem respectivamente atalhos para aplicativos, ligações web, 
+# sistemas de arquivos e diretórios.
+
 Type=Application
 
 # A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
 Version=1.0
 
+# Codificação usada para escrever esse arquivo
+# Encoding=UTF-8
+
 # Nome da aplicação.
-Name=Criar atalho
+Name=Cifra de César
 Name[am]=
 Name[ar]=
 Name[bg]=
@@ -89,7 +95,7 @@ Name[nl]=
 Name[no]=
 Name[pl]=
 Name[pt]=
-Name[pt_BR]=Criar atalho
+Name[pt_BR]=Cifra de César
 Name[ro]=
 Name[ru]=
 Name[sk]=
@@ -107,7 +113,7 @@ Name[zh_CN]=
 Name[zh_TW]=
 
 
-GenericName=Criar atalho
+GenericName=Cifra de César
 GenericName[ar]=
 GenericName[bg]=
 GenericName[ca]=
@@ -158,7 +164,7 @@ GenericName[vi]=
 
 
 # Um comentário que pode/será usado como uma dica da ferramenta / Descrição da aplicação.
-Comment=Cria um arquivo .desktop para seu aplicativo no Linux.
+Comment=A Cifra de César é uma das mais simples e conhecidas técnicas de criptografia, tendo sida usada por Júlio César para passar ordens militares.
 Comment[ar]=
 Comment[bg]=
 Comment[bn]=
@@ -192,7 +198,7 @@ Comment[nl]=
 Comment[or]=
 Comment[pl]=
 Comment[pt]=
-Comment[pt_BR]=Cria um arquivo .desktop para seu aplicativo no Linux.
+Comment[pt_BR]=A Cifra de César é uma das mais simples e conhecidas técnicas de criptografia, tendo sida usada por Júlio César para passar ordens militares.
 Comment[ro]=
 Comment[ru]=
 Comment[sk]=
@@ -214,10 +220,10 @@ Comment[zh_TW]=
 Path=
 
 # O executável do aplicativo, possivelmente com argumentos / Diretório do arquivo executável. / link do site
-Exec=xfce4-terminal --maximize --title="Criando atalho..." -e "/usr/local/bin/criar-atalho-desktop.sh"
+Exec=/usr/local/bin/cifra-de-cesar.sh
 
 # O nome do ícone que será usado para exibir esta entrada
-Icon=/usr/share/icons/hicolor/48x48/apps/parole-extension.png
+Icon=/usr/share/icons/extras/Cifra_de_Cesar.png
 
 
 # Descreve se este aplicativo precisa ser executado em um terminal ou não
@@ -233,7 +239,7 @@ Categories=System;
 
 # Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
 
-Keywords=atalho;desktop;icone;site;criar;programa;AppImage;aplicacao;lançador;applications;gnome;kde;mate;xfce;aplicacao;
+Keywords=cesar;julio;cifra;criptografia;descriptografia;guerra;criptografar;descriptografar;arma;tecnica;mensagem;alfabeto;descriptografada;
 # Keywords[pt]=;
 # Keywords[pt_BR]=;
 
@@ -247,4 +253,7 @@ Keywords=atalho;desktop;icone;site;criar;programa;AppImage;aplicacao;lançador;a
 
 
 # MimeType= ;
+
+
+
 

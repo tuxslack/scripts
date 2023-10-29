@@ -1,0 +1,27 @@
+[Desktop Entry]
+
+Version=1.0
+Type=Application
+Name=Compartilhar a internet
+Comment=Compartilhando a internet
+
+Exec=su -c "/usr/local/bin/compartilhar_internet.sh ; sleep 20"
+
+Icon=
+Path=
+Terminal=true
+StartupNotify=false
+
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=Network;
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=internet;compartilhar;conexao;
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+
+# Funcionou no  menu do xfce4-popup-whiskermenu do XFCE
+

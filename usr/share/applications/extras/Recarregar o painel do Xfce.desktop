@@ -1,0 +1,90 @@
+[Desktop Entry]
+#
+# Restaurar o arquivo .bashrc para as configurações padrão. 
+#
+# No Void Linux, existe uma versão padrão do arquivo .bashrc no diretório /etc/skel/ , então se você tiver problemas com ele você pode restaurá-lo. 
+#
+# 
+# Para o caso de  rm -Rf /root/.bashrc   ou  rm -Rf /root/.*
+#
+#
+# 
+# Entrada de aplicativos
+# 
+# As entradas de desktop para aplicativos, ou arquivos .desktop, geralmente são uma combinação de 
+# recursos de meta informações e um atalho de um aplicativo. Esses arquivos geralmente residem em 
+# /usr/share/applications/ ou /usr/local/share/applications/ para aplicativos instalados em todo 
+# o sistema ou ~/.local/share/applications/ para aplicativos específicos do usuário. As entradas 
+# do usuário têm precedência sobre as entradas do sistema.
+# 
+# 
+# Exemplo de arquivo
+# 
+# A seguir, é apresentado um exemplo de sua estrutura com comentários adicionais. O exemplo serve 
+# apenas para dar uma impressão rápida e não mostra como utilizar todas as chaves de entrada 
+# possíveis. A lista completa de chaves pode ser encontrada na especificação da freedesktop. 
+# 
+# 
+# 
+# 
+# Atualizar banco de dados de entradas desktop
+# 
+# Para que as entradas da área de trabalho definidas em ~/.local/share/applications funcionem, execute o seguinte comando:
+# 
+# $ update-desktop-database ~/.local/share/applications
+# 
+# 
+#
+# https://wiki.archlinux.org/title/Desktop_entries_(Portugu%C3%AAs)
+# https://sobrelinux.info/questions/1849/how-do-i-restore-bashrc-to-its-default
+# https://sobrelinux.info/questions/5030/how-to-restore-bashrc-file
+#
+#
+# Como definir a variável PATH no Linux
+#
+# https://duzeru.org/pt/blog/como-definir-a-variavel-path-no-linux
+#
+
+
+# O tipo como listado acima
+Type=Application
+
+# A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
+Version=1.0
+
+# O nome do aplicativo
+Name=Recarregar o painel do Xfce
+
+# Um comentário que pode/será usado como uma dica da ferramenta
+Comment=Se não resolver somente depois do reboot que apareceu o ícone no menu do xfce.
+
+# O caminho para a pasta na qual o executável é executado
+Path=
+
+# O executável do aplicativo, possivelmente com argumentos
+Exec=killall -9 xfce4-panel ; xfce4-panel &
+
+# O menu do xfce  é atualizado quando recarrega o painel do xfce?
+
+
+# O nome do ícone que será usado para exibir esta entrada
+Icon=/usr/share/icons/hicolor/128x128/apps/xfce4-logo.png
+
+# Descreve se este aplicativo precisa ser executado em um terminal ou não
+Terminal=false
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=System;
+
+
+# Palavras-chave para encontrar a aplicação. Deve  ser separada por ;
+
+Keywords=painel;xfce;atualizar;recarregar;
+# Keywords[pt]=;
+# Keywords[pt_BR]=;
+
+# Funcionou no  menu do xfce4-popup-whiskermenu do XFCE
+
+
+
+

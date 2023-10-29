@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Audio youtube
+Name[pt_BR.utf8]=audio youtube
+GenericName=
+GenericName[pt_BR]=
+Comment=
+Comment[pt_BR]= Baixa o audio dos videos do YouTube
+Type=Application
+Exec=xterm -geometry 230x50 -bg lightyellow -fg darkblue -T "Baixa o audio dos videos do YouTube" -e "/usr/local/bin/audio-youtube.sh"
+Icon=/usr/share/icons/extras/youtube.png
+Terminal=false
+MimeType=
+Categories=Multimidia;
+

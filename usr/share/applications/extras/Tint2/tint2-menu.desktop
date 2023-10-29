@@ -1,0 +1,66 @@
+[Desktop Entry]
+#
+#
+#
+#
+#
+#
+# Tecla Windows configurada no arquivo ~/.config/openbox/rc.xml para o menu do OpenBox.
+#
+#
+# gedit ~/.config/openbox/rc.xml
+#
+# ...
+#
+#
+#    <!--   Tecla de atalho para o menu do OpenBox (tecla Windows + tecla m) 
+#    
+#           Alterado de "client-menu" para "root-menu"
+#    -->
+#    
+#  <keybind key="W-m">
+#  
+#    <action name="ShowMenu">
+#    
+#             <menu>root-menu</menu>
+#             
+#    </action>
+#    
+#  </keybind>
+#  
+# ...
+#
+#
+# Arquivo global para o menu /etc/xdg/openbox/rc.xml
+#  
+#
+Encoding=UTF-8
+Name=Menu Openbox Tint2
+Comment=Chama o menu do Openbox no painel Tint2.
+X-GNOME-FullName=Menu Openbox
+#  
+# Foi usado o comando xev para identificar o codigo da tecla Windows (Super_L).
+#
+# Tecla Windows + m
+
+Exec=xdotool key Super_L+m
+
+
+# Verifica se tem instalado o xmenu
+
+# Exec= /usr/local/bin/xmenu.sh
+
+
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/home/fernando/.icons/extras/void.svg
+Categories=Menu;
+StartupNotify=true
+#
+#
+# https://blog.desdelinux.net/pt/boton-de-inicio-para-tint2-en-openbox/
+# https://www.vivaolinux.com.br/dica/Tint2-com-menu-do-Openbox
+# https://a-hel-fi.m.voidlinux.org/logos/void-dark2.svg
+#
+

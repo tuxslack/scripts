@@ -1,0 +1,60 @@
+[Desktop Entry]
+# 
+# 
+# Entrada de aplicativos
+# 
+# As entradas de desktop para aplicativos, ou arquivos .desktop, geralmente são uma combinação de 
+# recursos de meta informações e um atalho de um aplicativo. Esses arquivos geralmente residem em 
+# /usr/share/applications/ ou /usr/local/share/applications/ para aplicativos instalados em todo 
+# o sistema ou ~/.local/share/applications/ para aplicativos específicos do usuário. As entradas 
+# do usuário têm precedência sobre as entradas do sistema.
+# 
+# 
+# Exemplo de arquivo
+# 
+# A seguir, é apresentado um exemplo de sua estrutura com comentários adicionais. O exemplo serve 
+# apenas para dar uma impressão rápida e não mostra como utilizar todas as chaves de entrada 
+# possíveis. A lista completa de chaves pode ser encontrada na especificação da freedesktop. 
+# 
+# 
+# 
+# 
+# Atualizar banco de dados de entradas desktop
+# 
+# Para que as entradas da área de trabalho definidas em ~/.local/share/applications funcionem, execute o seguinte comando:
+# 
+# $ update-desktop-database ~/.local/share/applications
+# 
+# 
+# https://wiki.archlinux.org/title/Desktop_entries_(Portugu%C3%AAs)
+# https://guialinux.uniriotec.br/finger/
+
+
+# O tipo como listado acima
+Type=Application
+
+# A versão da especificação de entrada de desktop com a qual este arquivo está em conformidade
+Version=1.0
+
+# O nome do aplicativo
+Name=Exibe informações sobre o usuário
+
+# Um comentário que pode/será usado como uma dica da ferramenta
+Comment=Mostra informações detalhadas do usuário. Se o comando finger for digitado isoladamente (ou seja, somente finger), o sistema exibe todos os usuários que estão conectados no sistema operacional no momento.
+
+# O caminho para a pasta na qual o executável é executado
+Path=
+
+# O executável do aplicativo, possivelmente com argumentos
+Exec=xterm -e 'finger $USER | zenity --list --title="Mostra informações detalhadas do usuário `echo $USER`" --column="" --width=600 --height=450 2> /dev/null'
+
+
+# O nome do ícone que será usado para exibir esta entrada
+Icon=/usr/share/icons/extras/
+
+# Descreve se este aplicativo precisa ser executado em um terminal ou não
+Terminal=false
+
+# Descreve as categorias nas quais esta entrada deve ser mostrada
+Categories=Sistema;
+
