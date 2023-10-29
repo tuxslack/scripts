@@ -1,15 +1,49 @@
 #!/bin/bash
 #
 # Autor:    Fernando Souza - https://www.youtube.com/@fernandosuporte/
-# Data:     19/10/2023 as 03:13
+# Data:     23/10/2023 as 02:00
 # Homepage: https://github.com/tuxslack/scripts
 # Licença:  GPL
+# Versão:   20231023
+# Script:   backup.sh
+# Objetivo: Backup das configurações dos programas instalados e arquivos do usuário.
+#
+#
+#
+#                       Shell script para backups automáticos
+#
+#             Solução de proteção de dados que permita cópia de segurança - Backup
+#
+#
+# A importancia de fazer backup:
+#
+# Protege de ransomware, vírus
+# Problema com HD/SSD
+# Problema com o sistema operacional
+# Corromper as configs da interface grafica (KDE Plasma e etc...).
+# Para que possam ser restaurados em caso da perda dos dados originais, o que pode 
+# envolver apagamentos acidentais ou corrupção de dados.
+#
+#
+#
+# ATENÇÃO:
+#
+#
+# Regra básica: Salva os backups em 2 ou mais locais diferentes. Ex: no Dropbox, 
+# Google Drive, num HD/SSD e faça uma cópia mensal num DVD-RW. Além disso, faça cópia 
+# semanal do disco com o Clonezilla ou com RescueZilla.
 #
 #
 #
 # Instalação:
 #
-# mv backup.sh  /usr/local/bin/
+#
+# mv -i backup.sh  /usr/local/bin/
+#
+#
+# chown -R root:root /usr/local/bin/backup.sh
+#
+# chmod 750 /usr/local/bin/backup.sh
 #
 # chmod +x /usr/local/bin/backup.sh
 #
@@ -19,7 +53,7 @@
 #
 # --------------------------------------------------
 #
-# Adicionar ao agendador de tarefas do linux (CRONTAB).
+# Adicionar ao agendador de tarefas do Linux (CRONTAB).
 #
 #
 # crontab -e
@@ -35,6 +69,22 @@
 #
 # backup.sh
 
+
+
+
+# 1. /etc: Esse diretório contém arquivos de configuração do sistema e programas instalados. 
+# É uma boa ideia fazer backup dos arquivos presentes aqui.
+#
+# 2. /home: Este diretório normalmente contém os arquivos pessoais do usuário, mas também 
+# pode conter arquivos de configuração específicos de alguns programas. Faça backup dos 
+# diretórios de usuário relevantes.
+#
+# 3. /var: Este diretório armazena arquivos de dados e logs de programas. Certifique-se de 
+# fazer backup das pastas relevantes dentro deste diretório, dependendo dos programas que 
+# você está executando.
+#
+# 4. /usr: Este diretório contém programas e bibliotecas instalados no sistema. Embora não 
+# seja estritamente necessário fazer backup de todos os arquivos aqui,
 
 
 
@@ -76,7 +126,7 @@
 # Ocomon
 # Pasta skel
 # Firefox
-# Pasta bin
+# Backup dos scripts em /usr/local/bin
 # Conky
 # Fluxbox
 # Sendto do Thunar
@@ -102,6 +152,16 @@
 # kodi
 # gpodder - gerenciador de podcasts
 # Clementine - gerenciador de podcasts
+# Transmission
+# Localizar arquivo XML da nota fiscal eletrônica (NFe)
+# Wine
+# Playonlinux
+# Backup pessoal ("Área de Trabalho" Desktop Documentos Downloads Imagens Músicas Público Vídeos dwhelper)
+# XFCE
+# Chromium
+# mpv
+# OBS Studio
+# VLC
 
 
 
@@ -111,7 +171,8 @@
 
 # Problema com $HOME/backup/backup_Ocomon-4.0.sql_via_cron.gz não esta gerando o backup.   OK
 
-# Problema com backup do OpenBox + temas (nome com espaço).
+# Problema com backup do OpenBox + temas (pastas e arquivos com nomes compostos).
+
 
 
 
@@ -122,11 +183,36 @@
 # https://www.vivaolinux.com.br/artigos/impressora.php?codigo=8660
 # https://www.vivaolinux.com.br/script/Script-de-backup-Graylog
 # https://diolinux.com.br/softwares/instalar-o-programa-da-receita-federal-no-linux.html
+# https://www.explorandoti.com.br/como-criar-uma-rotina-de-backup-com-tar-no-linux/
+# https://brunovellutini.com/posts/shell-script-backup-nova-versao/
+# http://womni.blogspot.com/2011/04/adaptador-usb-para-hd.html
+# https://plus.diolinux.com.br/t/como-fazer-backup-de-arquivos-e-das-configuracoes-do-terminal-sem-perder-nada/45130
+# https://plus.diolinux.com.br/t/como-voce-organiza-seus-arquivos/47706
+# https://plus.diolinux.com.br/t/script-de-pos-instalacao-sugestoes-e-correcoes/39003/19
+# https://plus.diolinux.com.br/t/ja-possui-uma-estrategia-de-backup-e-recuperacao-de-dados-pro-pinguim/46154/2
+# https://plus.diolinux.com.br/t/backup-com-rsync-duvida-como-automatizar-a-remocao-dos-mais-antigos/15520
+# https://linuxdicasesuporte.blogspot.com/2017/05/resetar-as-configuracoes-do-gnome-shell.html
+# https://linuxdicasesuporte.blogspot.com/2018/09/backup-de-dados-pessoais-e-do-sistema_1.html
+# https://linuxdicasesuporte.blogspot.com/2022/08/backup-de-dados-pessoais-no-linux.html
+# https://www.blogson.com.br/listar-usuarios-no-linux/
+# https://caiosantesso.dev/bash-gerenciamento-de-usuarios/
+
+
 
 
 # ----------------------------------------------------------------------------------------
 
 # Variaveis:
+
+
+
+# Cores para formatação da saída dos comandos
+
+RED='\e[1;31m'
+GREEN='\e[1;32m'
+YELLOW='\e[1;33m'
+NC='\e[0m' # sem cor
+
 
 
 
@@ -136,6 +222,23 @@ log="/tmp/backup.log"
 
 rm -Rf "$log"
 
+
+
+
+# Verificar se o arquivo existe
+
+if [ -e "/etc/passwd" ] ; then
+
+# Para listar todos os usuários do sistema
+
+# grep /home/ /etc/passwd
+
+# O comando "grep -v" exclui o usuário Root da lista.
+
+todos_usuario=$(cat /etc/passwd | grep "/bin/bash" | cut -d : -f 1 | grep -v root)
+
+
+fi
 
 
 
@@ -174,7 +277,10 @@ clear
 # which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado."        ; exit ; }
 # which yad           2> /dev/null || { echo "Programa Yad não esta instalado."           ; exit ; }
 
+# which testdisk         2> /dev/null || { echo "Programa testdisk não esta instalado."   ; exit ; }
 
+
+which inxi          2> /dev/null || { echo "Programa inxi não esta instalado."          ; exit ; }
 which rsync         2> /dev/null || { echo "Programa rsync não esta instalado."         ; exit ; }
 which tar           2> /dev/null || { echo "Programa tar não esta instalado."           ; exit ; }
 which gzip          2> /dev/null || { echo "Programa gzip não esta instalado."          ; exit ; }
@@ -194,6 +300,9 @@ which umount        2> /dev/null || { echo "Programa umount não esta instalado.
 which blkid         2> /dev/null || { echo "Programa blkid não esta instalado."         ; exit ; }
 which chown         2> /dev/null || { echo "Programa chown não esta instalado."         ; exit ; }
 which find          2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
+which sed           2> /dev/null || { echo "Programa sed não esta instalado."           ; exit ; }
+which smartctl      2> /dev/null || { echo "Programa smartctl não esta instalado."      ; exit ; }
+
 
 
 sleep 5
@@ -214,6 +323,17 @@ Homepage: https://github.com/tuxslack/scripts
 Licença:  GPL
 
 
+Listar todos os usuários do sistema:
+
+$todos_usuario
+
+
+Configurações definidas no arquivo /etc/backup.conf:
+
+Diretório dos backups: $backup
+Usuário: $usuario
+Grupo: $grupo
+
 \e[0m"
 
 
@@ -229,6 +349,8 @@ if [ $UID -gt 0 ]; then
 	echo -e "\e[35;1m\n\nVocê deve utilizar o usuário Root para usar este script.\n \e[0m" 
 
 else
+
+
 
 
 
@@ -271,13 +393,13 @@ fi
 # ----------------------------------------------------------------------------------------
 
 
-if [ -z $senha_mysql ]; then
+# if [ -z $senha_mysql ]; then
 
-		echo -ne "Você não forneceu a senha do mysql.\n" | tee -a "$log"
+#		echo -ne "Você não forneceu a senha do mysql.\n" | tee -a "$log"
 		
-		exit
+#		exit
 		
-fi
+# fi
 
 # ----------------------------------------------------------------------------------------
 
@@ -294,17 +416,36 @@ fi
 
 
 echo 
-echo "#============================================================#"
-echo "#                                                            #"
-echo "#          Fazendo backup em arquivos separados              #"
-echo "#          Este script esta sob licenca GPL                  #"
-echo "# Pode ser distribuido e alterado livremente deste que seja  #"
-echo "# conservado o autor e comentadas as devidas alterações      #"
-echo "#                                                            #"
-echo "#============================================================#"
+echo "#=================================================================================#"
+echo "#                                                                                 #"
+echo "#                      Fazendo backup em arquivos separados                       #"
+echo "#                                                                                 #"
+echo "#                      Este script esta sob licença GPL.                          #"
+echo "#                                                                                 #"
+echo "# Pode ser distribuido e alterado livremente deste que seja conservado o          #"
+echo "# autor e comentadas as devidas alterações.                                       #"
+echo "#                                                                                 #"
+echo "#    A Licença Pública Geral GNU está disponível nesses formatos:                 #"
+echo "#                                                                                 #"
+echo "#    https://www.gnu.org/licenses/gpl-3.0.txt                                     #"
+echo "#    https://www.gnu.org/licenses/gpl-3.0.html                                    #" 
+echo "#    https://www.gnu.org/licenses/gpl.odt                                         #"
+echo "#                                                                                 #"
+echo "#                                                                                 #"
+echo "#                                                                                 #"
+echo "# ATENÇÃO:                                                                        #"
+echo "#                                                                                 #"
+echo "#                                                                                 #"
+echo "# Regra básica: Salva os backups em 2 ou mais locais diferentes.                  #"
+echo "#                                                                                 #"
+echo "# Ex: no Dropbox, Google Drive, num HD/SSD e faça uma cópia mensal num            #"
+echo "# DVD-RW. Além disso, faça cópia semanal do disco com o Clonezilla.               #"
+echo "#                                                                                 #"
+echo "#                                                                                 #"
+echo "#=================================================================================#"
 echo 
 
-sleep 30
+sleep 40
 
 # ----------------------------------------------------------------------------------------
 
@@ -335,6 +476,7 @@ rm -Rf *.log    2>> "$log"
 
 DATAINICIO=`date +%d/%m/%Y-%H:%M:%S`
 
+
 echo " 
 
  Arquivo de log gerado pelo script $(basename $0)
@@ -346,7 +488,45 @@ Homepage: https://github.com/tuxslack/scripts
 Licença:  GPL
 
 
+No arquivo .conf abaixo definimos o local onde será salvo os backups, o usuário que 
+será backpeado e a senha do banco de dados MySQL.
+
+Caso você não usa banco de dados MySQL deixa  a variavel em branco no arquivo.
+
+ 
 Arquivo de configuração: /etc/backup.conf
+
+
+
+Como usar:
+
+# --------------------------------------------------
+
+Adicionar ao agendador de tarefas do Linux (CRONTAB).
+
+Exemplo:
+
+# crontab -e
+
+# O backup será executado às 13h00, do dia 30º de todos os meses.
+
+00 13 30  * * /usr/local/bin/backup.sh
+
+# --------------------------------------------------
+
+
+ou manualmente
+
+# backup.sh
+
+
+
+ATENÇÃO:
+
+
+Regra básica: Salva esses backups em 2 ou mais locais diferentes. Ex: no Dropbox, 
+Google Drive, num HD/SSD e faça uma cópia mensal num DVD-RW. Além disso, faça cópia semanal 
+do disco com o Clonezilla.
 
 
 #-----------------------------------------------------------------------------------------
@@ -356,6 +536,20 @@ Inicío do backup: $DATAINICIO
 " >> "$log"
 
 
+# ----------------------------------------------------------------------------------------
+
+echo "
+"   >> "$log"
+
+
+inxi -Fxz >> "$log"
+
+
+echo "
+
+==========================================================================================
+
+"   >> "$log"
 
 # ----------------------------------------------------------------------------------------
 
@@ -526,6 +720,7 @@ fi
 # https://br.ccm.net/faq/2269-como-ler-um-arquivo-linha-por-linha
 # https://askubuntu.com/questions/9135/how-to-backup-settings-and-list-of-installed-packages
 # https://www.clubedohardware.com.br/forums/topic/188398-backup-no-apt-get/
+# https://plus.diolinux.com.br/t/como-faco-becape-de-meu-linux/52330
 
 
 # ----------------------------------------------------------------------------------------
@@ -691,6 +886,8 @@ echo "O arquivo /etc/resolv.conf não existe." | tee -a "$log"
 
 fi
 
+
+# https://linuxdicasesuporte.blogspot.com/2022/10/remover-bloqueio-de-operadora-sites.html
 
 # ----------------------------------------------------------------------------------------
 
@@ -906,9 +1103,16 @@ fi
 
 fi
 
+# ----------------------------------------------------------------------------------------
+
+# OpenShot
+
+
+# which openshot
 
 
 
+# https://linuxdicasesuporte.blogspot.com/2019/12/openshot-nao-abre-no-debian-e-derivados.html
 
 # ----------------------------------------------------------------------------------------
 
@@ -1032,12 +1236,11 @@ sed -i 's/^/.themes\//' /tmp/openbox.log
 sed -i ':a;$!N;s/\n/ /;ta;' /tmp/openbox.log
 
 
-tema="$(cat /tmp/openbox.log)"
 
 
 
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_OpenBox_via_cron.tar.gz  $(cat /tmp/openbox.log) .themes/*.obt  .config/obmenu-generator  .config/openbox  .config/tint2  .config/rofi   .local/share/applications/Tint2  /opt/conky/conkyrc-edps-openbox   .config/i3/i3lock.png   /usr/local/bin/xmenu.sh   /usr/local/bin/showdesktop.sh  2>> "$log"
 
-cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_OpenBox_via_cron.tar.gz   .themes/*.obt "$tema" .config/obmenu-generator  .config/openbox  .config/tint2  .config/rofi   .local/share/applications/Tint2  /opt/conky/conkyrc-edps-openbox   .config/i3/i3lock.png   /usr/local/bin/xmenu.sh   /usr/local/bin/showdesktop.sh  2>> "$log"
 
 
 
@@ -1063,6 +1266,8 @@ cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_OpenBox_via_cron.ta
 # .themes/Numix Daily
 
 
+sleep 2
+
 rm -Rf /tmp/openbox.log
 
 
@@ -1079,6 +1284,11 @@ rm -Rf /tmp/openbox.log
 
 fi
 
+
+
+# http://www.zago.eti.br/tar.html
+# https://ubuntuforum-br.org/index.php?topic=4518.0
+# https://pt.stackoverflow.com/questions/364889/como-passar-resultado-de-comando-para-uma-vari%C3%A1vel-em-bash
 
 
 # ----------------------------------------------------------------------------------------
@@ -1143,7 +1353,74 @@ cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_i3_via_cron.tar.gz 
 
 fi
 
+# ----------------------------------------------------------------------------------------
 
+# Liferea
+
+# xbps-install -y liferea
+# xbps-query -S liferea
+
+
+
+
+
+which liferea  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+# Para verificar se o diretório $pasta_usuario/.config/liferea existe.
+
+    if [ -d "$pasta_usuario/.config/liferea" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/liferea existe..."
+        
+        
+            
+echo "
+Realizando o backup do Liferea...
+"
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do-Liferea_via_cron.tar.gz   .config/liferea/  2>> "$log"
+
+
+
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/liferea não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+
+
+fi
+
+
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/03/liferea-1141-com-correcao-critica-de.html
+
+
+# ----------------------------------------------------------------------------------------
+
+# Pitivi  - Editor de vídeo open source
+
+# https://linuxdicasesuporte.blogspot.com/2023/03/editor-de-video-open-source-pitivi.html
+
+# ----------------------------------------------------------------------------------------
+
+# Shotcut
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/04/editor-de-video-shotcut-2304-beta-com.html
 
 # ----------------------------------------------------------------------------------------
 
@@ -1176,9 +1453,15 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
 # A pasta autostart do usuário contém todos os programas que são automaticamente executados ao iniciar 
 # a interface grafica (XFCE). É recomendado adicionar à pasta aplicativos de antivírus e de backup para 
 # fornecer maior segurança ao sistema.
+
+
+# Na pasta $HOME/.config/autostart ficam os arquivos de incialização de serviços quando 
+# faço login. também os copio pois tem persoanlizações minhas como som no login.
+
 
 # 12  14 * * * su fernando -c  "cd ~/ && /usr/bin/mkdir -p ~/backup && "
 
@@ -1473,11 +1756,17 @@ echo "O arquivo /etc/freshclam.conf existe."
 
 
 echo "
-Realizando o backup das configurações do freshclam...
-"
+Realizando o backup das configurações do Clamav (freshclam)...
+"  | tee -a "$log"
+
+ls -lh $(cat /etc/freshclam.conf | grep -i DatabaseDirectory | cut -d" " -f2)  | tee -a "$log"
+
+echo "
+
+" >> "$log"
 
 
-/usr/bin/tar -czf "$backup"/backup_da-base-de-dados-do-Clamav-via_cron.tar.gz   /etc/freshclam.conf  2>> "$log"
+# /usr/bin/tar -czf "$backup"/backup_da-base-de-dados-do-Clamav-via_cron.tar.gz   /etc/freshclam.conf  $(cat /etc/freshclam.conf | grep -i DatabaseDirectory | cut -d" " -f2)  2>> "$log"
 
 
 else
@@ -1847,6 +2136,8 @@ fi
 
         cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-das_fontes_via_cron.tar.gz    .fonts/   2>> "$log"
         
+        # /usr/share/fonts/
+        
     else
     
         echo -e "A pasta $pasta_usuario/.fonts/ não existe..." | tee -a "$log"
@@ -1923,7 +2214,7 @@ fi
     
 # ----------------------------------------------------------------------------------------
 #
-# Backup do Ocomon ($backup/backup_Ocomon-4.0.sql_via_cron.gz)
+# Backup do Ocomon ($backup/backup_Ocomon.sql_via_cron.gz)
 #
 #
 #
@@ -1945,10 +2236,40 @@ fi
 
 
 
+
+# httpd ou apachectl
+
+which httpd  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
 cd "$pasta_usuario"
 
 killall  -9 /usr/bin/firefox           1> /dev/null 2> /dev/null
 killall  -9 /opt/google/chrome/chrome  1> /dev/null 2> /dev/null
+
+
+
+
+
+
+# Verificar se o arquivo /etc/apache/httpd.conf  existe
+
+if [ -e "/etc/apache/httpd.conf" ] ; then
+
+clear
+
+echo "O arquivo /etc/apache/httpd.conf existe."
+
+
+
+
+
 
 
 
@@ -2003,7 +2324,9 @@ killall  -9 /opt/google/chrome/chrome  1> /dev/null 2> /dev/null
 
 # Executa o dump das bases
 
-LISTADB=$(/usr/bin/mysqlshow -u root -p"$senha_mysql" |  grep  'ocomon' | sed 's/|//g' |  sed 's/ //g')
+# -p "$senha_mysql"
+
+LISTADB=$(/usr/bin/mysqlshow -u root |  grep  'ocomon' | sed 's/|//g' |  sed 's/ //g')
 
 
 if [ "$LISTADB" == "ocomon" ]; then
@@ -2012,32 +2335,325 @@ if [ "$LISTADB" == "ocomon" ]; then
 clear
 
 echo "
-Backup do Ocomon ($backup/backup_Ocomon-4.0.sql_via_cron.gz)
+Backup do Ocomon (backup_Ocomon.sql_via_cron.gz)
 " | tee -a "$log"
 
 sleep 2
 
 
-# No Void Linux:
+
+
+
+
+
+
+
+# ----------------------------------------------------------------------------------------
+
+clear
+
+# Tipos de distribuições Linux
+
+distribuicao_linux=$(cat /etc/*-release | egrep "PRETTY_NAME" | cut -d = -f 2 | tr -d '"')
+
+
+
+ if [[ "$distribuicao_linux" == *"Void Linux"* ]]; then
+
+       echo -e "\n${GREEN}Void Linux.... ${NC}\n" 
+ 
+
+# Para verificar se o diretório /var/service/mysqld existe.
+
+if [ -d "/var/service/mysqld" ]; then
+    
+
+echo "
+Localizado /var/service/mysqld
+"
+
+else
+     
+# Habilitando o serviço do MariaDB/mysql
+ 
+ln -s /etc/sv/mysqld /var/service/mysqld
+
+
+fi
+
+
+
+
+ls -lh /var/service/mysqld
+
+# lrwxrwxrwx 1 root root 14 out 18 18:36 /var/service/mysqld -> /etc/sv/mysqld
+
+
+# Para saber com esta o estado do serviço
 
 sv status mysqld
+
+# Para iniciar o serviço
 
 sv up mysqld
 
 
 
-/usr/bin/mysqldump -u root -p$senha_mysql -x -e -B ocomon | gzip > "$backup"/backup_Ocomon-4.0.sql_via_cron.gz  2>> "$log"  
+# https://medium.com/@leandroembu/lamp-no-void-linux-2019-6be1184b7c1e
 
-sleep 2 
+
+
+ elif [[ "$distribuicao_linux" == *"Ubuntu"* || "$distribuicao_linux" == *"Debian"* || "$distribuicao_linux" == *"Kali"*  ]]; then
+
+       echo -e "\n${GREEN}Distribuições Linux de base Debian.... ${NC}\n"  
+
+      # PRETTY_NAME="Ubuntu 18.04.1 LTS"
+      # PRETTY_NAME="Ubuntu 22.04.2 LTS"
+      # PRETTY_NAME="Kali GNU/Linux Rolling"
+      # PRETTY_NAME="Debian GNU/Linux 9 (stretch)"
+      
+                         
+# Para verificar o status de um serviço usando o Systemd
+
+systemctl status mysqld
+
+
+# Para habilitar o serviço em sistemas systemd:
+
+# systemctl enable mysqld
+
+
+# Para iniciar um serviço
+
+systemctl start mysqld
+
+
+# https://pt.linux-console.net/?p=15468
+
+
+
+ elif [[ "$distribuicao_linux" == *"Red Hat Enterprise Linux"* ]]; then
+ 
+       echo -e "\n${GREEN}Red Hat Enterprise Linux.... ${NC}\n" 
+             
+       # PRETTY_NAME="Red Hat Enterprise Linux Server 7.6 (Maipo)"
+ 
+       
+# Exibição do status do serviço
+  
+systemctl status mysqld.service     
+
+
+# Para iniciar um serviço
+
+systemctl start mysqld.service
+
+
+# https://access.redhat.com/documentation/pt-br/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing_services_with_systemd-services-start
+# https://access.redhat.com/documentation/pt-br/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing_services_with_systemd-services-status
+
+
+ elif [[ "$distribuicao_linux" == *"Gentoo"* ]]; then
+ 
+       echo -e "\n${GREEN}Gentoo.... ${NC}\n"  
+            
+       # PRETTY_NAME="Gentoo/Linux"
+  
+              
+# Para disparar o processo mysqld em um sistema de inicialização OpenRC, execute o seguinte comando:
+
+rc-service mysqld start      
+
+
+# https://wiki.gentoo.org/wiki/Handbook:Parts/Full/Installation/pt-br
+
+
+ elif [[ "$distribuicao_linux" == *"CentOS"* ]]; then
+ 
+       echo -e "\n${GREEN}CentOS.... ${NC}\n"  
+            
+       # PRETTY_NAME="CentOS Linux 7 (Core)"
+    
+              
+# Para verificar serviços 
+
+systemctl status mysqld
+
+
+# Serviço em execução enquanto o sistema operacional está sendo carregado.
+
+# systemctl enable mysqld
+
+
+
+# Para iniciar um serviço
+
+systemctl start mysqld
+
+
+# https://www.hostinger.com.br/tutoriais/listar-servicos-linux
+# https://admininfo.info/how-to-activate-stop-restart-and-view-centos-8-services
+
+
+
+ elif [[ "$distribuicao_linux" == *"SUSE Linux Enterprise"* ]]; then
+ 
+       echo -e "\n${GREEN}openSUSE.... ${NC}\n"  
+            
+       # PRETTY_NAME="SUSE Linux Enterprise Server 12 SP4"
+
+           
+# Para verificar serviços 
+
+systemctl status mysqld
+
+
+# systemctl enable mysqld
+
+
+# Para iniciar um serviço
+
+systemctl start mysqld
+
+
+# https://documentation.suse.com/pt-br/sles/12-SP5/html/SLES-all/cha-deployment-prep-boot.html
+
+
+
+# elif [[ "$distribuicao_linux" == *""* ]]; then
+ 
+#       echo -e "\n${GREEN}Sabayon.... ${NC}\n"  
+            
+       # PRETTY_NAME=""
+              
+              
+# systemctl status mysqld
+
+# systemctl enable mysqld
+
+# systemctl start mysqld
+
+
+                       
+# https://www.vivaolinux.com.br/dica/systemd-no-Sabayon-Adicionando-servicos-manualmente
+# https://semanickz.wordpress.com/2016/09/20/o-magnifico-sabayon-linux-comandos-pos-instalacao/
+# https://www.vivaolinux.com.br/dica/Linux-avancado-Controle-de-inicializacao-em-Sabayon-Linux
+# https://www.vivaolinux.com.br/dica/Atualizando-suporte-ao-Dropbox-em-Sabayon
+
+
+
+ elif [[ "$distribuicao_linux" == *"Slackware"* ]]; then
+ 
+       echo -e "\n${GREEN}Slackware.... ${NC}\n"  
+  
+            
+# Todos os arquivos responsáveis pela inicialização são armazenados no diretório /etc/rc.d/.       
+ 
+# Para que um script não seja executado durante a inicialização basta remover a permissão 
+# de execução. As permissões são manipuladas através do comando chmod, lembre-se de 
+# utilizar o usuário Root. 
+
+
+# Adicionando a permissão de execução
+
+chmod +x /etc/rc.d/rc.mysqld
+
+
+ls -lh /etc/rc.d/rc.mysqld
+
+
+# Para iniciar um serviço
+
+/etc/rc.d/rc.mysqld start
+
+
+
+# https://telazul.drusian.com.br/pt/artigo/entendendo-a-inicializacao-do-slackware       
+# https://www.vivaolinux.com.br/topico/MySQL/Erro-ao-configurar-o-MYSQL.
+# https://www.linux.org/threads/changing-data-directory-of-mysql-in-slackware.31038/
+# https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/NetworkManager-iniciado-na-inicializacao-No-Slackware
+# http://www.dicas-l.com.br/arquivo/iniciar_o_slackware_linux_no_modo_grafico_automaticamente.php
+
+ 
+                                              	       			
+ else
+
+     echo -e "\n${RED}Não foi possível identificar sua distribuição Linux para atualizar...${NC}\n"
+    
+     # notify-send -i gtk-dialog-info -t 100000 "Atualizar sistema" "\nNão foi possível identificar sua distribuição Linux para atualizar..."
+     
+     # exit
+     
+ fi
+ 
+ 
+# ---------------------------------------------------------------------------------------- 
+
+
+
+
+
+
+
+
+
+
+
+
+# echo "
+# Fazendo o backup do Ocomon (MySQL)...
+# "
+
+# /usr/bin/mysqldump -u root -p$senha_mysql -x -e -B ocomon | gzip > "$backup"/backup_Ocomon-4.0.sql_via_cron.gz  2>> "$log"  
+
+/usr/bin/mysqldump -u root  ocomon > "$pasta_usuario"/backup_Ocomon.sql  2>> "$log"
+
+
+
+# Remover aspas duplas no Bash usando o sed
+
+pasta_do_apache=$(cat /etc/apache/httpd.conf | grep -i "DocumentRoot " | cut -d" " -f2 | sed 's/"//g'  2>> "$log" )
+
+# /srv/www/apache
+
+# https://pt.linux-console.net/?p=13765
+
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup_Ocomon.sql_via_cron.gz   "$pasta_do_apache"/ocomon  backup_Ocomon.sql   2>> "$log"
+
+sleep 1
+
+
+rm -Rf "$pasta_usuario"/backup_Ocomon.sql
+
+
+sleep 1
+
 
 sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/extras/ocomon.png  'Atenção!' '\n\nBackup do OcoMon finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n'
+
+
+
+else
+
+clear
+
+echo "O arquivo /etc/apache/httpd.conf não existe." | tee -a "$log"
+
+
+
+fi
+
+
+
 
 
 else
 
 
 echo "
-Ocomon não foi localizado no banco de dados.
+Ocomon não foi localizado no banco de dados MySQL.
 
 " | tee -a "$log"
 
@@ -2050,11 +2666,20 @@ fi
 
 
 
+fi
+
+
+
+
+
 # https://techviewleo.com/install-mysql-mariadb-database-on-void-linux/
 # https://medium.com/@jvnetobr/backup-e-restore-de-banco-de-dados-mysql-4e5c776d53a4
 # http://www.bosontreinamentos.com.br/mysql/mysql-mysqldump-backup-e-restauracao-do-banco-de-dados-25/
 # https://pt.stackoverflow.com/questions/329266/dump-de-todos-os-bancos-para-um-usu%C3%A1rio-especifico
 # https://www.vivaolinux.com.br/topico/Shell-Script/Script-de-backup-5
+# https://www.codigofonte.com.br/dicas/backup-e-restore-no-mysql-com-mysqldump
+# https://linuxize.com/post/how-to-back-up-and-restore-mysql-databases-with-mysqldump/
+# http://www.bosontreinamentos.com.br/mysql/mysql-mysqldump-backup-e-restauracao-do-banco-de-dados-25/
 
 
 # ----------------------------------------------------------------------------------------
@@ -2149,6 +2774,13 @@ fi
 # ----------------------------------------------------------------------------------------
 
 
+# Backup dos scripts em /usr/local/bin
+
+
+
+# Todos os meus scripts salvo na pasta /usr/local/bin. e faço uma cópia dessa pasta para guardá-la externamente.
+
+
 
 # Backup da pasta  /usr/local/bin/  (O comando será executado às 23h03) - Estava gerando um arquivo compactado com 26,6 GB
 #
@@ -2163,8 +2795,31 @@ fi
 # 03 23 * * *  cd /home/fernando/  && /usr/bin/mkdir -p backup && chown -R fernando:fernando backup  && 
 
 
-# /usr/bin/tar -czf "$backup"/backup-da_pasta_bin_via-cron.tar.gz  /usr/local/bin/  2>> "$log"
 
+
+# Para verificar se o diretório  /usr/local/bin/ existe.
+
+    if [ -d "/usr/local/bin/" ]; then
+    
+    
+        echo -e "A pasta /usr/local/bin/ existe..."
+
+echo "
+Realizando o backup dos scripts em /usr/local/bin...
+"
+
+# cd "$pasta_usuario" &&  /usr/bin/tar -czf "$backup"/backup-scripts_via_cron.tar.gz   /usr/local/bin/  /etc/backup.conf  2>> "$log" &&  sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/128x128/apps/uget-icon.png  'Atenção!' '\n\nBackup dos scripts em /usr/local/bin finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\n' 
+
+        
+        
+    else
+    
+        echo -e "A pasta /usr/local/bin/ não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
 
 # ----------------------------------------------------------------------------------------
 
@@ -2245,6 +2900,216 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
+
+which mpv 1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+# Para verificar se o diretório $pasta_usuario/.config/mpv existe.
+
+    if [ -d "$pasta_usuario/.config/mpv" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.config/mpv existe..."
+
+
+echo "
+Realizando o backup do mpv...
+"
+
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-mpv_via_cron.tar.gz    .config/mpv   2>> "$log"
+
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/mpv não existe..."  | tee -a "$log"
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# https://github.com/mpv-player/mpv/wiki/User-Scripts
+# https://ubuntuforum-br.org/index.php?topic=121307.0
+
+# ----------------------------------------------------------------------------------------
+
+# Opera
+
+
+# https://www.youtube.com/watch?v=dQ_ZV4yptHs
+
+# ----------------------------------------------------------------------------------------
+
+echo "
+VLC
+" | tee -a "$log"
+
+
+# VLC não toca Vídeos do YouTube [Resolvido]
+
+# Publicado por Xerxes em 22/01/2019
+
+
+# Dica testada no Slackware Current em 19/01/2019.
+
+# Ao adicionar uma URL de YouTube no VLC (Menu => Mídia => Abrir Fluxo de Rede), dá erro 
+# e não toca o vídeo!
+
+
+# Algo como "VLC is unable to open the MRL..".
+
+# ou
+
+# lua error: Couldn't extract youtube video URL, please check for updates to this script
+
+
+# Após uma busca no Google, descobri a solução em três etapas:
+
+# 1. Feche o VLC.
+
+# 2. Baixe o arquivo "youtube.lua" do GitHub do VLC:
+
+# wget -c https://github.com/videolan/vlc/blob/master/share/lua/playlist/youtube.lua
+
+# 3. Mova o arquivo para...
+
+#    /usr/lib64/vlc/lua/playlist/ (se for 64-bits)
+#    /usr/lib/vlc/lua/playlist/ (se for 32-bits)
+
+
+# Exemplo:
+
+# mv youtube.lua /usr/lib64/vlc/lua/playlist/
+
+# Reabra o VLC e coloque a URL do YouTube.
+
+# Agora vai!
+
+
+# Fonte: https://www.vivaolinux.com.br/dica/VLC-nao-toca-Videos-do-YouTube-Resolvido
+
+
+
+
+
+# killall -9 vlc
+
+# xbps-install -Suvy vlc
+# xbps-install -Suvy lua
+
+
+# ls -lh /usr/lib64/vlc/lua/playlist/youtube.lua*
+
+
+# rm -Rf /usr/lib64/vlc/lua/playlist/youtube.lua
+
+# curl "https://code.videolan.org/videolan/vlc/-/raw/master/share/lua/playlist/youtube.lua?inline=false" -o /usr/lib64/vlc/lua/playlist/youtube.lua
+
+
+
+# ========================================================================================
+
+# Para identificar a arquitetura do seu processador (32 bits ou 64 bits)
+
+echo "
+
+" >> "$log"
+
+
+arquitetura=$(uname -m)
+
+ if [[ "$arquitetura" == "x86_64" ]]; then
+
+# Para 64 bits 
+
+ls -lh /usr/lib64/vlc/lua/playlist/ | tee -a "$log"
+     
+bibliotecas_de_sistema="lib64"     
+                                         	       			
+ else
+
+# Para 32 bits 
+
+bibliotecas_de_sistema="lib" 
+
+ls -lh /usr/lib/vlc/lua/playlist/ | tee -a "$log"
+    
+    
+    # echo -e "Não foi possível identificar a biblioteca do sistema..."
+
+     
+ fi 
+
+
+
+echo "
+
+" >> "$log"
+
+# ========================================================================================
+ 
+ 
+
+which vlc 1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+# Para verificar se o diretório $pasta_usuario/.config/vlc existe.
+
+    if [ -d "$pasta_usuario/.config/vlc" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.config/vlc existe..."
+
+
+echo "
+Realizando o backup do VLC...
+"
+
+# ~/.local/share/vlc/lua/playlist/
+
+# /usr/lib64/vlc/lua/playlist/
+
+
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-VLC_via_cron.tar.gz    .config/vlc  .local/share/vlc   /usr/"$bibliotecas_de_sistema"/vlc/lua/playlist/*.lua  2>> "$log"
+
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/vlc não existe..."  | tee -a "$log"
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# https://code.videolan.org/videolan/vlc/-/issues/27827
+# https://askubuntu.com/questions/197739/vlc-youtube-videos-wont-play-anymore
+# https://www.vivaolinux.com.br/dica/VLC-nao-toca-Videos-do-YouTube-Resolvido
+
+
+# ----------------------------------------------------------------------------------------
 
 
 # Backup do Fluxbox (O comando será executado às 01h26, do dia 3º de todos os meses.)
@@ -2364,9 +3229,161 @@ fi
 # https://linuxdicasesuporte.blogspot.com/2021/01/picom-compositor-para-x11-no-linux.html
 # https://github.com/chjj/compton
 
+# ----------------------------------------------------------------------------------------
+
+# IceWm
+
+# ~/.icewm/
+
+
+which icewm 1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+
+# Para verificar se o diretório $pasta_usuario/.icewm existe.
+
+    if [ -d "$pasta_usuario/.icewm" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.icewm existe..."
+
+
+
+echo "
+Realizando o backup do IceWm...
+" | tee -a "$log"
+
+
+ls -lh "$pasta_usuario"/.icewm >> "$log"
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_IceWm_via_cron.tar.gz  .icewm  /usr/local/share/icewm/  2>> "$log"
+
+       
+               
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.icewm não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+    
+
+
+
+fi
+
+
+# https://linuxdicasesuporte.blogspot.com/2022/10/gerenciador-de-janelas-icewm-31.html
+# http://byteria.blogspot.com/2018/05/antix-icewm-learning.html
+# https://forum.tinycorelinux.net/index.php/topic,1861.30.html
+# https://www.antixforum.com/forums/topic/de-is-broken-icewm-space-no-menu-items/
 
 # ----------------------------------------------------------------------------------------
 
+# Telegram
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/02/telegram-desktop-461-e-lancado.html
+
+# ----------------------------------------------------------------------------------------
+
+# Audacious - player de áudio 
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/03/o-player-de-audio-audacious-43-adiciona.html
+
+# ----------------------------------------------------------------------------------------
+
+# qmmp - player de áudio 
+
+which qmmp 1> /dev/null 2> /dev/null
+
+if [ $? == 0 ]; then
+
+clear
+
+
+# Para verificar se o diretório $pasta_usuario/.qmmp existe.
+
+    if [ -d "$pasta_usuario/.qmmp" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.qmmp existe..."
+        
+echo "
+Realizando o backup do qmmp...
+"
+
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_qmmp_via_cron.tar.gz  .qmmp   2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.qmmp não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+fi
+# ----------------------------------------------------------------------------------------
+
+# vokoscreen
+
+# xbps-query -Rs vokoscreen
+# [-] vokoscreen-2.5.0_1 Easy to use screencast creator
+
+
+# https://www.youtube.com/watch?v=H5Zrl20tHEc
+
+# ----------------------------------------------------------------------------------------
+
+# Simple Screen Recorder
+
+
+which simplescreenrecorder 1> /dev/null 2> /dev/null
+
+if [ $? == 0 ]; then
+
+clear
+
+
+# Para verificar se o diretório $pasta_usuario/.ssr existe.
+
+    if [ -d "$pasta_usuario/.ssr" ]; then
+    
+    
+        echo -e "A pasta $pasta_usuario/.ssr existe..."
+        
+echo "
+Realizando o backup do Simple Screen Recorder...
+"
+
+       cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_ssr_via_cron.tar.gz  .ssr   2>> "$log"
+        
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.ssr não existe..." | tee -a "$log"
+        
+
+    fi
+    
+    
+
+fi
+
+# ----------------------------------------------------------------------------------------
 
 # Sendto do Thunar  (O comando será executado às 23h52, do dia 5º de todos os meses.)
 #
@@ -3424,7 +4441,903 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+# Transmission
 
+
+# Como posso fazer backup dos meus torrents em um disco rígido externo que pode 
+# ser movido de um sistema para outro? Estou usando Transmission.
+
+
+
+# mova ~/.config/transmissionpara a unidade externa.
+#
+# crie um link simbólico no novo sistema apontando para uma unidade externa.
+#
+# Tenha em mente que se você desconectar a unidade, a transmissão se comportaria mal 
+# (seu diretório de configuração apontaria para um local inexistente sem acesso de gravação).
+
+
+
+which transmission  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Transmission...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.config/transmission existe.
+
+    if [ -d "$pasta_usuario/.config/transmission" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/transmission existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Transmission_via_cron.tar.gz  .config/transmission 2>> "$log"
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/transmission não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# https://askubuntu.com/questions/1166544/how-to-backup-and-restore-transmission-torrents
+# https://unix.stackexchange.com/questions/545285/how-to-backup-transmission-downloads-and-torrents
+# https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/remotar-o-download-no-transmission-depois-de-reinstalar-o-SO
+
+
+# ----------------------------------------------------------------------------------------
+
+# Contabilidade
+
+
+# echo "Localizar arquivo XML da nota fiscal eletrônica (NFe)" | tee -a "$log"
+
+
+# Podemos pesquisar todos os arquivos que terminam em .xml desta forma:
+
+# find / -type f -iname "*.xml" >> "$log"
+
+
+
+# https://blog.bling.com.br/xml-nota-fiscal/
+# https://www.digitalocean.com/community/tutorials/how-to-use-find-and-locate-to-search-for-files-on-linux-pt
+# http://www.nfe.fazenda.gov.br/portal/principal.aspx
+
+# ----------------------------------------------------------------------------------------
+
+# Wallpaper, Temas e ícones de backup
+
+
+
+# Backup dos pacotes de ícones e temas que instalamos no sistema.
+
+# irá arquivar e copiar todos os temas instalados e os ícones dos caminhos /usr/share/themes e /usr/share/icons.
+
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Temas_via_cron.tar.gz    .themes  /usr/share/themes 2>> "$log"
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-icones_via_cron.tar.gz   .icons   /usr/share/icons  2>> "$log"
+
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-wallpaper_via_cron.tar.gz   /usr/share/backgrounds/  /usr/share/wallpaper/  2>> "$log"
+
+
+# https://blog.desdelinux.net/pt/aptik-realiza-un-backup-de-tus-repositorios-temas-programas-y-configuraciones/
+
+# ----------------------------------------------------------------------------------------
+
+# Wine
+
+
+
+# which wine  1> /dev/null 2> /dev/null
+
+which winecfg  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Wine...
+"
+
+
+
+# Para verificar se o diretório $pasta_usuario/.wine existe.
+
+    if [ -d "$pasta_usuario/.wine" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.wine existe..."
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Wine_via_cron.tar.gz  .wine 2>> "$log"
+
+
+# tar -czvf backup-wine.tar.gz ~/.wine/
+
+
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.wine não existe..."
+        
+
+    fi
+    
+    
+fi
+ 
+ 
+    
+# https://linuxdicasesuporte.blogspot.com/2023/10/wine-818-lancado-com-melhorias-para-o.html
+# https://superuser.com/questions/1692789/backup-wine-configurations-in-linux
+# https://askubuntu.com/questions/1188484/wine-installation-can-not-find-winecfg
+# https://linuxconfig.org/configuring-wine-with-winecfg
+# https://www.addictivetips.com/ubuntu-linux-tips/back-up-wine-apps/
+# https://www.hardware.com.br/guias/windows-linux/dicas-winecfg.html
+
+
+# ----------------------------------------------------------------------------------------
+
+# Playonlinux
+
+
+# ~/.PlayOnLinux
+
+
+# https://www.vivaolinux.com.br/topico/UbuntuBR/Fazer-backup-de-programas
+# https://askubuntu.com/questions/235511/how-to-backup-virtual-drives-with-playonlinux
+
+# ----------------------------------------------------------------------------------------
+
+# Proton é uma camada de compatibilidade para que jogos de Microsoft Windows rodem em 
+# sistemas operacionais baseados em Linux. Proton é desenvolvido pela Valve em cooperação 
+# com desenvolvedores da CodeWeavers sob contrato. 
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/10/valve-proton-80-4-lancado-com-suporte.html
+
+# ----------------------------------------------------------------------------------------
+
+# FreeCAD
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/08/freecad-021-e-lancado-com-melhorias.html
+
+# ----------------------------------------------------------------------------------------
+
+# xmind
+
+
+# ----------------------------------------------------------------------------------------
+
+# Inkscape
+
+# Inkscape é um software de código aberto e alternativa ao Adobe Illustrator
+
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/07/inkscape-13-lancado-com-melhorias-e.html
+
+# ----------------------------------------------------------------------------------------
+
+# Gerenciador de login (Lightdm)
+
+
+# /etc/lightdm/lightdm.conf
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/07/autologin-para-o-gerenciador-de-sessao.html
+
+# ----------------------------------------------------------------------------------------
+
+# Snap
+
+# Formato de empacotamento de software criado pela Canonical (empresa por trás da famosa distro Ubuntu).
+#
+# Trata-se de uma tecnologia que, assim como o Flatpak, facilita a instalação de programas no sistema operacional.
+#
+# É executado de forma isolada. 
+
+
+
+
+which snap  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+# echo "
+# Realizando o backup dos Snaps instalados...
+# "
+
+
+
+echo "
+Listar Snaps instalados
+" | tee -a "$log"
+
+# Para descobrir todos os Snaps instalados em seu sistema, você pode utilizar o seguinte comando:
+
+snap list >> "$log"
+
+
+
+fi
+
+
+# https://teclinux.com/o-que-e-snap-no-linux-aprenda-a-usar-o-formato-em-varias-distribuicoes/
+
+
+# ----------------------------------------------------------------------------------------
+
+# Navegador Brave
+
+
+
+
+# ----------------------------------------------------------------------------------------
+
+# Backup pessoal ("Área de Trabalho" Desktop Documentos Downloads Imagens Músicas Público Vídeos dwhelper)
+
+
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-pessoal-"$usuario"_via_cron.tar.gz   \
+# "Área de Trabalho" \
+# Desktop \
+# Documentos \
+# Downloads \
+# Imagens \
+# Músicas \
+# Público \
+# Vídeos \
+# dwhelper \
+# 2>> "$log"
+
+
+
+# https://cursos.alura.com.br/forum/topico-erro-ao-cria-um-script-de-backup-194167
+# https://help.ubuntu.com/stable/ubuntu-help/backup-how.html.pt-BR
+
+
+# ----------------------------------------------------------------------------------------
+
+# Backup do Whatsapp
+
+
+
+# ----------------------------------------------------------------------------------------
+
+# Chromium
+
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-chromium_via_cron.tar.gz   .config/chromium   2>> "$log"
+
+
+# Se foi instalado por pacote Flatpak deve estar em $HOME/.var/app/com.github.Eloston.UngoogledChromium/config/chromium.
+
+
+# O caminho você também pode encontrar pelo endereço chrome://profile-internals.
+
+
+# https://plus.diolinux.com.br/t/como-fazer-backup-de-um-profile-do-chromium/50362
+
+# ----------------------------------------------------------------------------------------
+
+
+# Instalação de programas via Flatpak
+
+
+# Pacotes flatpacks salvam as configurações em $HOME/.var/app. No caso do google chrome, 
+# por exemplo, com.google.Chrome; microsoft edge: com.microsoft.Edge e assim por diante. 
+# Para aproveitar esses arquivos, depois de uma instalação limpa deve-se criar as pasta 
+# onde ficarão: mkdir -p $HOME/.var/app
+
+
+# Onde ficam os apps e runtimes do usuário?
+#
+# Por padrão, ficam em ~/.local/share/flatpak
+
+
+# Mas e a pasta ~/.var/app?
+# 
+# Na Home do usuário existe um diretório .var/app que ficou cheio de subdiretórios com os 
+# apps. Esse diretório não é onde os apps estão instalados, mas sim onde ficam suas 
+# configurações. Podemos comparar com o diretório ~/.config, que é onde ficam as 
+# configurações dos programas tradicionais (quase sempre).
+# 
+# Vejam o conteúdo de ~/.var/app
+
+
+
+# Erro ao instalar programas flatpak
+#
+# ln -s /var/lib/flatpak/exports/share/applications /usr/share/applications/flatpak
+#
+# A instalação segue normalmente, mas ao fim dela os programas não são encontrados no lançador.
+#
+# na primeira vez precisa reiniciar
+
+
+
+# victorff
+#
+# Existe alguma ferramente, script ou algo do tipo para fazer backup de flatpaks ou pelo 
+# menos automatizar a instalação desses apps? Toda vez que eu troco de distro é horrível 
+# ter de instalar tudo de novo manualmente.
+#
+#
+# Tem 4 mecanismos:
+#
+# Você cria uma instalação paralela do flatpak em uma partição separada
+#
+# Você faz uma imagem (ou cópia) de /var/lib/flatpak
+#
+# Você faz bundle do repositório ostree (junto com a primeira é o mais indicado)
+#
+# Você para de usar flatpak e passa a usar uma forma de distribuição portável, como 
+# os Snaps e AppImages.
+
+
+
+
+
+which flatpak  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Flatpak...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.var/app existe.
+
+    if [ -d "$pasta_usuario/.var/app" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.var/app existe..."
+
+
+ls -lh "$pasta_usuario"/.var/app | tee -a "$log"
+
+echo "$XDG_DATA_DIRS" | tee -a "$log"
+
+# $HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Flatpak_via_cron.tar.gz   .var/app  /var/lib/flatpak  .local/share/flatpak  2>> "$log"
+
+
+
+
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.var/app não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+
+# https://plus.diolinux.com.br/t/como-faco-becape-de-meu-linux/52330
+# https://plus.diolinux.com.br/t/backup-de-flatpak/7534
+# https://www.vivaolinux.com.br/topico/openSUSE-Linux-Brasil/Instalacao-do-Flatpak
+# https://plus.diolinux.com.br/t/erro-ao-instalar-programas-flatpak/12992
+# https://leandroramos.debxp.org/como-manter-os-flatpaks-somente-na-home/
+# https://linuxdicasesuporte.blogspot.com/2019/01/mandar-o-diretorio-dos-flatpak-para_7.html
+# https://community.endlessos.com/t/duvidas-sobre-o-aplicativo-biblioteca/6591/5
+
+
+# ----------------------------------------------------------------------------------------
+
+# Spotify
+
+
+
+# https://ubuntuforum-pt.org/index.php?topic=125076.0
+
+# ----------------------------------------------------------------------------------------
+
+# Lutris
+
+
+
+# https://forum.biglinux.com.br/d/772-dica-adicionando-jogos-do-flatpak-ou-snap-na-sua-biblioteca-de-jogos-do-lutris
+# https://community.endlessos.com/t/duvidas-sobre-o-aplicativo-biblioteca/6591/5
+# https://linuxdicasesuporte.blogspot.com/2023/05/o-gerenciador-de-jogos-lutris-0513-e.html
+
+# ----------------------------------------------------------------------------------------
+
+# Nextcloud
+
+
+# https://www.ubuntubuzz.com/search?q=backup
+
+# ----------------------------------------------------------------------------------------
+
+# onlyoffice
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/01/suite-de-escritorio-onlyoffice-730.html
+# https://linuxdicasesuporte.blogspot.com/2023/01/suite-de-escritorio-onlyoffice-appimage.html
+
+# ----------------------------------------------------------------------------------------
+
+# QEMU
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/04/software-de-virtualizacao-qemu-80.html
+
+# ----------------------------------------------------------------------------------------
+
+# virt-manager
+
+# ----------------------------------------------------------------------------------------
+
+# HandBrake
+
+
+# https://linuxdicasesuporte.blogspot.com/2022/12/conversor-de-video-open-source.html
+
+# ----------------------------------------------------------------------------------------
+
+# SweetHome3D
+
+# profile SweetHome3D
+
+
+
+
+# https://www.sweethome3d.com/pt/download.jsp
+# https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/Problema-da-Execucao-de-Software-Retorna-Mensagem-usrbinjava-not-found
+# https://ubuntuforum-br.org/index.php?topic=110854.0
+
+# ----------------------------------------------------------------------------------------
+
+# Evolution / Google Tasks 
+
+
+
+# As tarefas da minha lista local estavam armazenadas no arquivo 
+# ~/.local/share/evolution/tasks/system/tasks.ics
+#
+# Usando o Evolution eu consegui mover as tarefas (uma a uma) da lista local para a lista 
+# do Google Tasks associada a minha conta de e-mail.
+#
+# Ao fazer isso, as informações de prioridade foram perdidas, pois o Google Tasks não tem 
+# opção de definir prioridade para uma tarefa.
+#
+# Tentei usar o Todoist mas achei confuso, pois ele mostrava os eventos do Google Calendar 
+# como tarefas, isto é, misturava minhas tarefas (sem data e/ou horário definido) com meus 
+# compromissos (reuniões, aulas, etc.) em uma única lista. Vou tentar fuçar mais, mas 
+# aceito conselhos! :slight_smile:
+#
+# Pelo que andei lendo, a integração do Todoist com o Gnome e com o Gnome To Do foi 
+# removida em versões mais recentes. Ou seja, não sei se eu conseguiria visualizar as 
+# tarefas do Todoist no Task Widget do Gnome.
+
+
+
+
+
+
+
+which evolution  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Evolution...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.local/share/evolution existe.
+
+    if [ -d "$pasta_usuario/.local/share/evolution" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.local/share/evolution existe..."
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Evolution_via_cron.tar.gz   .local/share/evolution   2>> "$log"
+
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.local/share/evolution não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+# https://plus.diolinux.com.br/t/gnome-to-do-como-fazer-backup-da-lista-de-tarefas/25550/3
+# https://en.wikipedia.org/wiki/Google_Tasks
+# https://assistant.google.com/tasks
+
+
+# ----------------------------------------------------------------------------------------
+
+# OBS Studio
+
+
+# Habilitar webcam no OBS Studio
+#
+# https://youtu.be/nf6epciZYsY
+#
+# https://ceduc.unifei.edu.br/tutoriais/obs-studio-mixer-de-audio-e-habilitar-webcam/
+#
+# https://www.youtube.com/watch?v=s8AmkkV8Vlc&ab_channel=CosmonautaVirtual
+
+
+
+# find ~/ -iname obs*
+
+
+# ~/.config/obs-studio
+
+
+
+which obs  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do OBS Studio...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.config/obs-studio existe.
+
+    if [ -d "$pasta_usuario/.config/obs-studio" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/obs-studio existe..."
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-obs-studio_via_cron.tar.gz   .config/obs-studio  2>> "$log"
+
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/obs-studio não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# https://plus.diolinux.com.br/t/obs-studio-nao-esta-exibindo-tela-inteira-no-debian/16222
+
+# ----------------------------------------------------------------------------------------
+
+# LXQt
+
+
+# https://linuxdicasesuporte.blogspot.com/2023/04/ambiente-de-desktop-lxqt-13-lancado-com.html
+
+# ----------------------------------------------------------------------------------------
+
+# XFCE
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-XFCE_via_cron.tar.gz   .config/xfce4   2>> "$log"
+
+
+
+# https://plus.diolinux.com.br/t/como-fazer-backup-dos-arquivos-de-aparencia-do-xfce/55416
+# https://linuxdicasesuporte.blogspot.com/2023/02/resetar-o-xfce4-para-restaurar-as.html
+# https://youtu.be/lHMFK6tkgxE
+
+# ----------------------------------------------------------------------------------------
+
+# Cinnamon
+
+
+which dconf  1> /dev/null 2> /dev/null
+
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+echo "
+Realizando o backup do Cinnamon...
+"
+
+# Backup e restauração apenas das configurações do Cinnamon.
+
+# OBS: O nome que utilizei é um exemplo, altere para nomes que você melhor se identifique.
+
+# Para fazer o backup execute o comando abaixo no terminal.
+
+# cd "$pasta_usuario" &&     dconf dump /org/cinnamon/ > "$backup"/backup-Cinnamon-`date +%d-%m-%Y-%H-%M`
+
+
+
+# Para restaurar o backup utilize o comando abaixo.
+
+#    dconf load /org/cinnamon/ < "$backup"/backup-Cinnamon-`date +%d-%m-%Y-%H-%M`
+
+
+
+fi
+
+# https://linuxdicasesuporte.blogspot.com/2020/03/fazer-backup-e-restauracao-das.html
+# https://linuxdicasesuporte.blogspot.com/2022/09/resetar-o-linux-mint.html
+
+# ----------------------------------------------------------------------------------------
+
+# MATE
+
+which dconf  1> /dev/null 2> /dev/null
+
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+echo "
+Realizando o backup do Mate...
+"
+
+
+# Backup e restauração apenas das configurações do Mate.
+
+# OBS: O nome que utilizei é um exemplo, altere para nomes que você melhor se identifique.
+
+# Para fazer o backup execute o comando abaixo no terminal.
+
+# cd "$pasta_usuario" &&   dconf dump /org/mate/ > "$backup"/backup-Mate-`date +%d-%m-%Y-%H-%M`
+
+
+# Para restaurar o backup utilize o comando abaixo.
+
+#    dconf load /org/mate/ < "$backup"/backup-Mate-`date +%d-%m-%Y-%H-%M`
+
+
+fi
+
+
+# https://linuxdicasesuporte.blogspot.com/2020/03/fazer-backup-e-restauracao-das.html
+
+
+# ----------------------------------------------------------------------------------------
+
+# Gnome
+
+which dconf  1> /dev/null 2> /dev/null
+
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+echo "
+Realizando o backup do Gnome...
+"
+
+
+# Para realizar o backup das configurações do seu Gnome de o comando abaixo no terminal.
+#
+# Em backup-Gnome você pode adicionar uma data, assim você pode ter vários backups 
+# guardados.
+
+
+
+# ========================================================================================
+
+
+# Para verificar se o diretório $pasta_usuario/.local/share/gnome-shell/extensions existe.
+
+
+    if [ -d "$pasta_usuario/.local/share/gnome-shell/extensions" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.local/share/gnome-shell/extensions existe..."
+
+# Backup and Restore GNOME Shell Extensions (GNOME 3.28 over Ubuntu 18.04 LTS)
+
+# .local/share/gnome-shell/extensions/
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-extensoes_do_Shell_do_GNOME_via_cron.tar.gz   .local/share/gnome-shell/extensions  2>> "$log"
+
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.local/share/gnome-shell/extensions não existe..."
+        
+
+    fi
+    
+        
+# ========================================================================================
+
+    
+    
+# cd "$pasta_usuario" &&  dconf dump / > "$backup"/backup-Gnome-`date +%d-%m-%Y-%H-%M`
+
+
+
+
+
+
+# Como podem ver o meu backup foi criado em $backup com o nome de "backup-Gnome-26-10-2023-14-47".
+
+
+# Para realizar um teste vamos resetar as configurações do Gnome ao ponto de fabrica, 
+# para isso execute o comando abaixo no terminal.
+#
+# OBS: Nenhum dado pessoais e ou configurações dos seus programas serão afetados, apenas 
+# as configurações do Gnome.
+#
+#  dconf reset -f /
+    
+    
+# Ai está o Gnome como veio ao mundo, veio de doer hehehhe
+
+
+
+# Sem desespero, você tem o backup das suas customizações do seu Gnome e rapidamente ele 
+# volta ao que você gosta e fez.
+
+# Para restaurar o backup execute o comando abaixo no terminal.
+
+#  dconf load / < gnome_09-03-2020-desktop
+
+
+# Gnome restaurado.
+
+
+
+fi
+
+
+
+
+# https://documentation.suse.com/pt-br/sles/12-SP5/html/SLES-all/cha-userbackup.html
+# https://linuxdicasesuporte.blogspot.com/2020/03/fazer-backup-e-restauracao-das.html
+# https://askubuntu.com/questions/1056386/how-do-i-backup-all-gnome-tweaks-configuration
+# https://www.addictivetips.com/ubuntu-linux-tips/back-up-the-gnome-shell-desktop-settings-linux/
+# https://www.ubuntubuzz.com/2018/08/backup-and-restore-gnome-shell-extensions.html
+# https://forum.xerolinux.xyz/thread-61.html
+# https://linuxdicasesuporte.blogspot.com/2017/05/instalando-e-fazendo-backup-de.html
+# https://linuxdicasesuporte.blogspot.com/2022/03/restauracao-do-sistema-com-timeshift.html
+# https://linuxdicasesuporte.blogspot.com/2019/11/criptografar-sua-particao-home-no.html
+# https://linuxdicasesuporte.blogspot.com/2017/11/usando-mesma-particao-de-dados-para.html
+# https://linuxdicasesuporte.blogspot.com/2022/10/usar-as-mesmas-pastas-de-usuario.html
+
+
+# ----------------------------------------------------------------------------------------
+
+# KDE Plasma
+
+# o arquivo de configuração em si sobre posição de painel, widgets da tela e painel, o 
+# arquivo é o .config/plasma-org.kde.plasma.desktop-appletsrc O restante do esquema de 
+# cores, icones e tal é só anotar o nome e depois instalar no outro computador.
+
+# .cache/krunner/
+# .cache/kamoso
+
+
+
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-KDE_Plasma_via_cron.tar.gz \
+# .config/plasma-org.kde.plasma.desktop-appletsrc \
+# .config/kdeglobals \
+# .config/kscreenlockerrc \
+# .config/kwinrc \
+# .config/gtkrc \
+# .config/gtkrc-2.0 \
+# .config/gtk-4.0/* \
+# .config/gtk-3.0/* \
+# .config/ksplashrc \
+# .config/kdeglobals \
+# .config/plasmarc \
+# .config/kdeglobals \
+# .config/Trolltech.conf \
+# .config/breezerc \
+# .config/kwinrc \
+# .config/kdeglobals \
+# .config/kcmfonts \
+# .config/kdeglobals \
+# .config/kcminputrc \
+# .config/klaunchrc \
+# .config/kfontinstuirc \
+# .config/ksplashrc \
+# .config/plasmarc \
+# .config/kwinrc \
+# .config/kwinrc \
+# .config/kglobalshortcutsrc \
+# .config/kscreenlockerrc \
+# .config/kactivitymanagerdrc \
+# .config/kactivitymanagerd-switcher \
+# .config/kactivitymanagerd-statsrc \
+# .config/kactivitymanagerd-pluginsrc \
+# .config/kglobalshortcutsrc \
+# .config/plasma-org.kde.plasma.desktop-appletsrc \
+# .config/kwinrc \
+# .config/kwinrulesrc \
+# .config/kwinrc \
+# .config/khotkeysrc \
+# .config/kglobalshortcutsrc \
+# .config/kded5rc \
+# .config/ksmserverrc \
+# .config/krunnerrc \
+# .config/baloofilerc \
+# .local/share/plasma-systemmonitor \
+# .config/plasmanotifyrc \
+# .config/plasma-localerc \
+# .config/ktimezonedrc \
+# .config/kaccessrc \
+# .config/mimeapps.list \
+# .config/mimeapps.list \
+# .config/PlasmaUserFeedback \
+# .config/kcminputrc \
+# .config/kxkbrc \
+# .config/kxkbrc \
+# .config/touchpadxlibinputrc \
+# .config/kcminputrc \
+# .config/kgammarc \
+# .config/kwinrc \
+# .config/powermanagementprofilesrc \
+# .config/bluedevilglobalrc \
+# .config/kdeconnect \
+# .config/device_automounter_kcmrc \
+# .config/kded5rc \
+# .config/kded_device_automounterrc \
+# .config/krusaderrc \
+# 2>> "$log"
+
+
+
+
+
+# https://plus.diolinux.com.br/t/backup-no-kde-plasma/32900
+# https://plus.diolinux.com.br/t/backup-config-plasma/35833
+# https://github.com/shalva97/kde-configuration-files
+# https://gitlab.com/cscs/transfuse/-/blob/master/transfuse.sh?ref_type=heads
+
+# ----------------------------------------------------------------------------------------
 
 chown -R "$usuario":"$grupo" "$backup" 
 
@@ -3460,6 +5373,8 @@ mv "$log" "$backup"
 
 rm -Rf "$log"
 
+
+# Backup realizado com Sucesso
 
 sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/hicolor/48x48/status/uninterruptible-power-supply.png  'Atenção!' '\n\nBackup finalizado em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)' \nsalvo na pasta: '$backup'... \n\nVerifique o arquivo de log: '$backup'/backup.log\n\n'
 

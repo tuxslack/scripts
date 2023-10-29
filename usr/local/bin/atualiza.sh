@@ -153,6 +153,11 @@ log="/tmp/update_$(date +%d-%m-%Y).log"
 rm -Rf /tmp/update_*.log
 
 
+# Nome do usuário que verá à notificação no desktop
+
+usuario="fernando"
+
+
 
 # Titulos das janelas do Dialog, Yad e do Zenity
 
@@ -546,6 +551,28 @@ reboot
 
 clamav_update(){
 
+
+# ========================================================================================
+
+# Método antigo via cron
+
+
+
+# Agenda atualização automática da base de dados do Clamav por intermédio do Cron a cada 4 horas todo os dias com o usuário Root.
+
+
+# 0 */4 * * * /usr/bin/echo -e "Update do ClamAV...\n" && /usr/bin/freshclam
+
+
+# https://www.vivaolinux.com.br/dica/Instalacao-e-integracao-do-CLAMAV-com-o-SAMBA
+
+
+# ========================================================================================
+
+
+
+
+
 # Verificar se o programa freshclam esta instalado
 
 
@@ -816,6 +843,55 @@ fc-cache -f -v | tee -a "$log"
 void(){
 
 
+
+# ========================================================================================
+
+# Roda a cada 10 min no cron. => */10 * * * * /usr/local/bin/atualiza.sh
+
+
+# Notificação sobre atualização de pacotes a cada 10 min.  (método antigo via cron)
+
+# */10 * * * * /usr/bin/xbps-install -S && /usr/bin/xbps-install -Sun | tee  /tmp/update.txt  && [ -s  /tmp/update.txt ] &&  sudo -u fernando DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/gnome/48x48/status/software-update-available.png  'Atenção!' "\n\nVocê tem pacotes para ser atualizados: \n\n\n$(cat /tmp/update.txt) \n\n " && rm -Rf /tmp/update.txt  || rm -Rf /tmp/update.txt
+
+
+
+
+# Notificação sobre atualização de pacotes
+
+
+
+/usr/bin/xbps-install -nuM 1> /tmp/update.txt 2>/tmp/error
+
+updates="$(wc -l < /tmp/update.txt)"
+
+
+if [ "$updates" -gt 1 ]; then
+	
+		echo -e "ATUALIZAÇÕES DISPONÍVEIS: $updates  \n\n$(awk '{print $1" ---> "$2}' /tmp/update.txt)"
+
+		
+# $(cat /tmp/update.txt)
+
+sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/gnome/48x48/status/software-update-available.png  'Atenção!' "\n\nVocê tem $updates pacotes para ser atualizados: \n\n\n$(awk '{print $1" ---> "$2}' /tmp/update.txt) \n\n " && rm -Rf /tmp/update.txt  || rm -Rf /tmp/update.txt
+
+
+		
+else
+       sleep 1
+       
+       clear
+        
+       echo -e "\n${GREEN}O Void Linux está com as atualizações em dias.... ${NC}\n" 
+       
+       exit
+		
+fi
+
+# ========================================================================================
+
+
+
+
 # Como atualizar e limpar o cache de pacotes no Void Linux?
 
 
@@ -833,6 +909,8 @@ echo "
 Atualizando o sistema...
 " >> "$log"
 
+      echo -e "\n${GREEN}Atualizando o Void Linux.... ${NC}\n" 
+       
 # xbps-install -uy xbps | tee -a "$log" && xbps-install -Suvy  | tee -a "$log"
 
 
@@ -3582,8 +3660,6 @@ distribuicao_linux=$(cat /etc/*-release | egrep "PRETTY_NAME" | cut -d = -f 2 | 
 
  if [[ "$distribuicao_linux" == *"Void Linux"* ]]; then
 
-       echo -e "\n${GREEN}Atualizando o Void Linux.... ${NC}\n" 
- 
        void
 
 

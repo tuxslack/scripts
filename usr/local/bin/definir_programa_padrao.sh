@@ -51,6 +51,8 @@ which ffmpeg   || exit 2
 clear
 
 
+
+
 # ------------------------------------------------------------------------------------------------
 
 
@@ -116,6 +118,14 @@ cliente_torrent="org.qbittorrent.qBittorrent.desktop"
 player_de_audio="qmmp-1.desktop"
 
 
+
+# Liferea
+
+# ls  /usr/share/applications/ | grep -i Liferea
+
+visualizado_de_arquivos_rss="net.sourceforge.liferea.desktop"
+
+
 # ------------------------------------------------------------------------------------------------
 
 
@@ -143,6 +153,7 @@ Defini programa como padrão para:
 * Player de áudio
 * Associa o player de áudio a arquivos .m3u
 * Visualizador de arquivo de imagens
+* Visualizador de arquivo .rss
 
 
 É util para o caso de:
@@ -564,6 +575,31 @@ xdg-mime default "$visualizado_de_arquivos_PDF" application/pdf
 
 
 # https://code-industry.net/get-masterpdfeditor/
+
+# ------------------------------------------------------------------------------------------------
+
+
+# Arquivo .rss
+
+echo '
+Definindo o "Liferea" como visualizador de arquivo .rss como padrão...
+'
+
+# ls  /usr/share/applications/ | grep -i Liferea
+# net.sourceforge.liferea.desktop
+
+# $ file tuxliban.rss 
+# tuxliban.rss: XML 1.0 document, Unicode text, UTF-8 text
+
+# $ xdg-mime query filetype  tuxliban.rss 
+# application/rss+xml
+
+
+# xdg-mime default "net.sourceforge.liferea.desktop" application/rss+xml
+
+
+xdg-mime default "$visualizado_de_arquivos_rss" application/rss+xml
+
 
 # ------------------------------------------------------------------------------------------------
 
