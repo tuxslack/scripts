@@ -985,11 +985,11 @@
 	<text-files/>
 </action>
 <action>
-	<icon></icon>
+	<icon>/usr/share/icons/hicolor/48x48/apps/uget-icon.png</icon>
 	<name>Baixar arquivo da internet usando o wget</name>
 	<submenu></submenu>
 	<unique-id>1697129761541640-1</unique-id>
-	<command>link=$(yad --center --entry --window-icon &quot;~/.icons/extras/youtube.png&quot; --title=&quot;Baixar usando o wget&quot; --text=&quot;Qual o link do arquivo que você deseja baixa-lo?&quot; --entry-text=&quot;&quot; --width=700 --entry 2&gt; /dev/null) &amp;&amp; wget -c  &quot;$link&quot;  &amp;&amp; notify-send -i gtk-dialog-info  -t 200000 &quot;Arquivo baixado via wget...&quot; &quot;\n\nLink: $link\n\nArquivo salvo em: %d \n&quot;</command>
+	<command>link=$(yad --center --entry --window-icon &quot;/usr/share/icons/hicolor/48x48/apps/uget-icon.png&quot; --title=&quot;Baixar usando o wget&quot; --text=&quot;Qual o link do arquivo que você deseja baixa-lo?&quot; --entry-text=&quot;&quot; --width=700 --entry 2&gt; /dev/null) &amp;&amp; wget -c  &quot;$link&quot;  &amp;&amp; notify-send -i gtk-dialog-info  -t 200000 &quot;Arquivo baixado via wget...&quot; &quot;\n\nLink: $link\n\nArquivo salvo em: %d \n&quot;</command>
 	<description>Baixar arquivo da internet com o comando wget.  - Problema com nome composto em pasta relacionado ao %d com ou sem aspas dupla não funciona abaixo</description>
 	<range>*</range>
 	<patterns>*</patterns>
@@ -1006,5 +1006,27 @@
 	<patterns>*.sh</patterns>
 	<other-files/>
 	<text-files/>
+</action>
+<action>
+	<icon>/usr/share/icons/extras/Papirus-Team-Papirus-Apps-Youtube-dl.512.png</icon>
+	<name>Baixar thumbnail YouTube</name>
+	<submenu></submenu>
+	<unique-id>1697895812733691-1</unique-id>
+	<command>/usr/local/bin/baixar-thumbnail-youtube.sh %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Enviar para ~/.local/share/applications/</name>
+	<submenu></submenu>
+	<unique-id>1698511824988406-1</unique-id>
+	<command>mv %f ~/.local/share/applications/</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.desktop</patterns>
+	<other-files/>
 </action>
 </actions>
