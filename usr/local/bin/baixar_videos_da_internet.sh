@@ -61,6 +61,9 @@ which ffplay    2> /dev/null || { yad --center --image=dialog-error --timeout=10
 # which mpv    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mpv não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; } 
 
 
+which parcellite    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa parcellite não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+
 # ----------------------------------------------------------------------------------------
 
 
@@ -136,7 +139,7 @@ link=$( yad \
         --entry \
         --title="yt-dlp - baixar vídeo da internet" \
         --entry-label="Informe o link do vídeo na internet" \
-        --entry-text="" \
+        --entry-text="$(parcellite -c | grep https | cut -d" " -f 2)" \
         --completion \
         --editable \
         --width="700" \

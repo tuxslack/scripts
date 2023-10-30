@@ -39,6 +39,9 @@ which tail          2> /dev/null || { yad --center --image=dialog-error --timeou
 
 which notify-send   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa notify-send não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
 
+
+which parcellite    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa parcellite não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
 # ------------------------------------------------------------------------------------
 
 
@@ -130,7 +133,7 @@ link=$(yad \
 --window-icon "/home/fernando/.icons/extras/youtube.png" \
 --title="yt-dlp - baixar áudio de vídeo" \
 --text="Qual o link do vídeo que você deseja baixar o áudio?" \
---entry-text="www.youtube.com/watch?v=K7JGn7qlis8" \
+--entry-text="$(parcellite -c | grep https | cut -d" " -f 2)" \
 --width=700 --entry \
 2> /dev/null)
 

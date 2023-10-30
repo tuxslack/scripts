@@ -89,6 +89,7 @@ which yt-dlp    2> /dev/null || { yad --center --image=dialog-error --timeout=10
 
 which convert    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa ImageMagick não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
 
+which parcellite    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa parcellite não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
 
 
 # ----------------------------------------------------------------------------------------
@@ -318,7 +319,7 @@ link_do_video_do_youtube=$(yad \
 --window-icon "/usr/share/icons/extras/youtube.png" \
 --title="Baixar thumbnail de vídeo do YouTube - yt-dlp" \
 --text="Qual o link do vídeo que você deseja baixar a capa (thumbnail)?" \
---entry-text="" \
+--entry-text="$(parcellite -c | grep https | cut -d" " -f 2)" \
 --width=700 --entry \
 2> /dev/null)
 
