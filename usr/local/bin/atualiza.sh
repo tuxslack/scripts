@@ -265,13 +265,13 @@ verificar_root(){
 
 if [ "$(id -u)" != "0" ]; then
 
-echo -e "\nVocê deve executar este script como Root! \n"
-
+        echo -e "${RED}\nVocê deve executar este script como Root! \n ${NC}"
+        
 exit 
 
 else
 
-echo -e "\n${GREEN}Verificação de Root [OK] ${NC}\n"
+        echo -e "\n${GREEN}Verificação de Root [OK] ${NC}\n"
 
 fi
 
@@ -314,6 +314,11 @@ fi
 
 verificar_root
 
+
+
+
+
+
 # ----------------------------------------------------------------------------------------
 
 # Verificar se os programas estão instalados
@@ -336,6 +341,14 @@ which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado.
 
 which dialog        2> /dev/null || { echo "Programa dialog não esta instalado."   ; exit ; }
 
+
+
+# ----------------------------------------------------------------------------------------
+
+
+# Mata o processo deste script caso ele já estiver rodando em segundo plano.
+
+echo killall -9  $(basename "$0")
 
 
 # ----------------------------------------------------------------------------------------
@@ -649,6 +662,239 @@ echo -e "\n---------------------------------------------------------------------
 
 
 # ----------------------------------------------------------------------------------------
+
+
+# Para atualizar os relatórios do Sarg do Servidor Proxy (Squid).
+
+
+Sarg_update(){
+
+# Para atualizar os relatórios do Sarg
+
+
+# No Void Linux verificar os programas nos repositórios:
+
+#  xbps-query -Rs squid
+# [-] squid-5.7_3 Caching proxy for the Web
+# 
+#  xbps-query -Rs sarg
+#
+#  xbps-query -Rs webmin
+
+
+clear
+
+# Lembre que precisa do Squid instalado na maquina onde vai rodar o Sarg, pode não estar 
+# rodando nem configurado, mesmo quando vai copiar os logs de outra maquina para gerar 
+# relatórios, de qualquer forma precisa do Squid instalado antes de iniciar a instalação 
+# do Sarg.
+
+
+which squid  1> /dev/null 2> /dev/null
+
+if [ $? == 0 ]; then
+
+
+
+which sarg  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+
+# Depois de instalar o Sarg, precisa editar seu arquivo de configuração para gerar 
+# relatórios conforme suas necessidades.
+
+
+# Verificar se o arquivo existe
+
+# /etc/sarg.conf
+# /usr/local/sarg/sarg.conf
+
+if [ -e "/etc/sarg/sarg.conf" ] ; then
+
+clear
+
+echo "
+O arquivo /etc/sarg/sarg.conf existe.
+"
+
+
+# Sarg é um utilitario gerador de relatórios sobre os arquivos de log do Squid, gera os 
+# relatorios em HTML e qualquer estação da rede ou mesmo via web tem acesso aos relatorios 
+# em um servidor web, são relatórios e gráficos ricos em detalhes.
+
+
+echo "
+Atualizando os relatórios do SARG (Squid Analysis Report Generator)...
+" | tee -a "$log"
+
+
+# O sarg não atualiza sozinho. Você tem que emitir o comando sarg no Linux e assim ele 
+# atualiza os relatórios.
+#
+# Se você quiser pode utilizar o cron para agendar o sarg para rodar uma vez por dia.
+#
+# Por exemplo: todos os dias as 18:00.
+
+
+# ========================================================================================
+
+# Limpar o cache do Squid
+# 
+# echo "
+# Limpando o Cache do Squid...
+# " | tee -a "$log"
+# 
+# Primeiramente precisamos verificar onde está localizado o seu cache, através da 
+# varíavel cache_dir
+# 
+# 
+# egrep cache_dir /etc/squid/squid.conf 2>> "$log"
+# 
+# cache_dir ufs /var/spool/squid 3500 16 256
+# 
+# No nosso caso o cache fica no diretório /var/spool/squid
+# 
+#
+# ou
+#
+#
+# egrep cache_dir /etc/squid3/squid.conf 2>> "$log"
+#
+#
+# 
+# Vamos parar o serviço do Squid (Debian e derivados)
+# 
+# service squid stop
+# 
+#
+# Removendo os arquivos do diretório de cache
+#  
+# Renomeie o diretório do Squid (aqui está o segredo, se você apagar esse diretório e 
+# depois recriar, ele vai demorar para apagar e sua Internet vai ficar mais tempo 
+# sem funcionar). => mv /var/spool/squid /var/spool/squid.del
+#
+# rm -rf /var/spool/squid/*  2>> "$log"
+# 
+#
+#
+# Reconstruindo o cache
+# 
+# squid -z  2>> "$log"
+# 
+# ou
+#
+# squid3 -z 2>> "$log"
+#
+#
+# Reiniciando o serviço do Squid (Debian e derivados)
+# 
+# service squid start
+
+
+# https://ebasso.net/wiki/index.php?title=Squid:Limpando_o_Cache_do_Squid
+# https://www.vivaolinux.com.br/dica/Squid-Limpando-cache-rapidamente
+
+
+# ========================================================================================
+
+
+# Onde fica o log do Sarg, da um grep -ri sarg * /var/log
+
+
+
+
+# Gerando os relatórios.
+
+sarg -f /etc/sarg/sarg.conf  
+
+# 2>> "$log"
+
+# -x Mensagens do processo
+# -z Mensagens de debug
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Prontinho, relatorios gerados, para acessar a partir do navegador da propria maquina ou 
+qualquer estação estação da rede, coloque na URL o IP//squid-reports/, por exemplo: 
+
+https://192.168.0.1/squid-reports/
+
+
+Onde o IP 192.168.0.1 é o IP da maquina onde gerou os relatorios, precisa também do 
+servidor web (Apache) rodando.
+
+Considere o uso de senhas para acessar estes relatorios.
+
+"
+
+sleep 3m
+
+
+else
+
+# Para  mensagem de erro ao gera os relatorios do SARG (Squid Analysis Report Generator).
+
+clear
+
+echo "
+Ocorreu um problema ao gera os relatórios do SARG (Squid Analysis Report Generator) 
+verifique os arquivos de log do sistema. 
+
+" | tee -a "$log"
+
+
+fi
+
+
+
+
+
+
+else
+
+clear
+
+echo "
+O arquivo /etc/sarg/sarg.conf não existe.
+" | tee -a "$log"
+
+
+
+fi
+
+
+
+fi
+
+
+
+fi
+
+
+
+# https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/Atualizacao-Sarg
+# https://forum.netgate.com/topic/60016/resolvido-problema-ap%C3%B3s-atualizar-o-sarg/3
+# https://www.forumitbr.com.br/viewtopic.php?t=1455
+# http://www.zago.eti.br/squid/sarg.html
+# https://under-linux.org/showthread.php?t=106932
+# https://forum.adrenaline.com.br/threads/sarg-nao-atualiza-relatorios.213705/
+# https://sempreupdate.com.br/como-configurar-e-instalar-o-gerador-de-relatorios-do-squid-no-linux/
+# https://www.hardware.com.br/comunidade/v-t/778217
+
+
+}
+
+
+
+# ----------------------------------------------------------------------------------------
+
 
 # Lynis
 
@@ -3779,6 +4025,9 @@ clamav_update
 # fontes_update
 
 
+# Para atualizar os relatórios do Sarg do Servidor Proxy (Squid).
+
+# Sarg_update
 
 
 # ----------------------------------------------------------------------------------------
@@ -3789,7 +4038,7 @@ echo "
 Programas na pasta /opt (realizar atualização manual):
 " | tee -a "$log"
 
-ls -1 /opt/ | tee -a "$log"
+ls -1 /opt/ >> "$log"
 
 
 # ----------------------------------------------------------------------------------------
@@ -3811,7 +4060,7 @@ echo "
 Todos os flatpaks que você tem no seu sistema (realizar atualização manual - flatpak update):
 "  | tee -a "$log"
   
-flatpak list  | tee -a "$log"
+flatpak list  >> "$log"
 
 
 
@@ -3864,13 +4113,13 @@ echo "
 echo "
 ---------------------------------------------------------------------------
 
-Mas informações no arquivo de log: $log
+Mais informações no arquivo de log: $log
 "
 
-echo "
-Conteúdo do arquivo de log:
-"
-cat /tmp/update_*.log  2>/dev/null
+# echo "
+# Conteúdo do arquivo de log:
+# "
+# cat /tmp/update_*.log  2>/dev/null
 
 # sleep 20
 
