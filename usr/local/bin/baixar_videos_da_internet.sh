@@ -43,6 +43,36 @@
 # https://www.youtube.com/watch?v=jQasLSfRLos
 
 
+
+# ----------------------------------------------------------------------------------------
+
+# Cores para formatação da saída dos comandos
+
+RED='\e[1;31m'
+GREEN='\e[1;32m'
+YELLOW='\e[1;33m'
+NC='\e[0m' # sem cor
+
+# ----------------------------------------------------------------------------------------
+
+echo "
+Testando conexão com à internet...
+"
+
+if ! ping -c 1 www.google.com.br -q &> /dev/null; then
+
+    echo -e "${RED}[ERRO] - Seu sistema não tem conexão com à internet. Verifique os cabos e o modem.\n ${NC}"
+    sleep 10
+    exit 1
+    
+    else
+    
+    echo -e "${GREEN}[VERIFICADO] - Conexão com à internet funcionando normalmente. ${NC}"
+    sleep 2
+    
+fi
+
+
 # ----------------------------------------------------------------------------------------
 
 # Verificar se os programas estão instalados
@@ -64,8 +94,9 @@ which ffplay    2> /dev/null || { yad --center --image=dialog-error --timeout=10
 which parcellite    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa parcellite não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
 
 
-# ----------------------------------------------------------------------------------------
 
+
+# ----------------------------------------------------------------------------------------
 
 killall -9 yt-dlp 2>/dev/null
 

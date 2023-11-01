@@ -21,7 +21,37 @@
 # https://ubuntuforum-pt.org/index.php?topic=108641.0
 
 
-# ------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------
+
+# Cores para formatação da saída dos comandos
+
+RED='\e[1;31m'
+GREEN='\e[1;32m'
+YELLOW='\e[1;33m'
+NC='\e[0m' # sem cor
+
+# ----------------------------------------------------------------------------------------
+
+echo "
+Testando conexão com à internet...
+"
+
+if ! ping -c 1 www.google.com.br -q &> /dev/null; then
+
+    echo -e "${RED}[ERRO] - Seu sistema não tem conexão com à internet. Verifique os cabos e o modem.\n ${NC}"
+    sleep 10
+    exit 1
+    
+    else
+    
+    echo -e "${GREEN}[VERIFICADO] - Conexão com à internet funcionando normalmente. ${NC}"
+    sleep 2
+    
+fi
+
+# ----------------------------------------------------------------------------------------
+
 
 # Verificar se os programas estão instalados
 

@@ -75,6 +75,28 @@ NC='\e[0m' # sem cor
 
 # ----------------------------------------------------------------------------------------
 
+
+echo "
+Testando conexão com à internet...
+"
+
+if ! ping -c 1 www.google.com.br -q &> /dev/null; then
+
+    echo -e "${RED}[ERRO] - Seu sistema não tem conexão com à internet. Verifique os cabos e o modem.\n ${NC}"
+    sleep 10
+    exit 1
+    
+    else
+    
+    echo -e "${GREEN}[VERIFICADO] - Conexão com à internet funcionando normalmente. ${NC}"
+    sleep 2
+    
+fi
+
+# ----------------------------------------------------------------------------------------
+
+
+
 # Verificar se os programas estão instalados
 
 
@@ -198,27 +220,6 @@ fi
 
 which gthumb
 
-
-# ----------------------------------------------------------------------------------------
-
-echo "
-Testando conexão com à internet...
-"
-
-if ! ping -c 1 www.google.com.br -q &> /dev/null; then
-
-    echo -e "${RED}[ERRO] - Seu sistema não tem conexão com à internet. Verifique os cabos e o modem.\n ${NC}"
-    sleep 10
-    exit 1
-    
-    else
-    
-    echo -e "${GREEN}[VERIFICADO] - Conexão com à internet funcionando normalmente. ${NC}"
-    sleep 2
-    
-fi
-
-# ----------------------------------------------------------------------------------------
 
 
 # Local onde salvar a thumbnail do vídeo do YouTube
