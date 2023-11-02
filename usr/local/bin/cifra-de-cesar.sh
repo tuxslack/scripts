@@ -71,6 +71,7 @@
 # https://www.vivaolinux.com.br/topico/Shell-Script/Cifra-de-Cesar
 # https://www.vivaolinux.com.br/topico/Iniciantes-no-Linux/comando-para-deletar-coluna-especifica-de-um-arquivo
 # https://www.thelinuxrain.org/articles/the-buttons-of-yad
+# https://www.youtube.com/watch?v=E0YX8BC4RLo
 
 
 
@@ -157,6 +158,10 @@ rm -Rf "$log" || { yad \
 # mensagem_criptografada="fulswrjudild: gh dupd gh jxhuud d slodu gd vrflhgdgh prghuqd"
 #
 # mensagem="abcd"
+
+
+# https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar
+
 
 
 clear
