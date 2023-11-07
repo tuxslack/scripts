@@ -58,7 +58,7 @@ log="/tmp/pdf.log"
 
 # ----------------------------------------------------------------------------------------
 
-# Cores para formatação da saída dos comandos
+# Cores para formatação da saída dos comandos.
 
 RED='\e[1;31m'
 GREEN='\e[1;32m'
@@ -104,7 +104,7 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
-# Verificar se os programas estão instalados
+# Verificar se os programas estão instalados.
 
 
 which mkdir || exit
@@ -141,15 +141,19 @@ Arquivos PDF na pasta: $diretorio_origem
 
 # Inicio do loop para mover cada arquivo PDF
 
+
 for arquivo in "$diretorio_origem"/*.pdf; do
 if [ -f "$arquivo" ]; then
 ano=$(date -r "$arquivo" +"%Y")
 mes=$(date -r "$arquivo" +"%m-%B" | tr [:upper:] [:lower:] | sed 's/-/ /')
 
-# Cria a pasta de destino, caso não exista
+
+# Cria a pasta de destino, caso não exista.
+
 mkdir -p "$diretorio_destino/$ano/$mes"
 
-# Move o arquivo para a pasta correta
+
+# Move o arquivo para a pasta correta.
 
 # date -r "$arquivo" +"%d-%m-%Y" >> "$log"
 
@@ -170,7 +174,9 @@ fi
 
 done
 
+
 # Fim do loop
+
 
 # ----------------------------------------------------------------------------------------
 
@@ -182,7 +188,7 @@ Arquivos PDF na pasta: $diretorio_destino
 
 tree "$diretorio_destino" >> "$log"
 
-# Inclue texto no início da linha 1
+# Inclue texto no início da linha 1.
 
 
 sed -i '1s/^/\nÚtil para organizar os arquivos .xml do setor de Contabilidade da sua empresa.\n\nArquivo de log do script '$(basename $0)': \n\n/' "$log"
@@ -190,7 +196,7 @@ sed -i '1s/^/\nÚtil para organizar os arquivos .xml do setor de Contabilidade d
 
 # ----------------------------------------------------------------------------------------
 
-# Qual o tamanho total da pasta especificada
+# Qual o tamanho total da pasta de destino especificada?
   
 echo "
 Pasta de destino com:
@@ -199,7 +205,7 @@ du -sh $diretorio_destino  >> "$log"
 
 # ----------------------------------------------------------------------------------------
 
-# Visualizar o arquivo de log gerado no final do processo
+# Visualizar o arquivo de log gerado no final do processo.
 
 cat "$log"
 
