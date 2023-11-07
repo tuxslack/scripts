@@ -3089,6 +3089,96 @@ Realizando o backup do VLC...
 
        cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-VLC_via_cron.tar.gz    .config/vlc  .local/share/vlc   /usr/"$bibliotecas_de_sistema"/vlc/lua/playlist/*.lua  2>> "$log"
 
+
+
+# ----------------------------------------------------------------------------------------
+
+sleep 2
+clear
+
+echo "
+Buscando arquivos .xspf de playlist do VLC...
+"  | tee -a "$log"
+
+# Arquivos .xspf para playlist no VLC
+
+
+# O "-type f"  no find é para busca somente  os arquivos.
+
+
+# -type c
+#        File is of type c:
+# 
+#        b      block (buffered) special
+# 
+#        c      character (unbuffered) special
+# 
+#        d      directory
+# 
+#        p      named pipe (FIFO)
+# 
+#        f      regular file
+# 
+#        l      symbolic link; this is never true if the -L option or the  -follow  option  is  in  effect,
+#               unless the symbolic link is broken.  If you want to search for symbolic links when -L is in
+#               effect, use -xtype.
+# 
+#        s      socket
+# 
+#        D      door (Solaris)
+       
+
+# Método 1
+
+# find / -iname "*.xspf" >  VLC_playlist_YouTube.txt
+
+# tar -czvf VLC_playlist.tar.gz -T VLC_playlist_YouTube.txt
+
+
+
+
+# Resultado:
+
+# $ tar -czvf VLC_playlist.tar.gz -T VLC_playlist_YouTube.txt
+# tar: Removendo "/" inicial dos nomes dos membros
+# /home/fernando/linux.xspf
+# tar: Removendo "/" inicial dos alvos de links físicos
+# /home/fernando/.local/share/vlc/ml.xspf
+# /home/fernando/Desktop/lista-vlc.xspf
+
+
+
+# ou
+
+
+# Método 2
+
+cd "$pasta_usuario" &&  find / -iname "*.xspf" -exec tar -czvf "$backup"/VLC_playlist.tar.gz {} + 2>> "$log"
+
+
+
+# Resultado:
+
+# $ find / -iname "*.xspf" -exec tar -czvf VLC_playlist.tar.gz {} + 2>/dev/null 
+# /home/fernando/linux.xspf
+# /home/fernando/.local/share/vlc/ml.xspf
+# /home/fernando/Desktop/lista-vlc.xspf
+
+
+
+
+
+# https://www.baeldung.com/linux/find-tar-files
+# https://stackoverflow.com/questions/5891866/find-files-and-tar-them-with-spaces
+# https://explainshell.com/explain?cmd=find+-name+%22*.bak%22+-exec+%22rm+-f+%7B%7D%22
+# https://explainshell.com/explain?cmd=find+-name+%22*.bak%22+-type+f++-exec+%22rm+-f+%7B%7D%22
+# http://www.sharktime.com/en_wList.html
+# https://stackoverflow.com/questions/5891866/find-files-and-tar-them-with-spaces
+# http://ptcomputador.com/Software/digital-video-software/122797.html
+
+
+# ----------------------------------------------------------------------------------------
+
         
         
     else
@@ -3107,6 +3197,126 @@ fi
 # https://code.videolan.org/videolan/vlc/-/issues/27827
 # https://askubuntu.com/questions/197739/vlc-youtube-videos-wont-play-anymore
 # https://www.vivaolinux.com.br/dica/VLC-nao-toca-Videos-do-YouTube-Resolvido
+
+# ----------------------------------------------------------------------------------------
+
+backup_contabilidade(){
+
+sleep 2
+clear
+
+echo "
+Dica:
+
+Direciona os e-mails com os arquivos .xml para uma pasta específica no sistema.
+
+Separando os XML por meses e anos para não demora a leitura dos arquivos pelo gerenciador 
+de arquivo do sistema.
+
+
+Buscando arquivos .xml relacionado a Contabilidade (nota fiscal)...
+"  | tee -a "$log"
+
+sleep 2
+
+# Método 1
+
+# O problema é que o Linux usa também arquivo xml
+
+# cd "$pasta_usuario" &&  find / -iname "*.xml" -exec tar -czvf "$backup"/Contabilidade_XML.tar.gz {} + 2>> "$log"
+
+
+# Método 2
+
+
+# find / -iname "*.xml" 
+
+
+
+
+# Verificar se as variavel "$contabilidade_XML" em /etc/backup.conf esta nula.
+
+
+if [ -z "$contabilidade_XML" ]; then
+
+   echo -ne "Você não informou o local onde é salvo os arquivos .xml relacionado a Contabilidade (nota fiscal) em /etc/backup.conf.\n" | tee -a "$log"
+		
+		
+else
+
+# Quando falamos sobre o arquivo XML das Notas Fiscais, muitos ainda ficam com dúvidas 
+# sobre o que é e para que serve. Mas é de suma importância ter o conhecimento sobre 
+# esse tipo de arquivo, visto que ele é essencial nas empresas e para a contabilidade. 
+#
+# Implementado em 2006, o arquivo XML trouxe, desde então, muitos benefícios para todos 
+# os setores que são diretamente ligados a ele. Sem contar a tecnologia, a agilidade para 
+# obter informações, a segurança dos dados contidos no XML e, não menos importante, a 
+# dispensa de acúmulo de papéis dentro das organizações.
+#
+# Além disso, ficou mais rápida e fácil a fiscalização por parte da Receita Federal, já 
+# que a emissão e o armazenamento do XML é completamente de forma eletrônica e em tempo 
+# real.
+#
+# O XML é a sigla para eXtensible Markup Language, mas é apenas um tipo de linguagem de 
+# marcação que define regras para codificar os documentos.
+#
+# Ele é utilizado na NF-e para armazenar os dados e ainda solicitar uma assinatura 
+# digital para a emissão da nota através do Certificado Digital, assim garantindo 
+# segurança e confiabilidade nas informações contidas no arquivo, já que a NF-e não é 
+# autorizada caso tenha algum preenchimento incorreto.
+#
+# Pode ser lido em vários programas, como o visualizador DF-e (Documento Fiscal 
+# Eletrônico), disponível no próprio site da Nota Fiscal eletrônica.
+#
+# É preciso destacar que, por ser o único documento que possui validade fiscal e 
+# jurídica, é necessário manter o arquivo XML por um período mínimo de cinco anos após a 
+# sua emissão.
+#
+# Mas não se engane! Caso emita uma NF-e com informações incorretas, a Receita Federal 
+# terá conhecimento e ficará de olho na sua empresa. Por isso, o melhor caminho é conferir 
+# todos os dados e impostos contidos na Nota Fiscal eletrônica emitida.
+#
+# Imagina ainda ter que lidar com aqueles talões de notas fiscais que eram rasurados no 
+# momento da emissão, ou com as notas fiscais que se perdiam no meio do caminho e, quando 
+# chegavam no fiscal, estavam num estado horrível. Sem falar na falta de sustentabilidade, 
+# já que, dependendo do tipo de nota fiscal, era necessária a impressão de 3 vias.
+#
+# Tenha todos os arquivos XML das suas notas fiscais em um mesmo lugar.
+#
+# Porém, com a implementação do arquivo XML, tudo isso mudou. A rotina fiscal agora é 
+# automatizada e o acesso às notas fiscais emitidas ocorre em tempo real. O que é ótimo, 
+# pois, se tiver alguma informação incorreta, a NF-e pode ser cancelada ou pode ser 
+# emitida uma CC-e (Carta de Correção Eletrônica) antes da saída da mercadoria ou 
+# prestação de serviço.
+#
+# Junto com a NF-e, foi implantado o Danfe (Documento Auxiliar de Nota Fiscal eletrônica), 
+# que tem o intuito de facilitar a leitura e o entendimento das informações contidas no 
+# arquivo XML da NF-e.
+#
+# O Danfe traz de maneira resumida todos os dados informados no XML, sendo obrigatório no 
+# trânsito da mercadoria. Então, caso a transportadora seja parada pelo fisco e não tenha 
+# o Danfe junto com a mercadoria, a empresa pode ser multada pelo descumprimento da Lei.
+#
+# Além disso, diferente da NF-e, o Danfe não possui validade jurídica. Dessa forma, é 
+# necessária uma maior atenção no momento de arquivar esses documentos, não podendo 
+# confundir e descartar o arquivo XML e salvar o Danfe em PDF.
+
+
+  cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Contabilidade_XML_via_cron.tar.gz  "$contabilidade_XML"   2>> "$log"
+
+		
+fi
+
+
+
+# https://arquivei.com.br/blog/arquivo-xml-rotina-fiscal/
+# https://olhardigital.com.br/2023/07/08/dicas-e-tutoriais/como-criar-pastas-e-filtros-no-gmail-para-organizar-e-mails/
+
+
+}
+
+
+backup_contabilidade
 
 
 # ----------------------------------------------------------------------------------------
@@ -3595,6 +3805,10 @@ fi
 # Backup do WPS Office
 
 
+# sudo find / -type d -iname office
+
+
+# ~/.local/share/Kingsoft/office6
 
 # ~/.var/app/com.wps.Office/.kingsoft/
 # ~/.kingsoft
@@ -3604,11 +3818,15 @@ fi
 # C:\Users\admin\AppData\Roaming\kingsoft\
 
 
+# cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-do_WPS_Office_via_cron.tar.gz  .kingsoft  .local/share/Kingsoft/  .config/Kingsoft/  .var/app/com.wps.Office/.kingsoft/    2>> "$log"
+
 
 # https://github.com/flathub/com.wps.Office/issues/34
 # https://wiki.archlinux.org/title/WPS_Office
 # https://support.kingsoft.jp/wps/backup.html
 # https://youtu.be/7PQOaezjkcY
+# https://www.youtube.com/watch?v=PIXZw_iIHMo
+# https://youtu.be/PIXZw_iIHMo
 
 
 # ----------------------------------------------------------------------------------------
@@ -5338,6 +5556,47 @@ fi
 # https://gitlab.com/cscs/transfuse/-/blob/master/transfuse.sh?ref_type=heads
 
 # ----------------------------------------------------------------------------------------
+
+# Backup do Gpick
+
+
+which gpick  1> /dev/null 2> /dev/null
+
+
+if [ $? == 0 ]; then
+
+clear
+
+echo "
+Realizando o backup do Gpick...
+"
+
+
+# Para verificar se o diretório $pasta_usuario/.config/gpick existe.
+
+    if [ -d "$pasta_usuario/.config/gpick" ]; then
+    
+        echo -e "A pasta $pasta_usuario/.config/gpick existe..."
+
+
+cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Gpick_via_cron.tar.gz  .config/gpick/  2>> "$log"
+
+        
+    else
+    
+        echo -e "A pasta $pasta_usuario/.config/gpick não existe..."
+        
+
+    fi
+    
+
+
+
+fi
+
+
+# ----------------------------------------------------------------------------------------
+
 
 chown -R "$usuario":"$grupo" "$backup" 
 

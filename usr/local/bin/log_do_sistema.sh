@@ -283,17 +283,17 @@ du: não foi possível ler diretório ‘./speech-dispatcher’: Permissão nega
 clear
 
 
-which yad         || exit 2
-which tail        || exit 3
-which pkexec      || exit 4
-which grep        || exit 5
-which tee         || exit 6
-which notify-send || exit 7
+which yad         || exit 
+which tail        || exit 
+which pkexec      || exit 
+which grep        || exit 
+which tee         || exit 
+which notify-send || exit 
 which less        || exit
 which more        || exit
 which dmesg       || exit
 which cut         || exit
-
+which egrep       || exit
 
 # Usado no Void Linux
 
@@ -3876,17 +3876,47 @@ clear
 # 2023-11-02T15:21:00.04434 cron.info: Nov  2 12:20:59 cronie-crond[960]: (root.new-4.5_34) ORPHAN (no passwd entry)
 
 
+
+
+
+test -r /var/log/socklog/cron/current
+
+# $ echo $?
+# 0
+
+# -r arquivo => Verifica se o arquivo tem permissão de leitura	$ test -r aquivo
+# -w arquivo => Verifica se o arquivo tem permissão de escrita	$ test -w arquivo
+# -x arquivo => Verifica se o arquivo tem permissão de execução	$ test -x arquivo
+# -O arquivo => Verifica se você é o dono do arquivo	        $ test -O arquivo
+
+
+if [ $? = 1 ]; then 
+
+	# Em caso de falha
+	
+	yad --center --image=dialog-error --timeout=50 --no-buttons --title "Aviso" --text "Ocorreu um problema ao acessar a saída do Cron.\n\n\nO usuário $USER não tem permissão de leitura no arquivo." --width 500 --height 30 2>/dev/null   ; exit ;
+fi
+
+
+
+
 # Verificar se o arquivo existe
 
 if [ -e "/var/log/socklog/cron/current" ] ; then
 
+
 # pkexec env DISPLAY=:0 XAUTHORITY=/root/.Xauthority xfce4-terminal --maximize --title='Monitor cron'  -e 'tail -f -n 30 /var/log/socklog/cron/current'
 
-cat /var/log/socklog/cron/current | grep  -i "line " | yad --center --title='Log Erros no Cron' --fontname "Sans regular 9" --text-info --tail --wrap --height=1000 --width=1500 2>/dev/null
+
+cat /var/log/socklog/cron/current | egrep  -i "line |exited" | yad --center --title="Erros no Cron - Log" --fontname "Sans regular 9" --text-info --tail --wrap --height=1000 --width=1500 2>/dev/null
+
 
 fi
 
 
+
+# https://www.certificacaolinux.com.br/comando-linux-test/
+# https://www.vivaolinux.com.br/dica/Conhecendo-o-test
 
 
 ;;

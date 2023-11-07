@@ -7,6 +7,78 @@
 
 log="/tmp/Pacotes_VoidLinux.txt"
 
+
+
+
+
+# Exemplo de caso para o uso:
+
+
+# Descobrir quais os programas que foram instalados na data da criação do arquivo /etc/cron.hourly/0anacron no Void Linux.
+
+
+# $ cat /var/log/socklog/cron/current | egrep  -i "line |exited" 
+# cat: /var/log/socklog/cron/current: Permissão negada
+
+
+# Saída de erro do Cron
+
+# cat /var/log/socklog/cron/current | egrep  -i "line |exited" 
+# 2023-11-02T22:01:01.55380 cron.info: Nov  2 19:01:01 CRONIE-CROND[24771]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-02T22:01:01.55414 cron.info: Nov  2 19:01:01 CRONIE-CROND[24771]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-02T23:01:01.44840 cron.info: Nov  2 20:01:01 CRONIE-CROND[2640]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-02T23:01:01.44857 cron.info: Nov  2 20:01:01 CRONIE-CROND[2640]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T00:01:01.48550 cron.info: Nov  2 21:01:01 CRONIE-CROND[12030]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T00:01:01.48600 cron.info: Nov  2 21:01:01 CRONIE-CROND[12030]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T01:01:01.78345 cron.info: Nov  2 22:01:01 CRONIE-CROND[20459]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T01:01:01.78408 cron.info: Nov  2 22:01:01 CRONIE-CROND[20459]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T02:01:01.82375 cron.info: Nov  2 23:01:01 CRONIE-CROND[30004]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T02:01:01.82409 cron.info: Nov  2 23:01:01 CRONIE-CROND[30004]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T03:01:01.56114 cron.info: Nov  3 00:01:01 CRONIE-CROND[7951]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T03:01:01.56187 cron.info: Nov  3 00:01:01 CRONIE-CROND[7951]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T03:01:01.99271 cron.info: Nov  3 00:01:01 CRONIE-CROND[17919]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T03:01:01.99303 cron.info: Nov  3 00:01:01 CRONIE-CROND[17919]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T04:01:01.07745 cron.info: Nov  3 01:01:01 CRONIE-CROND[27420]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T04:01:01.07815 cron.info: Nov  3 01:01:01 CRONIE-CROND[27420]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T05:01:01.79857 cron.info: Nov  3 02:01:01 CRONIE-CROND[5541]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T05:01:01.79907 cron.info: Nov  3 02:01:01 CRONIE-CROND[5541]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+# 2023-11-03T06:01:01.86629 cron.info: Nov  3 03:01:01 CRONIE-CROND[17376]: (root) CMDOUT (/etc/cron.hourly/0anacron: line 11: /etc/default/anacron: No such file or directory)
+# 2023-11-03T06:01:01.86659 cron.info: Nov  3 03:01:01 CRONIE-CROND[17376]: (root) CMDOUT (run-parts: /etc/cron.hourly/0anacron exited with return code 1)
+
+
+
+
+# Descobrir a data da criação do arquivo /etc/cron.hourly/0anacron  (Formatando a saída da data para o Brasil)
+
+# $ ls -l /etc/cron.hourly/0anacron
+# -rwxr-xr-x 1 root root 798 out 17 04:30 /etc/cron.hourly/0anacron
+
+
+# $ ls -lct --time=creation /etc/cron.hourly/0anacron | awk '{print $7, $6, $8 " " $9}'
+# 17 out 12:51 /etc/cron.hourly/0anacron
+
+
+# $ ls -lhct --time-style="+%d-%m-%Y-%H-%M-%S" /etc/cron.hourly/0anacron
+# -rwxr-xr-x 1 root root 798 17-10-2023-12-51-14 /etc/cron.hourly/0anacron
+
+
+
+# https://www.vivaolinux.com.br/topico/Comandos/Saida-do-comando-ls-ou-dir
+# https://www.vivaolinux.com.br/topico/Shell-Script/Listar-e-baixar-arquivos-FTP
+# https://www.vivaolinux.com.br/topico/Comandos/Listar-apenas-a-data-e-tamanho-do-arquivo
+
+
+
+# Programas instalados ou atualizados nesta data (17/10/2023)
+
+# $ cat Pacotes_VoidLinux.txt | grep "17/10/2023"
+# 17/10/2023 12:51  cronie-1.7.0_1                     <================
+# 17/10/2023 12:51  libqpdf-11.6.3_1
+
+
+
+
+
 # https://br.ccm.net/faq/2269-como-ler-um-arquivo-linha-por-linha
 # https://www.edivaldobrito.com.br/usar-o-comando-dpkg-no-debian/
 # https://www.vivaolinux.com.br/topico/Sed-Awk-ER-Manipulacao-de-Textos-Strings/Remover-espacos-vazios-de-um-texto.
