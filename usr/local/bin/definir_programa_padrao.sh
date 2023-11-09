@@ -44,8 +44,9 @@
 
 # Verificar se os programas estão instalados
 
-which xdg-mime || exit 1
-which ffmpeg   || exit 2
+which xdg-mime    || exit 1
+which ffmpeg      || exit 2
+which xdg-open    || exit 3
 
 
 clear
@@ -612,8 +613,23 @@ cat ~/.config/mimeapps.list
 # cat /usr/share/applications/mimeinfo.cache
 
 
+echo "
+Para testar:
+
+Gerenciador de arquivo
+
+xdg-open /tmp/
+
+
+Editor de arquivo de texto
+
+xdg-open /etc/fstab
+
+
 
 # Espera 1 minutos para fecha.
+
+"
 
 sleep 1m
 
