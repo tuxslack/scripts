@@ -36,24 +36,38 @@
 #
 # https://terminalroot.com.br/2015/07/30-exemplos-do-comando-sed-com-regex.html
 # https://www.hostinger.com.br/tutoriais/como-verificar-o-uso-de-espaco-em-disco-no-linux
+# http://ti1.free.fr/index.php/yad-les-listes/
+# https://stackoverflow.com/questions/64242109/why-is-this-yad-list-code-not-working-correctly
+# https://www.contabeis.com.br/forum/contabilidade/379796/extencao-de-arquivo-invalida-exclua-este-arquivo-conectividade-v2/
+# https://atendimento.nasajon.com.br/nasajon/artigos/6f6614c1-f279-451a-b54a-f244664cbf0a
+# https://blog.fortestecnologia.com.br/fortes-contabil/importacao-planilhas-extensao-csv-sistema-contabil/
+# https://suporte.dominioatendimento.com/central/faces/solucao.html?codigo=1922
+# https://www.rech.com.br/blog/2009-02-sped-fiscal-efd-escrituracao-fiscal-digital/
+# https://www.barroscontabilidadetaubate.com.br/noticias/tecnicas/2022/05/17/passo-a-passo-para-enviar-a-gfip-utilizando-o-novo-conectividade-social.html
+# https://forums.bunsenlabs.org/viewtopic.php?id=1978&p=10
+# https://pclosmag.com/html/Issues/201508/page06.html
+# https://unix.stackexchange.com/questions/594129/problem-with-yad-and-variables-spaces-its-arguments
+# https://www.youtube.com/watch?v=APqUavF5qMI
+# http://smokey01.com/yad/
 
+
+
+clear
 
 
 # ----------------------------------------------------------------------------------------
 
-# Diretório onde os arquivos estão
-
-diretorio_origem="$1"
-
-
-# Diretório onde os arquivos serão movidos
-
-diretorio_destino="$2"
-
-
 # Arquivo de log
 
 log="/tmp/pdf.log"
+
+rm -Rf "$log"
+
+# ----------------------------------------------------------------------------------------
+
+
+titulo="Organize seus arquivos - Contabilidade"
+imagem="/usr/share/icons/extras/organize_xml.png"
 
 
 # ----------------------------------------------------------------------------------------
@@ -67,36 +81,167 @@ NC='\e[0m' # sem cor
 
 # ----------------------------------------------------------------------------------------
 
-clear
 
-echo -e "\n${GREEN}
-Modo de usar:
-
-$ $(basename $0)  diretorio_origem   diretorio_destino
-
-${NC}"
+# Verificar se os programas estão instalados.
 
 
-        
+which yad     2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
+
+
+which notify-send   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa notify-send não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which mkdir   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mkdir não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which cp      2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa cp não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which mv      2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa mv não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which rsync   2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa rsync não esta instalado." --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which tree    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa tree não esta instalado."  --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which rm      2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa rm não esta instalado."    --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which date    2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa date não esta instalado."  --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which cat     2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa cat não esta instalado."   --width 450 --height 100 2>/dev/null   ; exit ; }
+
+which sed     2> /dev/null || { yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Programa sed não esta instalado."   --width 450 --height 100 2>/dev/null   ; exit ; }
+
+
 # ----------------------------------------------------------------------------------------
 
+
+# echo -e "\n${GREEN}
+# Modo de usar:
+# 
+# $ $(basename $0)  diretorio_origem   diretorio_destino
+# 
+# ${NC}"
+
+# ----------------------------------------------------------------------------------------
+
+# As extensões de arquivos para a Contabilidade
+
+# Formatos de arquivo de Contabilidade
+
+
+# pdf
+# xml
+# ofx
+# txt
+# mdb
+# prf
+# csv
+# nli
+# rtf
+# aut
+# rqr
+# rec
+# SFP
+# ICP
+
+
+# yad --list --column=Select:chk --column=Comment:text true pdf false xml
+
+# Para varias opções =>  --list --checklist \
+
+
+extensao=$(yad \
+--center  \
+--title="Selecione um tipo de extensão" \
+--window-icon "$imagem" \
+--text="Somente marque uma extensão." \
+--list --radiolist \
+--column=Marcar --column=Extensão \
+true  "pdf" \
+false "xml" \
+false "ofx" \
+false "txt" \
+false "mdb" \
+false "prf" \
+false "csv" \
+false "nli" \
+false "rtf" \
+false "aut" \
+false "rqr" \
+false "rec" \
+false "sfp" \
+false "icp" \
+--width 400 --height 600 \
+2> /dev/null)
+
+
+
+# TRUE|pdf|
+# TRUE|xml|
+
+extensao=$(echo "$extensao" | cut -d '|' -f2)
+
+
+
+# ----------------------------------------------------------------------------------------
+
+# Diretório onde os arquivos estão
+
+# diretorio_origem="$1"
+
+
+# yad \
+# --center \
+# --entry \
+# --window-icon "$imagem" \
+# --title="$titulo" \
+# --text="Qual a pasta de origem dos arquivos $extensao?" \
+# --entry-text="" \
+# --width=700 --entry \
+# 2> /dev/null
+
+
+diretorio_origem=$(yad --center --file --directory --window-icon "$imagem" --title="$titulo" --text="Qual a pasta de origem dos arquivos $extensao?" --width=900 --height=800 2> /dev/null)
+
+# ----------------------------------------------------------------------------------------
 
 # Verificar se as variaveis acima estão nulas.
 
 
 if [ -z $diretorio_origem ]; then
 
-		echo -ne "${RED} Você não forneceu uma pasta de origem dos arquivos PDF.\n\n ${NC}" | tee -a "$log"
+		# echo -ne "${RED} Você não forneceu uma pasta de origem dos arquivos $extensao.\n\n ${NC}" | tee -a "$log"
+		
+		yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Você não forneceu uma pasta de origem dos arquivos $extensao." --width 500 --height 100 2>/dev/null 
 		
 		exit
 		
 fi
+
+# ----------------------------------------------------------------------------------------
+
+# Diretório onde os arquivos serão movidos
+
+# diretorio_destino="$2"
+
+
+# yad \
+# --center \
+# --entry \
+# --window-icon "$imagem" \
+# --title="$titulo" \
+# --text="Qual a pasta de destino dos arquivos $extensao?" \
+# --entry-text="" \
+# --width=700 --entry \
+# 2> /dev/null
+
+
+diretorio_destino=$(yad --center --file --directory --window-icon "$imagem" --title="$titulo" --text="Qual a pasta de destino dos arquivos $extensao?" --width=900 --height=800 2> /dev/null)
 
 # ----------------------------------------------------------------------------------------
 
 if [ -z $diretorio_destino ]; then
 
-		echo -ne "${RED} Você não forneceu uma pasta de destino dos arquivos PDF.\n\n ${NC}" | tee -a "$log"
+		# echo -ne "${RED} Você não forneceu uma pasta de destino dos arquivos $extensao.\n\n ${NC}" | tee -a "$log"
+		
+		yad --center --image=dialog-error --timeout=10 --no-buttons --title "Aviso" --text "Você não forneceu uma pasta de destino dos arquivos $extensao." --width 500 --height 100 2>/dev/null 
 		
 		exit
 		
@@ -104,35 +249,15 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
-# Verificar se os programas estão instalados.
-
-
-which mkdir || exit
-which cp    || exit
-which mv    || exit
-which rsync || exit
-which tree  || exit
-which rm    || exit
-which date  || exit
-which cat   || exit
-which sed   || exit
-
-# ----------------------------------------------------------------------------------------
-
 clear
-
-rm -Rf "$log"
-
 
 cd $HOME
 
 # ----------------------------------------------------------------------------------------
 
- 
-
 
 echo "
-Arquivos PDF na pasta: $diretorio_origem
+Arquivos $extensao na pasta: $diretorio_origem
 
 " >> "$log"
 
@@ -163,7 +288,35 @@ Copiando o arquivo $arquivo para  $diretorio_destino/$ano/$mes
 
 # mv -i "$arquivo" "$diretorio_destino/$ano/$mes"
 
-cp -a "$arquivo" "$diretorio_destino/$ano/$mes"
+# cp -a "$arquivo" "$diretorio_destino/$ano/$mes"
+
+
+
+rsync -avht --progress "$arquivo" "$diretorio_destino/$ano/$mes"  2>> "$log"
+
+
+# -a
+# Modo archive (arquivamento). Copia os arquivos e diretórios recursivamente (como -r) e 
+# preserva links simbólicos, permissões de arquivos, propriedades de usuário e grupo 
+# (ownership) e timestamps.
+
+# -v
+# Modo verboso, que mostra detalhes sobre a transferência de arquivos.
+
+# -h
+# Números são representados em formato legível por humanos
+
+# --progress
+# Mostrar o progresso da cópia de arquivos ao transferir os dados
+
+
+# -t  Preserva datas.
+
+
+# http://www.bosontreinamentos.com.br/linux/10-exemplos-do-comando-rsync-para-backup-e-sincronismo-de-arquivos-no-linux/
+# https://terminalroot.com.br/2021/05/10-exemplos-de-uso-do-comando-rsync.html
+# https://www.hostgator.com.br/blog/utilizar-comando-rsync-do-linux/
+
 
 
 echo -e "$(date -r "$arquivo" +"%d-%m-%Y")  =>  $arquivo \n" >> "$log"
@@ -182,7 +335,7 @@ done
 
 
 echo "
-Arquivos PDF na pasta: $diretorio_destino
+Arquivos $extensao na pasta: $diretorio_destino
 
 " >> "$log"
 
@@ -207,7 +360,14 @@ du -sh $diretorio_destino  >> "$log"
 
 # Visualizar o arquivo de log gerado no final do processo.
 
-cat "$log"
+# cat "$log"
+
+
+# sudo -u "$usuario" DISPLAY=:0.0  
+
+notify-send -t 100000 -i "$imagem"  'Atenção!' '\n\nFinalizado a organização dos arquivos em '$(date +\%d/\%m/\%Y_\%H:\%M:\%S)'. \n\nO arquivo de log foi salvo: '$log'\n\n'
+
+
 
 # ----------------------------------------------------------------------------------------
 
