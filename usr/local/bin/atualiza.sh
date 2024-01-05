@@ -12,6 +12,9 @@
 # Licença:  GPL - https://www.gnu.org/
 # 
 #
+# Requer: gnome-icon-theme
+#
+#
 #
 # Para debug o script (#!/bin/bash -x)
 #
@@ -153,9 +156,163 @@ log="/tmp/update_$(date +%d-%m-%Y).log"
 rm -Rf /tmp/update_*.log
 
 
-# Nome do usuário que verá à notificação no desktop
 
-usuario="fernando"
+# ----------------------------------------------------------------------------------------
+
+# Verificar se os programas estão instalados:
+
+
+clear
+
+
+which loginctl            2> /dev/null || { echo "Programa loginctl não esta instalado."      ; exit ; }
+
+which sed                 2> /dev/null || { echo "Programa sed não esta instalado."           ; exit ; }
+
+
+which ping                2> /dev/null || { echo "Programa ping não esta instalado."          ; exit ; }
+
+
+which notify-send         2> /dev/null || { echo "Programa notify-send não esta instalado."   ; exit ; }
+
+
+which sort                2> /dev/null || { echo "Programa sort não esta instalado."          ; exit ; }
+
+ 
+
+# Verifique se tem o Yad instalado no sistema. 
+
+which yad           2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
+
+
+# Verifique se tem o Zenity instalado no sistema. 
+
+which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado."   ; exit ; }
+
+
+
+# Verifique se tem o dialog instalado no sistema. 
+
+which dialog        2> /dev/null || { echo "Programa dialog não esta instalado."   ; exit ; }
+
+
+sleep 2
+
+
+# xbps-query -l | grep  gnome-icon-theme
+# ii gnome-icon-theme-3.12.0_3                                   Theme consisting of a set of icons for GNOME
+
+
+# Para verificar se o diretório /usr/share/icons/gnome/ existe.
+
+    if [ -d "/usr/share/icons/gnome/" ]; then
+    
+        clear
+        
+        echo -e "A pasta /usr/share/icons/gnome/ existe..."
+        
+        sleep 2
+        
+    else
+    
+        clear
+        
+        echo -e "A pasta /usr/share/icons/gnome/ não existe..."
+        
+        exit
+        
+    fi
+    
+# ----------------------------------------------------------------------------------------
+
+
+
+
+
+# ========================================================================================
+
+# Identificando qual o usuário logado na sessão atual.
+
+
+# Nome do usuário que verá à notificação no desktop.
+
+# usuario="fernando"
+
+
+
+
+# Lista os usuários atualmente logados.
+
+loginctl list-users > /tmp/users.log
+
+cat /tmp/users.log | head -n2 | awk '{print $2}' | grep -v USER > /tmp/users-final.log
+
+mv -f /tmp/users-final.log  /tmp/users.log
+
+
+# Com o comando sort organizaremos o arquivo anterior em ordem crescente e decrescente com o parâmetro -r
+
+sort /tmp/users.log
+
+
+# O único problema é se o sistema tiver mas de um usuário logado.
+
+# cat /tmp/users.log
+# usuario1
+# usuario2
+# usuario3
+# usuario4
+# usuario5
+
+
+# Imprimir somente a linha N
+
+# Obs: Troque o número 1 para a linha que você quiser no arquivo /tmp/users.log
+
+
+usuario="$(sed '1!d' /tmp/users.log)"
+
+
+clear
+
+echo "O usuário que verá à notificação no desktop: $usuario"
+
+rm -Rf /tmp/users.log
+
+sleep 3
+
+
+
+# ----------------------------------------------------------------------------------------
+
+# Para verificar se a variavel é nula
+
+if [ -z "$usuario" ];then
+
+clear
+
+# yad --center --title='Aviso' --text='\n\nVocê precisa informar o nome do usuário na variavel $usuario no script '$(basename "$0")' ...\n\n' --timeout=20 --no-buttons 2>/dev/null
+
+echo 'Você precisa informar o nome do usuário na variavel $usuario no script '$(basename "$0")'.'
+
+
+exit
+
+fi
+
+# ----------------------------------------------------------------------------------------
+
+
+
+# https://www.commandlinux.com/man-page/man1/loginctl.1.html
+# https://raullesteves.medium.com/tratamento-de-texto-pelo-terminal-cat-cut-grep-tr-uniq-short-paste-9f1d7286b3cc
+# https://pt.linkedin.com/pulse/como-o-comando-grep-pode-nos-ajudar-dia-filipe-santos
+# https://caiosantesso.dev/bash-filtrando-textos/
+# https://thobias.org/doc/sosed.html
+# https://terminalroot.com.br/2015/07/30-exemplos-do-comando-sed-com-regex.html
+
+# ========================================================================================
+
 
 
 
@@ -319,27 +476,7 @@ verificar_root
 
 
 
-# ----------------------------------------------------------------------------------------
 
-# Verificar se os programas estão instalados
-
-clear
-
-
-# Verifique se tem o Yad instalado no sistema. 
-
-which yad           2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
-
-
-# Verifique se tem o Zenity instalado no sistema. 
-
-which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado."   ; exit ; }
-
-
-
-# Verifique se tem o dialog instalado no sistema. 
-
-which dialog        2> /dev/null || { echo "Programa dialog não esta instalado."   ; exit ; }
 
 
 
@@ -1129,6 +1266,13 @@ else
         
        echo -e "\n${GREEN}O Void Linux está com as atualizações em dias.... ${NC}\n" 
        
+       sleep 10
+       
+       # Removendos os arquivos de log
+     
+       rm -Rf /tmp/error_UPDATE.log   /tmp/update.txt   /tmp/error
+     
+     
        exit
 		
 fi
@@ -1160,22 +1304,65 @@ Atualizando o sistema...
 # xbps-install -uy xbps | tee -a "$log" && xbps-install -Suvy  | tee -a "$log"
 
 
-xbps-install -uy xbps && xbps-install -Suvy | tee -a "$log"
+xbps-install -uy xbps && xbps-install -Suvy  1> "$log"  2> /tmp/error_UPDATE.log
 
 
-if [ "$?" -eq "0" ];
+
+# Verificar se o arquivo /tmp/error_UPDATE.log está vazio ou não.
+
+
+# if [ "$?" -eq "0" ];
+
+
+# O "-s" testa se o arquivo existe e seu tamanho é maior que zero.
+
+if [ -s "/tmp/error_UPDATE.log" ];
 then 
 
-      echo -e "\n${GREEN}${END_UPDATE} ${NC}\n"
-
-
-else 
 
      echo -e "\n${RED}${NO_UPDATE} ${NC}\n"
+     
+     
+     
+     echo "
+
+Ocorreu problema na atualização do sistema:
+
+" >> "$log"
+
+     cat /tmp/error_UPDATE.log >> "$log"
+     
+
+
+sudo -u "$usuario" DISPLAY=:0.0 notify-send -t 100000 -i /usr/share/icons/gnome/48x48/status/software-update-urgent.png  'Atenção!' "\n\nOcorreu problema na atualização do sistema: \n\n $(cat /tmp/error_UPDATE.log)"
+
+
+exit
+
+
+
+
+# else 
+
+#      echo -e "\n${GREEN}${END_UPDATE} ${NC}\n"
 
 
 fi
 
+
+# https://shell-script.yahoogrupos.com.narkive.com/nRASUrDq/verificar-se-arquivo-contem-algo-ou-esta-vazio
+
+
+      echo -e "\n${GREEN}${END_UPDATE} ${NC}\n"
+
+      sudo -u "$usuario" DISPLAY=:0.0  notify-send -t 100000 -i /usr/share/icons/gnome/48x48/emblems/emblem-default.png  'Atenção!' "\n\n${END_UPDATE} \n\n "
+      
+      
+     # Removendos os arquivos de log
+     
+     rm -Rf /tmp/error_UPDATE.log   /tmp/update.txt   /tmp/error
+     
+     
 
 echo -e "\n------------------------------------------------------------------------"
 
@@ -4057,7 +4244,7 @@ if [ $? == 0 ]; then
 
 
 echo "
-Todos os flatpaks que você tem no seu sistema (realizar atualização manual - flatpak update):
+Todos os flatpaks que você tem no seu sistema (realizar atualização manual - flatpak update -y):
 "  | tee -a "$log"
   
 flatpak list  >> "$log"
@@ -4074,10 +4261,49 @@ flatpak list  >> "$log"
 
 # Para atualizar todos os seus pacotes flatpak, basta rodar o comando:
 
-# flatpak update | tee -a "$log"
+# flatpak update -y  2>> "$log"
+
+
+
+
+# Problemas com as atualizações dos pacotes flatpak
+#
+#        ID                                Ramo                 Op          Remoto           Baixar
+# 1. [✗] org.kde.Platform.Locale           5.15-23.08           i           flathub          15,4 MB / 377,8 MB
+#
+# Aviso: Enquanto executava pull de runtime/org.kde.Platform.Locale/x86_64/5.15-23.08 a partir do remoto flathub: Server returned HTTP 404
+# Alterações concluídas.
+#
+# Aviso: Enquanto executava pull de runtime/org.kde.Platform.Locale/x86_64/5.15-23.08 a partir do remoto flathub: URI https://dl.flathub.org/repo/deltas/sJ/02Pdwi6yEMf2b1MI02_RHQW63zpmuJIwIPgwBRAoU/3 
+# exceeded maximum size of 4592621 bytes
+#
+#
+# flatpak update -y
+# Procurando por atualizações…
+#
+#        ID                                Ramo                 Op          Remoto           Baixar
+# 1. [✗] org.kde.Platform.Locale           5.15-23.08           i           flathub          9,5 MB / 377,8 MB
+#
+# Aviso: Enquanto executava pull de runtime/org.kde.Platform.Locale/x86_64/5.15-23.08 a partir do remoto flathub: Server returned HTTP 404
+# Instalação concluída.
+
+
+# flatpak repair
+
+# flatpak repair --user
+
+# flatpak uninstall --delete-data
+
+
+
+# echo $?
+# 0
 
 
 # https://plus.diolinux.com.br/t/comandos-basicos-para-gerenciar-pacotes-flatpak-no-linux/35809
+# https://www.reddit.com/r/flatpak/comments/10cryg9/i_cant_install_any_kde_programs_through_flathub/
+# https://status.flathub.org/issues/2023-01-14-deltas/
+# https://github.com/flatpak/flatpak/issues/4854
 
 
 fi

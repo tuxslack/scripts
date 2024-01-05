@@ -5594,6 +5594,15 @@ cd "$pasta_usuario" && /usr/bin/tar -czf "$backup"/backup-Gpick_via_cron.tar.gz 
 
 fi
 
+# ----------------------------------------------------------------------------------------
+
+# Stremio via Flatpak
+
+
+# .var/app/com.stremio.Stremio/
+
+
+# https://www.youtube.com/watch?v=Dz8Bo8x-LGs
 
 # ----------------------------------------------------------------------------------------
 
