@@ -70,21 +70,44 @@ fi
 
 
 
-which paperconf 2> /dev/null || { echo "Programa paperconf não esta instalado."      ; exit 2 ; }
+which paperconf 1> /dev/null 2> /dev/null || { echo "Programa paperconf não esta instalado."      ; exit 2 ; }
 
 
 # Edite o arquivo: /etc/papersize
 
 # Coloque: a4
 
-cat /etc/papersize | grep a4
+
+
+
+# Verificar se o arquivo existe
+
+if [ -e "/etc/papersize" ] ; then
+
+
+      echo "O arquivo /etc/papersize existe."
+  
+else
+
+      echo "O arquivo /etc/papersize não existe."
+      
+      exit 3
+
+fi
+
+
+
+
+    
+
+cat /etc/papersize | grep a4 1> /dev/null
 
 if [ "$?" -eq "0" ];
 then 
 
       echo -e "\n${GREEN}${OK} ${NC}\n"
 
-      exit 3
+      exit 4
 
 
 else 
