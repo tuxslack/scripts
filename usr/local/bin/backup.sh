@@ -274,34 +274,34 @@ fi
 clear
 
 
-# which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado."        ; exit ; }
-# which yad           2> /dev/null || { echo "Programa Yad não esta instalado."           ; exit ; }
+# which zenity        1> /dev/null 2> /dev/null || { echo "Programa Zenity não esta instalado."        ; exit ; }
+# which yad           1> /dev/null 2> /dev/null || { echo "Programa Yad não esta instalado."           ; exit ; }
 
-# which testdisk         2> /dev/null || { echo "Programa testdisk não esta instalado."   ; exit ; }
+# which testdisk      1> /dev/null 2> /dev/null || { echo "Programa testdisk não esta instalado."      ; exit ; }
 
 
-which inxi          2> /dev/null || { echo "Programa inxi não esta instalado."          ; exit ; }
-which rsync         2> /dev/null || { echo "Programa rsync não esta instalado."         ; exit ; }
-which tar           2> /dev/null || { echo "Programa tar não esta instalado."           ; exit ; }
-which gzip          2> /dev/null || { echo "Programa gzip não esta instalado."          ; exit ; }
-which xz            2> /dev/null || { echo "Programa xz não esta instalado."            ; exit ; }
-which notify-send   2> /dev/null || { echo "Programa notify-send não esta instalado."   ; exit ; }
-which find          2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
-which mkdir         2> /dev/null || { echo "Programa mkdir não esta instalado."         ; exit ; }
-which chmod         2> /dev/null || { echo "Programa chmod não esta instalado."         ; exit ; }
-which ps            2> /dev/null || { echo "Programa ps não esta instalado."            ; exit ; }
-which xdg-open      2> /dev/null || { echo "Programa xdg-open não esta instalado."      ; exit ; }
-which mysqldump     2> /dev/null || { echo "Programa mysqldump não esta instalado."     ; exit ; }
-which mysql         2> /dev/null || { echo "Programa mysql não esta instalado."         ; exit ; }
-which mysqlshow     2> /dev/null || { echo "Programa mysqlshow não esta instalado."     ; exit ; }
-which ntfs-3g       2> /dev/null || { echo "Programa ntfs-3g não esta instalado."       ; exit ; }
-which mount         2> /dev/null || { echo "Programa mount não esta instalado."         ; exit ; }
-which umount        2> /dev/null || { echo "Programa umount não esta instalado."        ; exit ; }
-which blkid         2> /dev/null || { echo "Programa blkid não esta instalado."         ; exit ; }
-which chown         2> /dev/null || { echo "Programa chown não esta instalado."         ; exit ; }
-which find          2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
-which sed           2> /dev/null || { echo "Programa sed não esta instalado."           ; exit ; }
-which smartctl      2> /dev/null || { echo "Programa smartctl não esta instalado."      ; exit ; }
+which inxi          1> /dev/null 2> /dev/null || { echo "Programa inxi não esta instalado."          ; exit ; }
+which rsync         1> /dev/null 2> /dev/null || { echo "Programa rsync não esta instalado."         ; exit ; }
+which tar           1> /dev/null 2> /dev/null || { echo "Programa tar não esta instalado."           ; exit ; }
+which gzip          1> /dev/null 2> /dev/null || { echo "Programa gzip não esta instalado."          ; exit ; }
+which xz            1> /dev/null 2> /dev/null || { echo "Programa xz não esta instalado."            ; exit ; }
+which notify-send   1> /dev/null 2> /dev/null || { echo "Programa notify-send não esta instalado."   ; exit ; }
+which find          1> /dev/null 2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
+which mkdir         1> /dev/null 2> /dev/null || { echo "Programa mkdir não esta instalado."         ; exit ; }
+which chmod         1> /dev/null 2> /dev/null || { echo "Programa chmod não esta instalado."         ; exit ; }
+which ps            1> /dev/null 2> /dev/null || { echo "Programa ps não esta instalado."            ; exit ; }
+which xdg-open      1> /dev/null 2> /dev/null || { echo "Programa xdg-open não esta instalado."      ; exit ; }
+which mysqldump     1> /dev/null 2> /dev/null || { echo "Programa mysqldump não esta instalado."     ; exit ; }
+which mysql         1> /dev/null 2> /dev/null || { echo "Programa mysql não esta instalado."         ; exit ; }
+which mysqlshow     1> /dev/null 2> /dev/null || { echo "Programa mysqlshow não esta instalado."     ; exit ; }
+which ntfs-3g       1> /dev/null 2> /dev/null || { echo "Programa ntfs-3g não esta instalado."       ; exit ; }
+which mount         1> /dev/null 2> /dev/null || { echo "Programa mount não esta instalado."         ; exit ; }
+which umount        1> /dev/null 2> /dev/null || { echo "Programa umount não esta instalado."        ; exit ; }
+which blkid         1> /dev/null 2> /dev/null || { echo "Programa blkid não esta instalado."         ; exit ; }
+which chown         1> /dev/null 2> /dev/null || { echo "Programa chown não esta instalado."         ; exit ; }
+which find          1> /dev/null 2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
+which sed           1> /dev/null 2> /dev/null || { echo "Programa sed não esta instalado."           ; exit ; }
+which smartctl      1> /dev/null 2> /dev/null || { echo "Programa smartctl não esta instalado."      ; exit ; }
 
 
 
