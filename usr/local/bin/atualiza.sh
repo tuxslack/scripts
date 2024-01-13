@@ -165,35 +165,35 @@ rm -Rf /tmp/update_*.log
 clear
 
 
-which loginctl            2> /dev/null || { echo "Programa loginctl não esta instalado."      ; exit ; }
+which loginctl            1> /dev/null 2> /dev/null || { echo "Programa loginctl não esta instalado."      ; exit ; }
 
-which sed                 2> /dev/null || { echo "Programa sed não esta instalado."           ; exit ; }
-
-
-which ping                2> /dev/null || { echo "Programa ping não esta instalado."          ; exit ; }
+which sed                 1> /dev/null 2> /dev/null || { echo "Programa sed não esta instalado."           ; exit ; }
 
 
-which notify-send         2> /dev/null || { echo "Programa notify-send não esta instalado."   ; exit ; }
+which ping                1> /dev/null 2> /dev/null || { echo "Programa ping não esta instalado."          ; exit ; }
 
 
-which sort                2> /dev/null || { echo "Programa sort não esta instalado."          ; exit ; }
+which notify-send         1> /dev/null 2> /dev/null || { echo "Programa notify-send não esta instalado."   ; exit ; }
+
+
+which sort                1> /dev/null 2> /dev/null || { echo "Programa sort não esta instalado."          ; exit ; }
 
  
 
 # Verifique se tem o Yad instalado no sistema. 
 
-which yad           2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
+which yad                 1> /dev/null 2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
 
 
 # Verifique se tem o Zenity instalado no sistema. 
 
-which zenity        2> /dev/null || { echo "Programa Zenity não esta instalado."   ; exit ; }
+which zenity              1> /dev/null 2> /dev/null || { echo "Programa Zenity não esta instalado."   ; exit ; }
 
 
 
 # Verifique se tem o dialog instalado no sistema. 
 
-which dialog        2> /dev/null || { echo "Programa dialog não esta instalado."   ; exit ; }
+which dialog              1> /dev/null 2> /dev/null || { echo "Programa dialog não esta instalado."   ; exit ; }
 
 
 sleep 2
@@ -4087,7 +4087,10 @@ fi
 
 # Tipos de distribuições Linux
 
-distribuicao_linux=$(cat /etc/*-release | egrep "PRETTY_NAME" | cut -d = -f 2 | tr -d '"')
+
+# distribuicao_linux=$(cat /etc/*-release | egrep "PRETTY_NAME" | cut -d = -f 2 | tr -d '"')
+
+distribuicao_linux=$(cat /etc/os-release | egrep "PRETTY_NAME" | cut -d = -f 2 | tr -d '"')
 
 
 
@@ -4096,7 +4099,7 @@ distribuicao_linux=$(cat /etc/*-release | egrep "PRETTY_NAME" | cut -d = -f 2 | 
        void
 
 
- elif [[ "$distribuicao_linux" == *"Ubuntu"* || "$distribuicao_linux" == *"Debian"* || "$distribuicao_linux" == *"Kali"*  ]]; then
+ elif [[ "$distribuicao_linux" == *"Ubuntu"* || "$distribuicao_linux" == *"Debian"* || "$distribuicao_linux" == *"Kali"* || "$distribuicao_linux" == *"Mint"*  ]]; then
 
        echo -e "\n${GREEN}Atualizando distribuições Linux de base debian.... ${NC}\n"  
 
