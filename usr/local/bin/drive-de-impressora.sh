@@ -14,6 +14,8 @@
 
 # Canon iP1800
 
+# HP Deskjet 3520
+
 
 # Polaroid P3500S & P5500S XPS Card Printer  (Impressora de Crachá Polaroid P5500)
 
