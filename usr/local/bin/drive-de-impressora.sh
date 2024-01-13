@@ -68,6 +68,7 @@ clear
 # Verificar se os programas estão instalados
 
 which find         1> /dev/null 2> /dev/null || { echo "Programa find não esta instalado."          ; exit ; }
+which lpinfo       1> /dev/null 2> /dev/null || { echo "Programa lpinfo não esta instalado."        ; exit ; }
 
 
 
@@ -131,6 +132,11 @@ echo -e "\n"
 
 
 # ls /usr/share/cups/model/gutenprint/5.3/Global/ | grep -i 2000
+
+
+
+# lpinfo -m | grep -i "$impressora"
+
 
 
 exit 0
