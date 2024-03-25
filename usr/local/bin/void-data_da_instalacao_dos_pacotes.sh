@@ -77,7 +77,7 @@ while IFS= read -r PACOTE; do # Lê o arquivo linha por linha
 
        # 2024-02-27 09:51 -03
 
-       echo "$PACOTE ; `gawk '{split($1,dma,"-")}{printf "%s/%s/%s ; %s\n" ,dma[3],dma[2],dma[1], $2}' <<< "$dado"`"   >> /tmp/pacote_voidlinux.txt
+       echo "$PACOTE;`gawk '{split($1,dma,"-")}{printf "%s/%s/%s;%s\n" ,dma[3],dma[2],dma[1],$2}' <<< "$dado"`"   >> /tmp/pacote_voidlinux.txt
                    
 done < /tmp/pacote_void.txt
 
