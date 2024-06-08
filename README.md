@@ -64,7 +64,7 @@ Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](
 |    fontes-problematicas.sh           | Remove as fontes (.ttf, .otf...) problemáticas do sistema                                                                   |
 |    regravar lilo.sh                  | Recuperando lilo depois de uma instalação do Windows [Dica]                                                                 |
 |    backupdeDriversWindows.sh         | Realiza o backup dos Drivers Windows para uma reinstalação futura do sistema                                                |
-|      |                            |
+|    zwifi-v3.1-perfil.tar.gz          | Simples script em yad para conectar em rede WI-FI usando o wpa_supplicant com suporte a perfil de cada rede conectada ao utilizar um notebook, podendo ser utilizado em qualquer window manager sem precisar de ferramentas gráficas como Wicd, NetworkManager e outros similares.                           |
 |      |                            |
 |      |                            |
 |      |                            |
