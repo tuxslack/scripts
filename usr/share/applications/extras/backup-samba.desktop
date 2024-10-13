@@ -1,7 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Type=Link
-Name=Servidor de backup
-Comment=
-Icon=gnome-fs-bookmark
-URL=smb://kuru/backup/

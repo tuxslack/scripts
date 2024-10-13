@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Desconectar da internet
-Exec=su -c '/usr/local/bin/desconectar.sh'
-Comment=
-Icon=/usr/share/icons/extras/desconectar.png
-StartupNotify=false
-Terminal=true
-Type=Application
-Categories=Network;

@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name[pt_BR]=Mostrar o desktop       
-Exec=/usr/local/bin/showdesktop.sh
-Icon=cs-desktop
-Terminal=false
-Type=Application
-

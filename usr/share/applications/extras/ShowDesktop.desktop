@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Show desktop
-Name[pt_BR]=Mostrar Área de Trabalho
-Exec=xdotool key alt+d
-Icon=cs-desktop
-Type=Application
-Terminal=false
-StartupNotify=false
-
