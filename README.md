@@ -41,12 +41,12 @@ Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](
 
 
 
-|    Scripts                           |                                                     Função                                                                  |
-|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-|    obmenu-generator-em-pt_BR.sh      | Arquivo menu-openbox.tar.gz      - menu do OpenBox gerado via obmenu-generator em português do Brasil                       |
-|    faxina.sh                         | Arquivo faxina.tar.gz            - Remove arquivos temporários do sistema (Linux)                                           |
-|    atualiza.sh                       | Arquivo atualizar-sistema.tar.gz - Atualiza varias distribuições Linux                                                      |
-|    ychattr.sh                        | Arquivo ychattr.tar.gz           - Bloquear e desbloquear arquivos no sistema (documentos recentes) Trocado Zenity pelo Yad |
+|    Scripts                                       |                                                     Função                                                                  |
+|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+|    obmenu-generator-em-pt_BR.sh                  | Arquivo menu-openbox.tar.gz      - menu do OpenBox gerado via obmenu-generator em português do Brasil                       |
+|    faxina.sh                                     | Arquivo faxina.tar.gz            - Remove arquivos temporários do sistema (Linux)                                           |
+|    atualiza.sh                                   | Arquivo atualizar-sistema.tar.gz - Atualiza varias distribuições Linux                                                      |
+|    ychattr.sh, proteger-arquivos.sh, yresolv.sh  | Arquivo ychattr.tar.gz           - Bloquear e desbloquear arquivos no sistema (documentos recentes) Trocado Zenity pelo Yad |
 |      |                            |
 |      |                            |
 |      |                            |
@@ -70,4 +70,5 @@ Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](
 |      |                            |
 |      |                            |
 |      |                            |
+|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
 
