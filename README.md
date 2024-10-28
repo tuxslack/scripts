@@ -48,7 +48,7 @@ Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](
 |    atualiza.sh                                   | Arquivo atualizar-sistema.tar.gz - Atualiza varias distribuições Linux                                                      |
 |    ychattr.sh, proteger-arquivos.sh, yresolv.sh  | Arquivo ychattr.tar.gz           - Bloquear e desbloquear arquivos no sistema (documentos recentes) Trocado Zenity pelo Yad |
 |    tira-foto-do-terminal.sh                      | Arquivo captura_tela_tty.tar.gz  - Captura de tela do tty                                                                   |
-|      |                            |
+|    jgmenu-conf.sh                                | Arquivo jgmenu-conf.tar.gz       - Realiza a configuração do jgmenu no sistema e traduz para Português do Brasil            |
 |      |                            |
 |      |                            |
 |      |                            |
