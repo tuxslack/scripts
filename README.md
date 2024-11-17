@@ -51,7 +51,7 @@ Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](
 |    jgmenu-conf.sh                                | Arquivo jgmenu-conf.tar.gz       - Realiza a configuração do jgmenu no sistema e traduz para Português do Brasil            |
 |    som_de_inicializacao.sh                       | Arquivo som_de_inicializacao-OpenBox.tar.gz -  Habilita ou desabilita o som de inicialização no OpenBox.                    |
 |    indicador.sh                                  | Arquivo status-NumLock-CapsLock.tar.gz -  Indicadores de status para as teclas de "Caps Lock" e de "Num Lock" no teclado.   |
-|      |                            |
+|    bloquear-sites.sh                             | Bloqueie sites indesejados com o arquivo /etc/hosts  - [ script não testado]                                                |
 |      |                            |
 |      |                            |
 |      |                            |
